@@ -9,7 +9,7 @@
     android:id="@+id/statusBar"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#0D1A33"
+    android:background="#242527"
     android:orientation="horizontal"
     android:padding="16dp">
 
