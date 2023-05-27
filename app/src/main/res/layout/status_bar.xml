@@ -60,7 +60,7 @@
             android:id="@+id/textHealth"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="100"
+            android:text="@{String.valueOf(person.health)}"
             android:gravity="center_horizontal"
             android:textColor="#6BC600"
             android:textSize="16sp"
