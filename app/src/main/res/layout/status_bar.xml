@@ -1,0 +1,126 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<!-- Status Section -->
+    <data>
+        <variable
+            name="person"
+            type="com.example.lifesim4.models.Person" />
+    </data>
+<LinearLayout
+    android:id="@+id/statusBar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#0D1A33"
+    android:orientation="horizontal"
+    android:padding="16dp">
+
+    <!-- Money -->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Money"
+            android:gravity="center_horizontal"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textMoney"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="$100"
+            android:gravity="center_horizontal"
+            android:textColor="#37B53C"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <!-- Health -->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Health"
+            android:gravity="center_horizontal"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textHealth"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="100"
+            android:gravity="center_horizontal"
+            android:textColor="#6BC600"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <!-- Add more status labels as needed -->
+    </LinearLayout>
+
+    <!-- Age -->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:text="Age"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textAge"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@{String.valueOf(person.age)}"
+            android:gravity="center_horizontal"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <!-- Fame -->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Fame"
+            android:gravity="center_horizontal"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textFame"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:text="B"
+            android:textColor="#C67D12"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+</LinearLayout>
+</layout>

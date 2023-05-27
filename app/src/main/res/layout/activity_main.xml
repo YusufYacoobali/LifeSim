@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <variable
+            name="person"
+            type="com.example.lifesim4.models.Person" />
+    </data>
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF">
+
+    <!-- Status Bar -->
+    <include
+        android:id="@+id/statusBar"
+        layout="@layout/status_bar" />
+    <!-- Scrollable Event List -->
+    <include
+        android:id="@+id/eventsList"
+        layout="@layout/events_list" />
+    <!-- Bottom Buttons -->
+    <include
+        android:id="@+id/bottomButtons"
+        layout="@layout/bottom_buttons" />
+</RelativeLayout>
+</layout>
