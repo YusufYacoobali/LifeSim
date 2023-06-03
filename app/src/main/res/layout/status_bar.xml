@@ -90,7 +90,7 @@
             </LinearLayout>
 
         </LinearLayout>
-
+        <!-- Main Player Stats  -->
         <LinearLayout
             android:id="@+id/statusBar"
             android:layout_width="match_parent"
@@ -98,7 +98,7 @@
             android:orientation="horizontal"
             android:padding="8dp">
 
-            <!-- Money -->
+            <!-- Vitality -->
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -114,18 +114,40 @@
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/textMoney"
+                <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:gravity="center_horizontal"
-                    android:text="100"
-                    android:textColor="#37B53C"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="5dp">
+
+                    <com.google.android.material.progressindicator.CircularProgressIndicator
+                        android:id="@+id/vitalityProgressBar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:max="100"
+                        android:progress="80"
+                        android:text="50"
+                        app:indicatorColor="#40D50A"
+                        app:indicatorDirectionCircular="counterclockwise"
+                        app:indicatorSize="50dp"
+                        app:trackColor="#EF0629"
+                        app:trackThickness="4dp" />
+
+                    <TextView
+                        android:id="@+id/vitalityProgressText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="80"
+                        android:textColor="@color/white"
+                        android:textSize="20sp" />
+
+                </FrameLayout>
+
             </LinearLayout>
 
-            <!-- Health -->
+            <!-- Genius -->
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -141,20 +163,39 @@
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/textHealth"
+                <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:gravity="center_horizontal"
-                    android:text="93"
-                    android:textColor="#6BC600"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="5dp">
 
-                <!-- Add more status labels as needed -->
+                    <com.google.android.material.progressindicator.CircularProgressIndicator
+                        android:id="@+id/geniusProgressBar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:max="100"
+                        android:progress="20"
+                        android:text="50"
+                        app:indicatorColor="#40D50A"
+                        app:indicatorDirectionCircular="counterclockwise"
+                        app:indicatorSize="50dp"
+                        app:trackColor="#EF0629"
+                        app:trackThickness="4dp" />
+
+                    <TextView
+                        android:id="@+id/geniusProgressText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="20"
+                        android:textColor="@color/white"
+                        android:textSize="20sp" />
+
+                </FrameLayout>
             </LinearLayout>
 
-            <!-- Age -->
+            <!-- Charm -->
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -170,18 +211,40 @@
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/textAge"
+                <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:gravity="center_horizontal"
-                    android:text="75"
-                    android:textColor="#FFFFFF"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="5dp">
+
+                    <com.google.android.material.progressindicator.CircularProgressIndicator
+                        android:id="@+id/charmProgressBar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:max="100"
+                        android:progress="20"
+                        android:text="50"
+                        app:indicatorColor="#40D50A"
+                        app:indicatorDirectionCircular="counterclockwise"
+                        app:indicatorSize="50dp"
+                        app:trackColor="#EF0629"
+                        app:trackThickness="4dp" />
+
+                    <TextView
+                        android:id="@+id/charmProgressText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="20"
+                        android:textColor="@color/white"
+                        android:textSize="20sp" />
+
+                </FrameLayout>
+
             </LinearLayout>
 
-            <!-- Age -->
+            <!-- Fortune -->
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -197,15 +260,37 @@
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/textthat"
+                <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:gravity="center_horizontal"
-                    android:text="43"
-                    android:textColor="#FFFFFF"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="5dp">
+
+                    <com.google.android.material.progressindicator.CircularProgressIndicator
+                        android:id="@+id/furtuneProgressBar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:max="100"
+                        android:progress="20"
+                        android:text="50"
+                        app:indicatorColor="#40D50A"
+                        app:indicatorDirectionCircular="counterclockwise"
+                        app:indicatorSize="50dp"
+                        app:trackColor="#EF0629"
+                        app:trackThickness="4dp" />
+
+                    <TextView
+                        android:id="@+id/fortuneProgressText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="20"
+                        android:textColor="@color/white"
+                        android:textSize="20sp" />
+
+                </FrameLayout>
+
             </LinearLayout>
 
         </LinearLayout>
@@ -219,7 +304,7 @@
             android:paddingEnd="50dp">
 
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/moneyText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

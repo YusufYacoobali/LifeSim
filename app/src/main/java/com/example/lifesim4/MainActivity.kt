@@ -1,9 +1,16 @@
 package com.example.lifesim4
 
+import android.graphics.Color
 import android.os.Bundle
+import android.view.View
+import android.view.ViewGroup
+import android.widget.LinearLayout
+import android.widget.ScrollView
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.example.lifesim4.databinding.ActivityMainBinding
+import com.example.lifesim4.databinding.EventsListBinding
 import com.example.lifesim4.models.GameEngine
 import com.example.lifesim4.models.Person
 
@@ -29,9 +36,23 @@ class MainActivity : AppCompatActivity() {
 
         binding.bottomButtons.fab.setOnClickListener {
             gameEngine.simulate()
-            binding.statusBar.textAge.text = player.age.toString()
-            binding.statusBar.textMoney.text = player.money.toString()
-            binding.statusBar.textHealth.text = player.health.toString()
+            addNewTextItem("New Text Item")
+            binding.statusBar.playerAgeTopBar.text = player.age.toString()
+            binding.statusBar.moneyText.text = player.money.toString()
+            binding.statusBar.vitalityProgressText.text = player.health.toString()
+
+            // Get a reference to the LinearLayout in the events_list layout
+            val eventLayout = binding.eventsList.root.findViewById<LinearLayout>(R.id.eventLayout)
+
+            val textView = TextView(this)
+            textView.text = "New event occurred" // Set the text for the TextView
+            textView.setTextColor(Color.BLACK) // Set the text color
+
+            // Add the TextView to the LinearLayout
+            eventLayout.addView(textView)
         }
+    }
+
+    fun addNewTextItem(text: String) {
     }
 }

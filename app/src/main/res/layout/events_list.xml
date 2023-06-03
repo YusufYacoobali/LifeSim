@@ -1,5 +1,15 @@
 <!-- Scrollable Event List -->
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+<data>
+    <variable
+        name="person"
+        type="com.example.lifesim4.models.Person" />
+</data>
+<ScrollView
+    android:id="@+id/scrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_below="@id/statusBar"
@@ -8,54 +18,12 @@
 
 
     <LinearLayout
+        android:id="@+id/eventLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-
-        <!-- Event 1 -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#FFFFFF"
-            android:orientation="vertical"
-            android:padding="16dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Event 1"
-                android:textColor="#000000"
-                android:textSize="16sp" />
-
-            <!-- Add event details or additional UI components here -->
-
-        </LinearLayout>
-
-        <!-- Event 2 -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#FFFFFF"
-            android:orientation="vertical"
-            android:padding="16dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Event 2"
-                android:textColor="#000000"
-                android:textSize="16sp" />
-
-            <!-- Add event details or additional UI components here -->
-
-        </LinearLayout>
-
-        <!-- Add more events as needed -->
-        <View
-            android:id="@+id/spacer"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1" />
-
     </LinearLayout>
+
 </ScrollView>
+
+</layout>
