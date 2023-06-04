@@ -1,11 +1,11 @@
 package com.example.lifesim4
 
 import android.graphics.Color
+import android.graphics.Typeface
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
-import android.widget.ScrollView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -45,8 +45,10 @@ class MainActivity : AppCompatActivity() {
             val eventLayout = binding.eventsList.root.findViewById<LinearLayout>(R.id.eventLayout)
 
             val textView = TextView(this)
-            textView.text = "New event occurred" // Set the text for the TextView
-            textView.setTextColor(Color.BLACK) // Set the text color
+            textView.text = "Age: ${player.age} " // Set the text for the TextView
+            textView.setTextColor(Color.BLUE) // Set the text color
+            textView.setTextSize(16F)
+            textView.setTypeface(null, Typeface.BOLD)
 
             // Add the TextView to the LinearLayout
             eventLayout.addView(textView)
