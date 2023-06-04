@@ -55,6 +55,8 @@ class GameEngine {
             age = 34,
             health = 80,
             money = 9375,
+            genius = 100,
+            charm = 20,
             fame = FameLevel.U,
             father = father,
             mother = mother
