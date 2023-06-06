@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import android.widget.ScrollView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -13,6 +14,7 @@ import com.example.lifesim4.databinding.ActivityMainBinding
 import com.example.lifesim4.databinding.EventsListBinding
 import com.example.lifesim4.models.GameEngine
 import com.example.lifesim4.models.Person
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
 
@@ -24,27 +26,51 @@ class MainActivity : AppCompatActivity() {
         val binding: ActivityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         setContentView(binding.root)
 
-        binding.bottomButtons.bottomNavBar.apply {
-            background = null
-            menu.getItem(2).isEnabled = false
-        }
-
         gameEngine = GameEngine().apply { startGame() }
         player = gameEngine.getPlayer()
         binding.person = player
-        binding.statusBar.person = player
+       // binding.statusBar.person = player
 
-        binding.bottomButtons.fab.setOnClickListener {
-            gameEngine.simulate()
-            simulateUI(binding)
+        val bottomNavBar = findViewById<BottomNavigationView>(R.id.bottomNavBar)
+        bottomNavBar.setOnItemSelectedListener  { item ->
+            when (item.itemId) {
+                R.id.Job -> {
+                    // Handle Home menu item click
+                    // Add your code here
+                    true
+                }
+                R.id.Assets -> {
+                    // Handle Search menu item click
+                    // Add your code here
+                    true
+                }
+                R.id.Age -> {
+                    // Handle Placeholder menu item click
+                    // Add your code here
+                    gameEngine.simulate()
+                    simulateUI(binding)
+                    true
+                }
+                R.id.Relations -> {
+                    // Handle Profile menu item click
+                    // Add your code here
+                    true
+                }
+                R.id.Personal -> {
+                    // Handle Settings menu item click
+                    // Add your code here
+                    true
+                }
+                else -> false
+            }
         }
     }
 
     fun simulateUI(binding: ActivityMainBinding) {
         changestatusUI(binding)
 
-        // Get a reference to the LinearLayout in the events_list layout
-        val eventLayout = binding.eventsList.root.findViewById<LinearLayout>(R.id.eventLayout)
+        val scrollView = binding.scrollView
+        val eventLayout = binding.eventLayout
 
         val textView = TextView(this)
         textView.text = "Age: ${player.age} " // Set the text for the TextView
@@ -54,25 +80,29 @@ class MainActivity : AppCompatActivity() {
 
         // Add the TextView to the LinearLayout
         eventLayout.addView(textView)
+
+        scrollView.post {
+            scrollView.fullScroll(ScrollView.FOCUS_DOWN)
+        }
     }
 
     private fun changestatusUI(binding: ActivityMainBinding) {
-        binding.statusBar.ageText.text = player.age.toString()
-        binding.statusBar.fameText.text = player.fame.name
+        binding.ageText.text = player.age.toString()
+        binding.fameText.text = player.fame.name
 
-        binding.statusBar.vitalityProgressText.text = player.health.toString()
-        binding.statusBar.vitalityProgressBar.progress = player.health
+        binding.vitalityProgressText.text = player.health.toString()
+        binding.vitalityProgressBar.progress = player.health
 
-        binding.statusBar.geniusProgressText.text = player.genius.toString()
-        binding.statusBar.geniusProgressBar.progress = player.genius
+        binding.geniusProgressText.text = player.genius.toString()
+        binding.geniusProgressBar.progress = player.genius
 
-        binding.statusBar.charmProgressText.text = player.charm.toString()
-        binding.statusBar.charmProgressBar.progress = player.charm
+        binding.charmProgressText.text = player.charm.toString()
+        binding.charmProgressBar.progress = player.charm
 
-        binding.statusBar.fortuneProgressText.text = player.fortune.toString()
-        binding.statusBar.fortuneProgressBar.progress = player.fortune
+        binding.fortuneProgressText.text = player.fortune.toString()
+        binding.fortuneProgressBar.progress = player.fortune
 
-        binding.statusBar.moneyText.text = player.money.toString()
+        binding.moneyText.text = player.money.toString()
 
     }
 }

@@ -1,29 +1,47 @@
-<!-- Scrollable Event List -->
 <layout xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-<data>
-    <variable
-        name="person"
-        type="com.example.lifesim4.models.Person" />
-</data>
-<ScrollView
-    android:id="@+id/scrollView"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_below="@id/statusBar"
-    android:background="#F5F5F5"
-    android:padding="16dp">
-
+    <data>
+        <variable
+            name="person"
+            type="com.example.lifesim4.models.Person" />
+    </data>
 
     <LinearLayout
-        android:id="@+id/eventLayout"
+        android:id="@+id/eventListLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical">
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottomNavBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/black"
+            android:layout_gravity="bottom"
+            app:itemTextColor="@android:color/white"
+            app:labelVisibilityMode="labeled"
+            app:itemIconTint="@android:color/white"
+            app:menu="@menu/bottom_menu" />
+
+        <!-- Scrollable Event List -->
+        <ScrollView
+            android:id="@+id/scrollView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="top"
+            android:layout_weight="1"
+            android:background="#F5F5F5"
+            android:padding="16dp">
+
+            <LinearLayout
+                android:id="@+id/eventLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"></LinearLayout>
+
+        </ScrollView>
+
     </LinearLayout>
-
-</ScrollView>
-
 </layout>
