@@ -1,5 +1,6 @@
 package com.example.lifesim4
 
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Bundle
@@ -13,6 +14,7 @@ import androidx.databinding.DataBindingUtil
 import com.example.lifesim4.databinding.ActivityMainBinding
 import com.example.lifesim4.databinding.EventsListBinding
 import com.example.lifesim4.models.GameEngine
+import com.example.lifesim4.models.JobActivity
 import com.example.lifesim4.models.Person
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
@@ -37,6 +39,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.Job -> {
                     // Handle Home menu item click
                     // Add your code here
+                    startActivity(Intent(this, JobActivity::class.java))
                     true
                 }
                 R.id.Assets -> {
