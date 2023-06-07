@@ -1,4 +1,4 @@
-package com.example.lifesim4.models
+package com.example.lifesim4
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
