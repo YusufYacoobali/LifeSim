@@ -1,11 +1,14 @@
 package com.example.lifesim4
 
+import android.app.Activity
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Bundle
+import android.util.Log
 import android.widget.ScrollView
 import android.widget.TextView
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.example.lifesim4.databinding.ActivityMainBinding
@@ -13,20 +16,44 @@ import com.example.lifesim4.models.GameEngine
 import com.example.lifesim4.models.Person
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), UIListener  {
 
     private lateinit var gameEngine: GameEngine
     private lateinit var player: Person
+    private lateinit var binding: ActivityMainBinding
+
+    override fun onTextViewAdded(textView: TextView) {
+        binding.eventLayout.addView(textView)
+        Log.d("MainActivity", "simulateUI: TextView added to LinearLayout")
+        Log.d("Debug", "in add textview method")
+        simulateUI()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding: ActivityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         setContentView(binding.root)
+
+        val activityJob = JobActivity()
+        activityJob.setTextViewAddedListener(this)
 
         gameEngine = GameEngine.getInstance().apply { startGame() }
         player = gameEngine.getPlayer()
         binding.person = player
        // binding.statusBar.person = player
+
+        val myContract = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                val data: Intent? = result.data
+                if (data != null) {
+                    val job = data.getStringExtra("Job")
+                    if (job != null) {
+                        Log.d("Debug", "Job: $job")
+                        addTextViewToEvents(job)
+                    }
+                }
+            }
+        }
 
         val bottomNavBar = findViewById<BottomNavigationView>(R.id.bottomNavBar)
         bottomNavBar.setOnItemSelectedListener  { item ->
@@ -34,7 +61,9 @@ class MainActivity : AppCompatActivity() {
                 R.id.Job -> {
                     // Handle Home menu item click
                     // Add your code here
-                    startActivity(Intent(this, JobActivity::class.java))
+                    //startActivity(Intent(this, JobActivity::class.java))
+                    val intent = Intent(this, JobActivity::class.java)
+                    myContract.launch(intent)
                     true
                 }
                 R.id.Assets -> {
@@ -46,7 +75,7 @@ class MainActivity : AppCompatActivity() {
                     // Handle Placeholder menu item click
                     // Add your code here
                     gameEngine.simulate()
-                    simulateUI(binding)
+                    simulateUI()
                     true
                 }
                 R.id.Relations -> {
@@ -64,14 +93,17 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun simulateUI(binding: ActivityMainBinding) {
-        changestatusUI(binding)
+    fun simulateUI() {
+        changestatusUI()
+       addTextViewToEvents("Age: ${player.age}")
+    }
 
+    fun addTextViewToEvents(text: String){
         val scrollView = binding.scrollView
         val eventLayout = binding.eventLayout
 
         val textView = TextView(this)
-        textView.text = "Age: ${player.age} " // Set the text for the TextView
+        textView.text = text // Set the text for the TextView
         textView.setTextColor(Color.BLUE) // Set the text color
         textView.setTextSize(16F)
         textView.setTypeface(null, Typeface.BOLD)
@@ -84,7 +116,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun changestatusUI(binding: ActivityMainBinding) {
+    private fun changestatusUI() {
         binding.ageText.text = player.age.toString()
         binding.fameText.text = player.fame.name
 
@@ -101,6 +133,5 @@ class MainActivity : AppCompatActivity() {
         binding.fortuneProgressBar.progress = player.fortune
 
         binding.moneyText.text = player.money.toString()
-
     }
 }

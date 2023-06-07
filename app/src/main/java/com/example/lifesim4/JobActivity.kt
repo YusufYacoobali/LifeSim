@@ -1,27 +1,39 @@
 package com.example.lifesim4
 
+import android.app.Activity
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.LinearLayout
+import android.widget.TextView
 import android.widget.Toast
 import com.example.lifesim4.R
+import com.example.lifesim4.databinding.ActivityMainBinding
 import com.example.lifesim4.models.GameEngine
 
-class JobActivity : AppCompatActivity() {
+class JobActivity : AppCompatActivity()  {
 
     private lateinit var gameEngine: GameEngine
+    private var textViewAddedListener: UIListener? = null
+    fun setTextViewAddedListener(listener: UIListener) {
+        textViewAddedListener = listener
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_job)
 
         gameEngine = GameEngine.getInstance()
 
+
         val fullTimeJobLayout: LinearLayout = findViewById(R.id.fullTimeJobLayout)
         fullTimeJobLayout.setOnClickListener {
-            Toast.makeText(this, "Full-time job clicked", Toast.LENGTH_SHORT).show()
-            // Handle the click event for full-time job layout
-            // Navigate to another page or perform any desired action
-            gameEngine.simulate()
+
+            //gameEngine.simulate()
+            val resultIntent = Intent()
+            resultIntent.putExtra("Job", "New Job, You are now a Police officer")
+            setResult(Activity.RESULT_OK, resultIntent)
+            finish()
 
         }
 
@@ -52,6 +64,6 @@ class JobActivity : AppCompatActivity() {
             // Handle the click event for criminal layout
             // Navigate to another page or perform any desired action
         }
-
     }
 }
+
