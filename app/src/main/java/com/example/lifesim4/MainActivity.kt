@@ -45,6 +45,7 @@ class MainActivity : AppCompatActivity(), UIListener  {
         val myContract = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
                 val data: Intent? = result.data
+                simulateUI()
                 if (data != null) {
                     val job = data.getStringExtra("Job")
                     if (job != null) {

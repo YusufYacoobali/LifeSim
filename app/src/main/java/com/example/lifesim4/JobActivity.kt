@@ -29,7 +29,7 @@ class JobActivity : AppCompatActivity()  {
         val fullTimeJobLayout: LinearLayout = findViewById(R.id.fullTimeJobLayout)
         fullTimeJobLayout.setOnClickListener {
 
-            //gameEngine.simulate()
+            gameEngine.simulate()
             val resultIntent = Intent()
             resultIntent.putExtra("Job", "New Job, You are now a Police officer")
             setResult(Activity.RESULT_OK, resultIntent)
