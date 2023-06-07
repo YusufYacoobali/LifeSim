@@ -5,17 +5,24 @@ import android.os.Bundle
 import android.widget.LinearLayout
 import android.widget.Toast
 import com.example.lifesim4.R
+import com.example.lifesim4.models.GameEngine
 
 class JobActivity : AppCompatActivity() {
+
+    private lateinit var gameEngine: GameEngine
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_job)
+
+        gameEngine = GameEngine.getInstance()
 
         val fullTimeJobLayout: LinearLayout = findViewById(R.id.fullTimeJobLayout)
         fullTimeJobLayout.setOnClickListener {
             Toast.makeText(this, "Full-time job clicked", Toast.LENGTH_SHORT).show()
             // Handle the click event for full-time job layout
             // Navigate to another page or perform any desired action
+            gameEngine.simulate()
+
         }
 
         val partTimeJobLayout: LinearLayout = findViewById(R.id.partTimeJobLayout)

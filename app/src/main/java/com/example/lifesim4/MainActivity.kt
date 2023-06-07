@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
         val binding: ActivityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         setContentView(binding.root)
 
-        gameEngine = GameEngine().apply { startGame() }
+        gameEngine = GameEngine.getInstance().apply { startGame() }
         player = gameEngine.getPlayer()
         binding.person = player
        // binding.statusBar.person = player

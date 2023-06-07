@@ -1,6 +1,22 @@
 package com.example.lifesim4.models
 
-class GameEngine {
+class GameEngine private constructor() {
+
+    companion object {
+        private var instance: GameEngine? = null
+
+        fun getInstance(): GameEngine {
+            if (instance == null) {
+                synchronized(GameEngine::class.java) {
+                    if (instance == null) {
+                        instance = GameEngine()
+                    }
+                }
+            }
+            return instance!!
+        }
+    }
+
     private val persons: MutableList<Person> = mutableListOf()
     private lateinit var currentPlayer: Person
 
