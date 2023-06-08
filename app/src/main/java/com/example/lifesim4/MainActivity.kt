@@ -19,23 +19,25 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 class MainActivity : AppCompatActivity()  {
 
     private lateinit var gameEngine: GameEngine
-    private lateinit var player: Person
     private lateinit var binding: ActivityMainBinding
+    private lateinit var player: Person
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         setContentView(binding.root)
-
         gameEngine = GameEngine.getInstance().apply { startGame() }
         player = gameEngine.getPlayer()
-        binding.person = player
-       // binding.statusBar.person = player
 
+        startLife()
+
+        //handle data when user comes back to main page
         val myContract = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
                 val data: Intent? = result.data
+                //Change stats when coming back from a page
                 simulateUI()
+                //add events if it occurred
                 if (data != null) {
                     val job = data.getStringExtra("Job")
                     val partTime = data.getStringExtra("Part Time")
@@ -50,6 +52,7 @@ class MainActivity : AppCompatActivity()  {
             }
         }
 
+        //bottom nav bar button navigation
         val bottomNavBar = findViewById<BottomNavigationView>(R.id.bottomNavBar)
         bottomNavBar.setOnItemSelectedListener { item ->
             val intent: Intent? = when (item.itemId) {
@@ -64,38 +67,61 @@ class MainActivity : AppCompatActivity()  {
                 R.id.Personal -> Intent(this, ActivitiesActivity::class.java)
                 else -> null
             }
-
             intent?.let {
                 myContract.launch(it)
             }
-
             intent != null
         }
     }
 
-    fun simulateUI() {
+    //Start new Life
+    private fun startLife(){
+        binding.playerName.text = player.name
+        addAgeTextViewToEvents("Age 0")
+        addTextViewToEvents("You are born as a ${player.gender}")
+        addTextViewToEvents("Your name is ${player.name}")
         changestatusUI()
-       addTextViewToEvents("Age: ${player.age}")
     }
 
-    fun addTextViewToEvents(text: String){
-        val scrollView = binding.scrollView
-        val eventLayout = binding.eventLayout
+    //Used for Age button
+    private fun simulateUI() {
+        changestatusUI()
+        addAgeTextViewToEvents("Age ${player.age}")
+    }
 
+    //Used by events from other pages
+    private fun addTextViewToEvents(text: String){
         val textView = TextView(this)
         textView.text = text // Set the text for the TextView
-        textView.setTextColor(Color.BLUE) // Set the text color
-        textView.setTextSize(16F)
-        textView.setTypeface(null, Typeface.BOLD)
+        textView.setTextColor(Color.BLACK) // Set the text color
+        textView.textSize = 14F
+        textView.setTypeface(null, Typeface.NORMAL)
 
         // Add the TextView to the LinearLayout
-        eventLayout.addView(textView)
-
+        binding.eventLayout.addView(textView)
+        val scrollView = binding.scrollView
         scrollView.post {
             scrollView.fullScroll(ScrollView.FOCUS_DOWN)
         }
     }
 
+    //Different Age text style
+    private fun addAgeTextViewToEvents(text: String){
+        val textView = TextView(this)
+        textView.text = text
+        textView.setTextColor(Color.BLUE)
+        textView.textSize = 16F
+        textView.setTypeface(null, Typeface.BOLD)
+
+        // Add the TextView to the LinearLayout
+        binding.eventLayout.addView(textView)
+        val scrollView = binding.scrollView
+        scrollView.post {
+            scrollView.fullScroll(ScrollView.FOCUS_DOWN)
+        }
+    }
+
+    //Update status bar
     private fun changestatusUI() {
         binding.ageText.text = player.age.toString()
         binding.fameText.text = player.fame.name

@@ -55,6 +55,7 @@ class GameEngine private constructor() {
         val father = Person(
             name = "Father Doe",
             age = 40,
+            gender = "Male",
             health = 100,
             money = 1000
         )
@@ -62,17 +63,19 @@ class GameEngine private constructor() {
         val mother = Person(
             name = "Mother Doe",
             age = 40,
+            gender = "Female",
             health = 100,
             money = 1000
         )
 
         val child1 = Person(
-            name = "Me Doe",
-            age = 34,
+            name = "Bill Snchobal",
+            age = 0,
             health = 80,
-            money = 9375,
-            genius = 100,
-            charm = 20,
+            money = 0,
+            gender = "Male",
+            genius = 67,
+            charm = 43,
             fame = FameLevel.U,
             father = father,
             mother = mother
@@ -81,6 +84,7 @@ class GameEngine private constructor() {
         val child2 = Person(
             name = "Sister Doe",
             age = 10,
+            gender = "Female",
             health = 100,
             money = 0,
             fame = FameLevel.B,

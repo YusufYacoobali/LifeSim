@@ -11,10 +11,10 @@ class PartTimeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_part_time)
 
-        val partTimejob : LinearLayout = findViewById(R.id.partTimeJobLayout)
+        val partTimeJob : LinearLayout = findViewById(R.id.partTimeJobLayout)
 
-        partTimejob.setOnClickListener {
-
+        //send data back that you started a new job
+        partTimeJob.setOnClickListener {
             //gameEngine.simulate()
             val resultIntent = Intent()
             resultIntent.putExtra("Part Time", "New Part time Job, You are now a swimming instructor")

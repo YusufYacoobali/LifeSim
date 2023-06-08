@@ -19,9 +19,9 @@ class JobActivity : AppCompatActivity()  {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_job)
-
         gameEngine = GameEngine.getInstance()
 
+        //Get data from next screen and pass it to main screen
         val myContract = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
                 val data = result.data
@@ -34,16 +34,14 @@ class JobActivity : AppCompatActivity()  {
             }
         }
 
-
+        //handle different buttons
         val fullTimeJobLayout: LinearLayout = findViewById(R.id.fullTimeJobLayout)
         fullTimeJobLayout.setOnClickListener {
-
             gameEngine.simulate()
             val resultIntent = Intent()
             resultIntent.putExtra("Job", "New Job, You are now a Police officer")
             setResult(Activity.RESULT_OK, resultIntent)
             finish()
-
         }
 
         val partTimeJobLayout: LinearLayout = findViewById(R.id.partTimeJobLayout)
@@ -56,22 +54,16 @@ class JobActivity : AppCompatActivity()  {
         val entrepreneurLayout: LinearLayout = findViewById(R.id.entrepreneurLayout)
         entrepreneurLayout.setOnClickListener {
             Toast.makeText(this, "Entrepreneur clicked", Toast.LENGTH_SHORT).show()
-            // Handle the click event for entrepreneur layout
-            // Navigate to another page or perform any desired action
         }
 
         val governmentLayout: LinearLayout = findViewById(R.id.governmentLayout)
         governmentLayout.setOnClickListener {
             Toast.makeText(this, "Government clicked", Toast.LENGTH_SHORT).show()
-            // Handle the click event for government layout
-            // Navigate to another page or perform any desired action
         }
 
         val criminalLayout: LinearLayout = findViewById(R.id.criminalLayout)
         criminalLayout.setOnClickListener {
             Toast.makeText(this, "Criminal clicked", Toast.LENGTH_SHORT).show()
-            // Handle the click event for criminal layout
-            // Navigate to another page or perform any desired action
         }
     }
 }
