@@ -13,6 +13,9 @@
         android:theme="@style/Theme.Fab_Bottom_app_bar"
         tools:targetApi="31">
         <activity
+            android:name=".PartTimeActivity"
+            android:exported="false" />
+        <activity
             android:name=".JobActivity"
             android:exported="false" />
         <activity

@@ -16,26 +16,16 @@ import com.example.lifesim4.models.GameEngine
 import com.example.lifesim4.models.Person
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
-class MainActivity : AppCompatActivity(), UIListener  {
+class MainActivity : AppCompatActivity()  {
 
     private lateinit var gameEngine: GameEngine
     private lateinit var player: Person
     private lateinit var binding: ActivityMainBinding
 
-    override fun onTextViewAdded(textView: TextView) {
-        binding.eventLayout.addView(textView)
-        Log.d("MainActivity", "simulateUI: TextView added to LinearLayout")
-        Log.d("Debug", "in add textview method")
-        simulateUI()
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         setContentView(binding.root)
-
-        val activityJob = JobActivity()
-        activityJob.setTextViewAddedListener(this)
 
         gameEngine = GameEngine.getInstance().apply { startGame() }
         player = gameEngine.getPlayer()
@@ -48,9 +38,13 @@ class MainActivity : AppCompatActivity(), UIListener  {
                 simulateUI()
                 if (data != null) {
                     val job = data.getStringExtra("Job")
+                    val partTime = data.getStringExtra("Part Time")
                     if (job != null) {
                         Log.d("Debug", "Job: $job")
                         addTextViewToEvents(job)
+                    }
+                    if (partTime != null) {
+                        addTextViewToEvents(partTime)
                     }
                 }
             }
