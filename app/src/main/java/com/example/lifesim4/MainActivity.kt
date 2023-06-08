@@ -51,35 +51,25 @@ class MainActivity : AppCompatActivity()  {
         }
 
         val bottomNavBar = findViewById<BottomNavigationView>(R.id.bottomNavBar)
-        bottomNavBar.setOnItemSelectedListener  { item ->
-            when (item.itemId) {
-                R.id.Job -> {
-                    val intent = Intent(this, JobActivity::class.java)
-                    myContract.launch(intent)
-                    true
-                }
-                R.id.Assets -> {
-                    val intent = Intent(this, AssetActivity::class.java)
-                    myContract.launch(intent)
-                    true
-                }
+        bottomNavBar.setOnItemSelectedListener { item ->
+            val intent: Intent? = when (item.itemId) {
+                R.id.Job -> Intent(this, JobActivity::class.java)
+                R.id.Assets -> Intent(this, AssetActivity::class.java)
                 R.id.Age -> {
                     gameEngine.simulate()
                     simulateUI()
-                    true
+                    null
                 }
-                R.id.Relations -> {
-                    val intent = Intent(this, RelationsActivity::class.java)
-                    myContract.launch(intent)
-                    true
-                }
-                R.id.Personal -> {
-                    val intent = Intent(this, ActivitiesActivity::class.java)
-                    myContract.launch(intent)
-                    true
-                }
-                else -> false
+                R.id.Relations -> Intent(this, RelationsActivity::class.java)
+                R.id.Personal -> Intent(this, ActivitiesActivity::class.java)
+                else -> null
             }
+
+            intent?.let {
+                myContract.launch(it)
+            }
+
+            intent != null
         }
     }
 
