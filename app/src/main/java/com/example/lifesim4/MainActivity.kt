@@ -54,33 +54,28 @@ class MainActivity : AppCompatActivity()  {
         bottomNavBar.setOnItemSelectedListener  { item ->
             when (item.itemId) {
                 R.id.Job -> {
-                    // Handle Home menu item click
-                    // Add your code here
-                    //startActivity(Intent(this, JobActivity::class.java))
                     val intent = Intent(this, JobActivity::class.java)
                     myContract.launch(intent)
                     true
                 }
                 R.id.Assets -> {
-                    // Handle Search menu item click
-                    // Add your code here
+                    val intent = Intent(this, AssetActivity::class.java)
+                    myContract.launch(intent)
                     true
                 }
                 R.id.Age -> {
-                    // Handle Placeholder menu item click
-                    // Add your code here
                     gameEngine.simulate()
                     simulateUI()
                     true
                 }
                 R.id.Relations -> {
-                    // Handle Profile menu item click
-                    // Add your code here
+                    val intent = Intent(this, RelationsActivity::class.java)
+                    myContract.launch(intent)
                     true
                 }
                 R.id.Personal -> {
-                    // Handle Settings menu item click
-                    // Add your code here
+                    val intent = Intent(this, ActivitiesActivity::class.java)
+                    myContract.launch(intent)
                     true
                 }
                 else -> false
