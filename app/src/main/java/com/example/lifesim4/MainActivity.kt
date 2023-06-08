@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity()  {
             if (result.resultCode == Activity.RESULT_OK) {
                 val data: Intent? = result.data
                 //Change stats when coming back from a page
-                simulateUI()
+                changestatusUI()
                 //add events if it occurred
                 if (data != null) {
                     val job = data.getStringExtra("Job")
@@ -95,6 +95,7 @@ class MainActivity : AppCompatActivity()  {
         textView.text = text // Set the text for the TextView
         textView.setTextColor(Color.BLACK) // Set the text color
         textView.textSize = 14F
+        textView.setPadding(0,0,0,7)
         textView.setTypeface(null, Typeface.NORMAL)
 
         // Add the TextView to the LinearLayout
@@ -111,6 +112,7 @@ class MainActivity : AppCompatActivity()  {
         textView.text = text
         textView.setTextColor(Color.BLUE)
         textView.textSize = 16F
+        textView.setPadding(0,10,0,10)
         textView.setTypeface(null, Typeface.BOLD)
 
         // Add the TextView to the LinearLayout

@@ -5,7 +5,7 @@
     android:background="#303030"
     android:orientation="vertical">
 
-    <!-- Main Page Title: Occupation -->
+    <!-- Main Page Title: Activities -->
     <TextView
         android:id="@+id/titleOccupation"
         android:layout_width="match_parent"
@@ -16,8 +16,6 @@
         android:textColor="@color/white"
         android:textSize="24sp"
         android:textStyle="bold" />
-
-    <!-- Current Occupation Section -->
 
     <!-- Options Section -->
 
@@ -32,45 +30,82 @@
             android:orientation="vertical"
             android:padding="20dp">
 
-            <!-- Component 1: Full-time Job -->
-
-            <!-- Component 2: Part-time Job -->
+            <!-- Health & Holiday-->
             <LinearLayout
-                android:id="@+id/partTimeJobLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:background="@drawable/rounded_job_buttons"
-                android:orientation="vertical"
-                android:paddingTop="8dp"
-                android:paddingBottom="8dp">
+                android:orientation="horizontal">
 
+                <!-- First Box -->
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:id="@+id/healthTextView"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal|center_vertical"
-                    android:padding="10dp"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
+                    android:background="#FFC0CB"
+                    android:fontFamily="sans-serif-black"
+                    android:gravity="center_horizontal"
+                    android:padding="16dp"
                     android:text="Health"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
+                    android:textSize="16sp" />
 
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_gravity="center_horizontal"
-                    android:src="@drawable/add" />
+                <!-- Second Box -->
+                <TextView
+                    android:id="@+id/holidayTextView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
+                    android:background="#87CEEB"
+                    android:fontFamily="sans-serif-black"
+                    android:gravity="center_horizontal"
+                    android:textSize="16sp"
+                    android:padding="16dp"
+                    android:text="Holiday" />
 
             </LinearLayout>
 
-            <!-- Component 3: Entrepreneur -->
+            <!-- Health & Holiday-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:orientation="horizontal">
 
-            <!-- Component 4: Government -->
+                <!-- First Box -->
+                <TextView
+                    android:id="@+id/TextView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
+                    android:background="#F1EE0A"
+                    android:fontFamily="sans-serif-black"
+                    android:gravity="center_horizontal"
+                    android:padding="16dp"
+                    android:text="Space"
+                    android:textSize="16sp" />
 
-            <!-- Component 5: Criminal -->
+                <!-- Second Box -->
+                <TextView
+                    android:id="@+id/endLife"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
+                    android:background="#000000"
+                    android:fontFamily="sans-serif-black"
+                    android:gravity="center_horizontal"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:padding="16dp"
+                    android:text="End Life" />
 
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
-
 </LinearLayout>
 
 
