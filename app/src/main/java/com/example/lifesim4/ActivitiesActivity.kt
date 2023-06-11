@@ -15,12 +15,7 @@ class ActivitiesActivity : AppCompatActivity() {
 
         val myContract = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
-                val data = result.data
-                val receivedData = data?.getStringExtra("gym")
-                val intent = Intent().apply {
-                    putExtra("gym", receivedData)
-                }
-               setResult(Activity.RESULT_OK, intent)
+               setResult(Activity.RESULT_OK)
                 finish()
             }
         }
@@ -29,7 +24,6 @@ class ActivitiesActivity : AppCompatActivity() {
         FitnessButton.setOnClickListener {
             val intent = Intent(this, FitnessActivity::class.java)
             myContract.launch(intent)
-            true
         }
     }
 }

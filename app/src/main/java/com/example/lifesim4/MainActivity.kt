@@ -38,19 +38,19 @@ class MainActivity : AppCompatActivity()  {
                 //Change stats when coming back from a page
                 changestatusUI()
                 printAllMessages()
-                addTextViewToEvents(player.health.toString())
+                //addTextViewToEvents(player.health.toString())
                 //add events if it occurred
-                if (data != null) {
-                    val job = data.getStringExtra("Job")
-                    val partTime = data.getStringExtra("Part Time")
-                    if (job != null) {
-                        Log.d("Debug", "Job: $job")
-                        addTextViewToEvents(job)
-                    }
-                    if (partTime != null) {
-                        addTextViewToEvents(partTime)
-                    }
-                }
+//                if (data != null) {
+//                    val job = data.getStringExtra("Job")
+//                    val partTime = data.getStringExtra("Part Time")
+//                    if (job != null) {
+//                        Log.d("Debug", "Job: $job")
+//                        addTextViewToEvents(job)
+//                    }
+//                    if (partTime != null) {
+//                        addTextViewToEvents(partTime)
+//                    }
+//                }
             }
         }
 

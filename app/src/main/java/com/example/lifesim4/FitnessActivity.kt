@@ -23,8 +23,6 @@ class FitnessActivity : AppCompatActivity() {
         GymOption.setOnClickListener {
             gameEngine.goGym()
             gameEngine.sendMessage("Joined Gym, +1 charm")
-//            val resultIntent = Intent()
-//            resultIntent.putExtra("Gym", "1")
             setResult(Activity.RESULT_OK)
             finish()
         }

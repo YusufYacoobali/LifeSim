@@ -30,8 +30,9 @@
             android:paddingBottom="20dp">
 
             <!-- Burger menu icon -->
+
             <ImageView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="35dp"
                 android:layout_weight="1"
                 android:scaleType="fitStart"
@@ -41,8 +42,9 @@
             <!-- Space between the icons (optional) -->
 
             <!-- Settings icon -->
+
             <ImageView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="35dp"
                 android:layout_weight="1"
                 android:scaleType="fitEnd"
@@ -107,19 +109,19 @@
                     android:layout_weight="4"
                     android:gravity="center|right"
                     android:paddingEnd="4dp"
-                    android:text="Fame"
+                    android:text="Net Worth"
                     android:textColor="#FFFFFF"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/fameText"
+                    android:id="@+id/netWorthText"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center|center_horizontal"
-                    android:text="U"
-                    android:textColor="#C67D12"
+                    android:text="$2M"
+                    android:textColor="#48C612"
                     android:textSize="16sp"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -134,6 +136,7 @@
             android:padding="8dp">
 
             <!-- Vitality -->
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -183,6 +186,9 @@
             </LinearLayout>
 
             <!-- Genius -->
+
+            <!-- Charm -->
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -230,7 +236,42 @@
                 </FrameLayout>
             </LinearLayout>
 
-            <!-- Charm -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:text="Fame"
+                    android:textColor="#FFFFFF"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="5dp">
+
+                    <TextView
+                        android:id="@+id/fameText"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:gravity="center_horizontal|center_vertical"
+                        android:text="U"
+                        android:textColor="#C67D12"
+                        android:textSize="25sp"
+                        android:textStyle="bold" />
+
+                </FrameLayout>
+
+            </LinearLayout>
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -352,8 +393,12 @@
                 android:textSize="18sp"
                 android:textStyle="bold" />
         </LinearLayout>
+
+
     </LinearLayout>
     <!-- Scrollable Event List -->
+
+
     <LinearLayout
         android:id="@+id/eventListLayout"
         android:layout_width="match_parent"

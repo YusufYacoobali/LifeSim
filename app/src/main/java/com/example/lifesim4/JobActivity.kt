@@ -24,12 +24,7 @@ class JobActivity : AppCompatActivity()  {
         //Get data from next screen and pass it to main screen
         val myContract = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
-                val data = result.data
-                val receivedData = data?.getStringExtra("Part Time")
-                val intent = Intent().apply {
-                    putExtra("Part Time", receivedData)
-                }
-                setResult(Activity.RESULT_OK, intent)
+                setResult(Activity.RESULT_OK)
                 finish()
             }
         }
@@ -48,7 +43,6 @@ class JobActivity : AppCompatActivity()  {
         partTimeJobLayout.setOnClickListener {
             val intent = Intent(this, PartTimeActivity::class.java)
             myContract.launch(intent)
-            true
         }
 
         val entrepreneurLayout: LinearLayout = findViewById(R.id.entrepreneurLayout)
