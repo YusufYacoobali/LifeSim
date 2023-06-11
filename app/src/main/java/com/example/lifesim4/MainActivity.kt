@@ -10,6 +10,7 @@ import android.widget.ScrollView
 import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import com.example.lifesim4.databinding.ActivityMainBinding
 import com.example.lifesim4.models.GameEngine
@@ -34,23 +35,8 @@ class MainActivity : AppCompatActivity()  {
         //handle data when user comes back to main page
         val myContract = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
-                val data: Intent? = result.data
-                //Change stats when coming back from a page
                 changestatusUI()
                 printAllMessages()
-                //addTextViewToEvents(player.health.toString())
-                //add events if it occurred
-//                if (data != null) {
-//                    val job = data.getStringExtra("Job")
-//                    val partTime = data.getStringExtra("Part Time")
-//                    if (job != null) {
-//                        Log.d("Debug", "Job: $job")
-//                        addTextViewToEvents(job)
-//                    }
-//                    if (partTime != null) {
-//                        addTextViewToEvents(partTime)
-//                    }
-//                }
             }
         }
 
@@ -79,7 +65,7 @@ class MainActivity : AppCompatActivity()  {
     //Start new Life
     private fun startLife(){
         binding.playerName.text = player.name
-        addAgeTextViewToEvents("Age 0")
+        addAgeTextViewToEvents()
         addTextViewToEvents("You are born as a ${player.gender}")
         addTextViewToEvents("Your name is ${player.name}")
         changestatusUI()
@@ -95,15 +81,15 @@ class MainActivity : AppCompatActivity()  {
     //Used for Age button
     private fun simulateUI() {
         changestatusUI()
-        addAgeTextViewToEvents("Age ${player.age}")
+        addAgeTextViewToEvents()
     }
 
     //Used by events from other pages
     private fun addTextViewToEvents(text: String){
         val textView = TextView(this)
         textView.text = text // Set the text for the TextView
-        textView.setTextColor(Color.BLACK) // Set the text color
-        textView.textSize = 14F
+        textView.setTextColor(ContextCompat.getColor(this, R.color.eventText))
+        textView.textSize = 15F
         textView.setPadding(0,0,0,7)
         textView.setTypeface(null, Typeface.NORMAL)
 
@@ -116,12 +102,13 @@ class MainActivity : AppCompatActivity()  {
     }
 
     //Different Age text style
-    private fun addAgeTextViewToEvents(text: String){
+    private fun addAgeTextViewToEvents(){
         val textView = TextView(this)
+        val text = "Age: ${player.age} years"
         textView.text = text
-        textView.setTextColor(Color.BLUE)
-        textView.textSize = 16F
-        textView.setPadding(0,10,0,10)
+        textView.setTextColor(ContextCompat.getColor(this, R.color.ageText))
+        textView.textSize = 17F
+        textView.setPadding(0,20,0,10)
         textView.setTypeface(null, Typeface.BOLD)
 
         // Add the TextView to the LinearLayout
