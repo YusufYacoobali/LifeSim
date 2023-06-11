@@ -1,5 +1,7 @@
 package com.example.lifesim4.models
 
+import com.github.javafaker.Faker
+
 class GameEngine private constructor() {
 
     companion object {
@@ -7,6 +9,8 @@ class GameEngine private constructor() {
         private var messages: MutableList<String> = mutableListOf()
         private val persons: MutableList<Person> = mutableListOf()
         private lateinit var currentPlayer: Person
+        val faker = Faker()
+        val femaleFirstNames = listOf("Emma", "Olivia", "Ava", "Isabella", "Sophia", "Mia", "Charlotte", "Amelia", "Harper")
 
         fun getInstance(): GameEngine {
             if (instance == null) {
@@ -68,6 +72,8 @@ class GameEngine private constructor() {
 
     private fun createFamily() {
 
+        val lastName = faker.name().lastName()
+
         val father = Person(
             name = "Father Doe",
             age = 40,
@@ -77,7 +83,7 @@ class GameEngine private constructor() {
         )
 
         val mother = Person(
-            name = "Mother Doe",
+            name = "${faker.name().firstName()} ${faker.name().lastName()}",
             age = 40,
             gender = "Female",
             health = 100,
@@ -85,7 +91,7 @@ class GameEngine private constructor() {
         )
 
         val child1 = Person(
-            name = "Bill Snchobal",
+            name = "${faker.name().firstName()} ${faker.name().lastName()}",
             age = 0,
             health = 80,
             money = 0,

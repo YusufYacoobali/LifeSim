@@ -1,5 +1,6 @@
 package com.example.lifesim4.models
 
+import com.github.javafaker.Faker
 import kotlin.random.Random
 
 data class Person(
