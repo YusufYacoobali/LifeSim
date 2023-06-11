@@ -37,6 +37,8 @@ class MainActivity : AppCompatActivity()  {
                 val data: Intent? = result.data
                 //Change stats when coming back from a page
                 changestatusUI()
+                printAllMessages()
+                addTextViewToEvents(player.health.toString())
                 //add events if it occurred
                 if (data != null) {
                     val job = data.getStringExtra("Job")
@@ -81,6 +83,13 @@ class MainActivity : AppCompatActivity()  {
         addTextViewToEvents("You are born as a ${player.gender}")
         addTextViewToEvents("Your name is ${player.name}")
         changestatusUI()
+    }
+
+    private fun printAllMessages(){
+        val messages = gameEngine.getAllMessages()
+        for (message in messages){
+            addTextViewToEvents(message)
+        }
     }
 
     //Used for Age button

@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="16dp"
-        android:text="Activities"
+        android:text="Fitness"
         android:textColor="@color/white"
         android:textSize="24sp"
         android:textStyle="bold" />
@@ -39,7 +39,7 @@
 
                 <!-- First Box -->
                 <TextView
-                    android:id="@+id/healthTextView"
+                    android:id="@+id/GymOption"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
@@ -48,7 +48,7 @@
                     android:fontFamily="sans-serif-black"
                     android:gravity="center_horizontal"
                     android:padding="16dp"
-                    android:text="Health"
+                    android:text="Gym"
                     android:textSize="16sp" />
 
                 <!-- Second Box -->
@@ -61,9 +61,9 @@
                     android:background="#87CEEB"
                     android:fontFamily="sans-serif-black"
                     android:gravity="center_horizontal"
-                    android:textSize="16sp"
                     android:padding="16dp"
-                    android:text="Holiday" />
+                    android:text="Swimming"
+                    android:textSize="16sp" />
 
             </LinearLayout>
 
@@ -85,7 +85,7 @@
                     android:fontFamily="sans-serif-black"
                     android:gravity="center_horizontal"
                     android:padding="16dp"
-                    android:text="Fitness"
+                    android:text="Running"
                     android:textSize="16sp" />
 
                 <!-- Second Box -->
@@ -98,10 +98,10 @@
                     android:background="#000000"
                     android:fontFamily="sans-serif-black"
                     android:gravity="center_horizontal"
-                    android:textColor="@color/white"
-                    android:textSize="16sp"
                     android:padding="16dp"
-                    android:text="End Life" />
+                    android:text="Football"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
 
             </LinearLayout>
         </LinearLayout>

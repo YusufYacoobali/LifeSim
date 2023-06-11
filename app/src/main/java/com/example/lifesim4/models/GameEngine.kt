@@ -4,6 +4,9 @@ class GameEngine private constructor() {
 
     companion object {
         private var instance: GameEngine? = null
+        private var messages: MutableList<String> = mutableListOf()
+        private val persons: MutableList<Person> = mutableListOf()
+        private lateinit var currentPlayer: Person
 
         fun getInstance(): GameEngine {
             if (instance == null) {
@@ -16,9 +19,6 @@ class GameEngine private constructor() {
             return instance!!
         }
     }
-
-    private val persons: MutableList<Person> = mutableListOf()
-    private lateinit var currentPlayer: Person
 
     // Method to add a Person to the game world
     fun addPerson(person: Person) {
@@ -34,6 +34,22 @@ class GameEngine private constructor() {
             money += 100
             health--
         }
+    }
+
+    fun goGym(){
+        currentPlayer.apply {
+            health += 5
+            money -= 100
+            charm += 1
+        }
+    }
+
+    fun sendMessage(message: String){
+        messages.add(message)
+    }
+
+    fun getAllMessages(): MutableList<String> {
+        return messages
     }
 
     // Method to get all persons in the game world
