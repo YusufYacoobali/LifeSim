@@ -16,10 +16,23 @@ class PartTimeActivity : AppCompatActivity() {
         gameEngine = GameEngine.getInstance()
 
         val partTimeJob : LinearLayout = findViewById(R.id.partTimeJobLayout)
+        val partTime1 : LinearLayout = findViewById(R.id.partTime1)
+        val partTime2 : LinearLayout = findViewById(R.id.partTime2)
 
-        //send data back that you started a new job
         partTimeJob.setOnClickListener {
             gameEngine.sendMessage("New Part time Job, You are now a swimming instructor")
+            setResult(Activity.RESULT_OK)
+            finish()
+
+        }
+        partTime1.setOnClickListener {
+            gameEngine.sendMessage("You started working part time as a Life Guard with a salary of $13/hour")
+            setResult(Activity.RESULT_OK)
+            finish()
+
+        }
+        partTime2.setOnClickListener {
+            gameEngine.sendMessage("You started working part time as a Window Cleaner with a salary of $15/hour")
             setResult(Activity.RESULT_OK)
             finish()
 

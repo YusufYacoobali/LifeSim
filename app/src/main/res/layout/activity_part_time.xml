@@ -35,7 +35,7 @@
 
             <!-- Component 2: Part-time Job -->
             <LinearLayout
-                android:id="@+id/fullTimeJobLayout"
+                android:id="@+id/partTime1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="10dp"
@@ -85,6 +85,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/partTime2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="10dp"
