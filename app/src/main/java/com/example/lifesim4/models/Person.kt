@@ -14,6 +14,7 @@ data class Person(
     var charm: Int = Random.nextInt(0, 101),
     var fortune: Int = Random.nextInt(30, 100),
     var fame: FameLevel = FameLevel.U,
+    val cashflow: Long = 0,
     var father: Person? = null,
     var mother: Person? = null,
     var sisters: List<Person> = emptyList(),

@@ -10,7 +10,21 @@ class GameEngine private constructor() {
         private val persons: MutableList<Person> = mutableListOf()
         private lateinit var currentPlayer: Person
         val faker = Faker()
-        val femaleFirstNames = listOf("Emma", "Olivia", "Ava", "Isabella", "Sophia", "Mia", "Charlotte", "Amelia", "Harper")
+        val femaleFirstNames = listOf(
+            "Emma", "Olivia", "Ava", "Sophia", "Isabella", "Mia", "Charlotte", "Amelia",
+            "Harper", "Evelyn", "Abigail", "Emily", "Elizabeth", "Mila", "Ella", "Avery",
+            "Sofia", "Camila", "Aria", "Scarlett", "Victoria", "Madison", "Luna", "Grace",
+            "Chloe", "Penelope", "Layla", "Riley", "Zoey", "Nora", "Lily", "Eleanor",
+            "Hannah", "Lillian", "Addison", "Aubrey", "Ellie", "Stella", "Natalie", "Zoe"
+        )
+
+        val maleFirstNames = listOf(
+            "Liam", "Noah", "William", "James", "Oliver", "Benjamin", "Elijah", "Lucas",
+            "Mason", "Logan", "Alexander", "Henry", "Jacob", "Michael", "Daniel", "Jackson",
+            "Sebastian", "Aiden", "Matthew", "Samuel", "David", "Joseph", "Carter", "Owen",
+            "Wyatt", "John", "Jack", "Luke", "Jayden", "Dylan", "Grayson", "Levi", "Isaac",
+            "Gabriel", "Julian", "Mateo", "Anthony", "Jaxon", "Lincoln", "Joshua", "Christopher"
+        )
 
         fun getInstance(): GameEngine {
             if (instance == null) {
@@ -75,25 +89,22 @@ class GameEngine private constructor() {
         val lastName = faker.name().lastName()
 
         val father = Person(
-            name = "Father Doe",
+            name = "${maleFirstNames.random()} $lastName",
             age = 40,
             gender = "Male",
-            health = 100,
             money = 1000
         )
 
         val mother = Person(
-            name = "${faker.name().firstName()} ${faker.name().lastName()}",
+            name = "${femaleFirstNames.random()} $lastName",
             age = 40,
             gender = "Female",
-            health = 100,
             money = 1000
         )
 
         val child1 = Person(
-            name = "${faker.name().firstName()} ${faker.name().lastName()}",
+            name = "${maleFirstNames.random()} $lastName",
             age = 0,
-            health = 80,
             money = 0,
             gender = "Male",
             fame = FameLevel.U,
@@ -102,13 +113,12 @@ class GameEngine private constructor() {
         )
 
         val child2 = Person(
-            name = "Sister Doe",
+            name = "${femaleFirstNames.random()} $lastName",
             age = 10,
             gender = "Female",
-            health = 100,
-            money = 0,
-            fame = FameLevel.B,
-            father = father
+            fame = FameLevel.C,
+            father = father,
+            mother = mother
         )
 
         father.children = mutableListOf(child1, child2)
