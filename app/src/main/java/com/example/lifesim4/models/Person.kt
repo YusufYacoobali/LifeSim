@@ -1,14 +1,17 @@
 package com.example.lifesim4.models
 
+import kotlin.random.Random
+
 data class Person(
     var name: String,
     var age: Int = 0,
     val gender: String,
-    var health: Int = 100,
+    var health: Int = Random.nextInt(65, 101),
     var money: Long = 0,
-    var genius: Int = 50,
-    var charm: Int = 50,
-    var fortune: Int = 50,
+    var netWorth: Long = 0,
+    var genius: Int = Random.nextInt(0, 101),
+    var charm: Int = Random.nextInt(0, 101),
+    var fortune: Int = Random.nextInt(30, 100),
     var fame: FameLevel = FameLevel.U,
     var father: Person? = null,
     var mother: Person? = null,
@@ -19,13 +22,23 @@ data class Person(
     var educationLevel: String? = null,
     var relationshipStatus: String? = null,
     var children: MutableList<Person> = mutableListOf(),
-    var skills: MutableList<String> = mutableListOf(),
-    var hobbies: MutableList<String> = mutableListOf(),
-    var residence: String? = null,
+    var resident: String? = null,
     var nationality: String? = null,
-    var currentCity: String? = null,
     var friends: MutableList<Person> = mutableListOf(),
     var enemies: MutableList<Person> = mutableListOf()
+)
+
+data class NPC(
+    var name: String,
+    var age: Int = 0,
+    val gender: String,
+    var health: Int = 100,
+    var money: Long = 0,
+    var fame: FameLevel = FameLevel.U,
+    var job: Job? = null,
+    var relationshipStatus: String? = null,
+    var residence: String? = null,
+    var nationality: String? = null,
 )
 
 // FameLevel.kt

@@ -90,8 +90,6 @@ class GameEngine private constructor() {
             health = 80,
             money = 0,
             gender = "Male",
-            genius = 67,
-            charm = 43,
             fame = FameLevel.U,
             father = father,
             mother = mother
