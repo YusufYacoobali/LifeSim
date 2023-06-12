@@ -29,12 +29,13 @@ class MainActivity : AppCompatActivity()  {
         setContentView(binding.root)
         gameEngine = GameEngine.getInstance().apply { startGame() }
         player = gameEngine.getPlayer()
-
         startLife()
 
         //handle data when user comes back to main page
         val myContract = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
+
+                player = gameEngine.getPlayer() //if intent = new Life then use this line
                 changestatusUI()
                 printAllMessages()
             }
@@ -119,6 +120,10 @@ class MainActivity : AppCompatActivity()  {
         }
     }
 
+    private fun deleteAllEvents(){
+        binding.eventLayout.removeAllViews()
+    }
+
     //Update status bar
     private fun changestatusUI() {
         binding.ageText.text = player.age.toString()
@@ -137,5 +142,6 @@ class MainActivity : AppCompatActivity()  {
         binding.fortuneProgressBar.progress = player.fortune
 
         binding.moneyText.text = player.money.toString()
+        binding.playerName.text = player.name
     }
 }

@@ -26,15 +26,26 @@ class ActivitiesActivity : AppCompatActivity() {
         }
 
         val fitnessButton: LinearLayout = findViewById(R.id.fitnessActivity)
+        val endLifeButton: LinearLayout = findViewById(R.id.endLifeButton)
+
         val clickListener = View.OnClickListener { view ->
             when (view.id) {
                 R.id.fitnessActivity -> {
                     val intent = Intent(this, FitnessActivity::class.java)
                     myContract.launch(intent)
                 }
+                R.id.endLifeButton -> {
+                    gameEngine.startGame()
+                    gameEngine.sendMessage("${gameEngine.getPlayer().name}")
+                    setResult(Activity.RESULT_OK)
+                    finish()
+//                    val intent = Intent()
+//                    myContract.launch(intent)
+                }
             }
         }
 
         fitnessButton.setOnClickListener(clickListener)
+        endLifeButton.setOnClickListener(clickListener)
     }
 }
