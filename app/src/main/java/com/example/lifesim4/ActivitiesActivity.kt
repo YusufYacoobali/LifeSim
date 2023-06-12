@@ -20,8 +20,8 @@ class ActivitiesActivity : AppCompatActivity() {
             }
         }
 
-        val FitnessButton: TextView = findViewById(R.id.FitnessActivity)
-        FitnessButton.setOnClickListener {
+        val fitnessButton: LinearLayout = findViewById(R.id.fitnessActivity)
+        fitnessButton.setOnClickListener {
             val intent = Intent(this, FitnessActivity::class.java)
             myContract.launch(intent)
         }

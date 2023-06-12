@@ -19,8 +19,8 @@ class FitnessActivity : AppCompatActivity() {
         gameEngine = GameEngine.getInstance()
 
         //handle different buttons
-        val GymOption: TextView = findViewById(R.id.GymOption)
-        GymOption.setOnClickListener {
+        val gymOption: LinearLayout = findViewById(R.id.gymOption)
+        gymOption.setOnClickListener {
             gameEngine.goGym()
             gameEngine.sendMessage("Joined Gym, +1 charm")
             setResult(Activity.RESULT_OK)

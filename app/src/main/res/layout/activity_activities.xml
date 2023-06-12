@@ -33,41 +33,77 @@
             <!-- Health & Holiday-->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_margin="10dp"
                 android:orientation="horizontal">
 
                 <!-- First Box -->
-                <TextView
-                    android:id="@+id/healthTextView"
+                <LinearLayout
+                    android:id="@+id/fullTimeJobLayout"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_margin="10dp"
                     android:layout_weight="1"
-                    android:background="#FFC0CB"
-                    android:fontFamily="sans-serif-black"
-                    android:gravity="center_horizontal"
-                    android:padding="16dp"
-                    android:text="Health"
-                    android:textSize="16sp" />
+                    android:background="@drawable/rounded_job_buttons"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:orientation="vertical"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal|center_vertical"
+                        android:padding="10dp"
+                        android:text="Health"
+                        android:textColor="@color/insidePagesText"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:src="@drawable/placeholder2" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/fullTimeJobLayout"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/rounded_job_buttons"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:orientation="vertical"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal|center_vertical"
+                        android:padding="10dp"
+                        android:text="Holiday"
+                        android:textColor="@color/insidePagesText"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:src="@drawable/placeholder" />
+
+                </LinearLayout>
 
                 <!-- Second Box -->
-                <TextView
-                    android:id="@+id/holidayTextView"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:layout_weight="1"
-                    android:background="#87CEEB"
-                    android:fontFamily="sans-serif-black"
-                    android:gravity="center_horizontal"
-                    android:textSize="16sp"
-                    android:padding="16dp"
-                    android:text="Holiday" />
 
             </LinearLayout>
 
-            <!-- Health & Holiday-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -75,35 +111,73 @@
                 android:orientation="horizontal">
 
                 <!-- First Box -->
-                <TextView
-                    android:id="@+id/FitnessActivity"
+                <LinearLayout
+                    android:id="@+id/fitnessActivity"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_margin="10dp"
                     android:layout_weight="1"
-                    android:background="#63F10A"
-                    android:fontFamily="sans-serif-black"
-                    android:gravity="center_horizontal"
-                    android:padding="16dp"
-                    android:text="Fitness"
-                    android:textSize="16sp" />
+                    android:background="@drawable/rounded_job_buttons"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:orientation="vertical"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal|center_vertical"
+                        android:padding="10dp"
+                        android:text="Fitness"
+                        android:textColor="@color/insidePagesText"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:src="@drawable/placeholder3" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/endLifeButton"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/rounded_job_buttons"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:orientation="vertical"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal|center_vertical"
+                        android:padding="10dp"
+                        android:text="End Life"
+                        android:textColor="@color/insidePagesText"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:src="@drawable/placeholder2" />
+
+                </LinearLayout>
 
                 <!-- Second Box -->
-                <TextView
-                    android:id="@+id/endLife"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:layout_weight="1"
-                    android:background="#000000"
-                    android:fontFamily="sans-serif-black"
-                    android:gravity="center_horizontal"
-                    android:textColor="@color/white"
-                    android:textSize="16sp"
-                    android:padding="16dp"
-                    android:text="End Life" />
 
             </LinearLayout>
+
+            <!-- Health & Holiday-->
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

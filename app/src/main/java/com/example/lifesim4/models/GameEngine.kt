@@ -67,8 +67,11 @@ class GameEngine private constructor() {
     }
 
     fun getAllMessages(): MutableList<String> {
-        return messages
+        val currentMessages = messages.toMutableList()
+        messages.clear()
+        return currentMessages
     }
+
 
     // Method to get all persons in the game world
     fun getAllPersons(): List<Person> {
