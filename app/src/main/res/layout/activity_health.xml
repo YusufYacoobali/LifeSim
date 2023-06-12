@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="16dp"
-        android:text="Fitness"
+        android:text="Health"
         android:textColor="@color/white"
         android:textSize="24sp"
         android:textStyle="bold" />
@@ -61,7 +61,7 @@
                         android:layout_height="0dp"
                         android:layout_gravity="center_horizontal|center_vertical"
                         android:layout_weight="1"
-                        android:text="Gym"
+                        android:text="Best Doctor"
                         android:textColor="@color/black"
                         android:textSize="18sp"
                         android:textStyle="bold" />
@@ -71,7 +71,7 @@
                         android:layout_height="0dp"
                         android:layout_gravity="center_horizontal|center_vertical"
                         android:layout_weight="1"
-                        android:text="+5 Health  +1 Charm"
+                        android:text="+10 Vitality"
                         android:textColor="#575555"
                         android:textSize="16sp"
                         android:textStyle="bold" />
@@ -110,7 +110,7 @@
                         android:layout_height="0dp"
                         android:layout_gravity="center_horizontal|center_vertical"
                         android:layout_weight="1"
-                        android:text="Swimming"
+                        android:text="Cheap doctor"
                         android:textColor="@color/black"
                         android:textSize="18sp"
                         android:textStyle="bold" />
@@ -120,7 +120,7 @@
                         android:layout_height="0dp"
                         android:layout_gravity="center_horizontal|center_vertical"
                         android:layout_weight="1"
-                        android:text="+3 Health  +2 Charm"
+                        android:text="+3 Vitality"
                         android:textColor="#575555"
                         android:textSize="16sp"
                         android:textStyle="bold" />
@@ -159,7 +159,7 @@
                         android:layout_height="0dp"
                         android:layout_gravity="center_horizontal|center_vertical"
                         android:layout_weight="1"
-                        android:text="Running"
+                        android:text="Witch"
                         android:textColor="@color/black"
                         android:textSize="18sp"
                         android:textStyle="bold" />
@@ -169,7 +169,7 @@
                         android:layout_height="0dp"
                         android:layout_gravity="center_horizontal|center_vertical"
                         android:layout_weight="1"
-                        android:text="+3 Charm  +2 Health"
+                        android:text=" ??? Vitality"
                         android:textColor="#575555"
                         android:textSize="16sp"
                         android:textStyle="bold" />
@@ -209,7 +209,7 @@
                         android:layout_height="0dp"
                         android:layout_gravity="center_horizontal|center_vertical"
                         android:layout_weight="1"
-                        android:text="Football"
+                        android:text="Home Potion"
                         android:textColor="@color/black"
                         android:textSize="18sp"
                         android:textStyle="bold" />
@@ -219,7 +219,7 @@
                         android:layout_height="0dp"
                         android:layout_gravity="center_horizontal|center_vertical"
                         android:layout_weight="1"
-                        android:text="+6 Health"
+                        android:text=" ??? Vitality"
                         android:textColor="#575555"
                         android:textSize="16sp"
                         android:textStyle="bold" />

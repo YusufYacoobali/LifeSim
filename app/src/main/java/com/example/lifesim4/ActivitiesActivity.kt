@@ -25,13 +25,23 @@ class ActivitiesActivity : AppCompatActivity() {
             }
         }
 
-        val fitnessButton: LinearLayout = findViewById(R.id.fitnessActivity)
+        val fitnessButton: LinearLayout = findViewById(R.id.fitnessButton)
         val endLifeButton: LinearLayout = findViewById(R.id.endLifeButton)
+        val healthButton: LinearLayout = findViewById(R.id.healthButton)
+        val holidayButton: LinearLayout = findViewById(R.id.holidayButton)
 
         val clickListener = View.OnClickListener { view ->
             when (view.id) {
-                R.id.fitnessActivity -> {
+                R.id.fitnessButton -> {
                     val intent = Intent(this, FitnessActivity::class.java)
+                    myContract.launch(intent)
+                }
+                R.id.healthButton -> {
+                    val intent = Intent(this, HealthActivity::class.java)
+                    myContract.launch(intent)
+                }
+                R.id.holidayButton -> {
+                    val intent = Intent(this, HolidayActivity::class.java)
                     myContract.launch(intent)
                 }
                 R.id.endLifeButton -> {
@@ -39,13 +49,12 @@ class ActivitiesActivity : AppCompatActivity() {
                     gameEngine.sendMessage("${gameEngine.getPlayer().name}")
                     setResult(Activity.RESULT_OK)
                     finish()
-//                    val intent = Intent()
-//                    myContract.launch(intent)
                 }
             }
         }
-
         fitnessButton.setOnClickListener(clickListener)
         endLifeButton.setOnClickListener(clickListener)
+        healthButton.setOnClickListener(clickListener)
+        holidayButton.setOnClickListener(clickListener)
     }
 }

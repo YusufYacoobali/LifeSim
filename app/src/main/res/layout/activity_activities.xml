@@ -39,7 +39,7 @@
 
                 <!-- First Box -->
                 <LinearLayout
-                    android:id="@+id/fullTimeJobLayout"
+                    android:id="@+id/healthButton"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_margin="10dp"
@@ -70,7 +70,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/fullTimeJobLayout"
+                    android:id="@+id/holidayButton"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_margin="10dp"
@@ -112,7 +112,7 @@
 
                 <!-- First Box -->
                 <LinearLayout
-                    android:id="@+id/fitnessActivity"
+                    android:id="@+id/fitnessButton"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_margin="10dp"
@@ -170,14 +170,8 @@
                         android:layout_height="40dp"
                         android:layout_gravity="center_horizontal"
                         android:src="@drawable/placeholder2" />
-
                 </LinearLayout>
-
-                <!-- Second Box -->
-
             </LinearLayout>
-
-            <!-- Health & Holiday-->
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
