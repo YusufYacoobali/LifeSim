@@ -34,8 +34,14 @@ class MainActivity : AppCompatActivity()  {
         //handle data when user comes back to main page
         val myContract = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
+                val data = result.data
+                val newLife = data?.getStringExtra("New")
 
-                player = gameEngine.getPlayer() //if intent = new Life then use this line
+                if (newLife != null) {
+                    player = gameEngine.getPlayer()
+                    deleteAllEvents()
+                    startLife()
+                }
                 changestatusUI()
                 printAllMessages()
             }

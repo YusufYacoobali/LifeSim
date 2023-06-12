@@ -46,8 +46,9 @@ class ActivitiesActivity : AppCompatActivity() {
                 }
                 R.id.endLifeButton -> {
                     gameEngine.startGame()
-                    gameEngine.sendMessage("${gameEngine.getPlayer().name}")
-                    setResult(Activity.RESULT_OK)
+                    val intent = Intent()
+                    intent.putExtra("New", "1")
+                    setResult(Activity.RESULT_OK, intent)
                     finish()
                 }
             }
