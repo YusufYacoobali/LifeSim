@@ -67,7 +67,7 @@
                         android:layout_width="40dp"
                         android:layout_height="40dp"
                         android:layout_gravity="center_horizontal"
-                        android:src="@drawable/placeholder" />
+                        android:src="@drawable/heart_monitor" />
 
                 </LinearLayout>
 
@@ -98,7 +98,7 @@
                         android:layout_width="40dp"
                         android:layout_height="40dp"
                         android:layout_gravity="center_horizontal"
-                        android:src="@drawable/placeholder2" />
+                        android:src="@drawable/heart" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -136,7 +136,7 @@
                         android:layout_width="40dp"
                         android:layout_height="40dp"
                         android:layout_gravity="center_horizontal"
-                        android:src="@drawable/placeholder3" />
+                        android:src="@drawable/dumbbell" />
 
                 </LinearLayout>
 
@@ -167,7 +167,7 @@
                         android:layout_width="40dp"
                         android:layout_height="40dp"
                         android:layout_gravity="center_horizontal"
-                        android:src="@drawable/placeholder" />
+                        android:src="@drawable/learn" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -205,7 +205,7 @@
                         android:layout_width="40dp"
                         android:layout_height="40dp"
                         android:layout_gravity="center_horizontal"
-                        android:src="@drawable/placeholder2" />
+                        android:src="@drawable/buy_homes" />
 
                 </LinearLayout>
 
@@ -236,7 +236,7 @@
                         android:layout_width="40dp"
                         android:layout_height="40dp"
                         android:layout_gravity="center_horizontal"
-                        android:src="@drawable/placeholder3" />
+                        android:src="@drawable/buy_car" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -274,7 +274,7 @@
                         android:layout_width="40dp"
                         android:layout_height="40dp"
                         android:layout_gravity="center_horizontal"
-                        android:src="@drawable/placeholder3" />
+                        android:src="@drawable/buy_boat" />
 
                 </LinearLayout>
 
@@ -305,7 +305,7 @@
                         android:layout_width="40dp"
                         android:layout_height="40dp"
                         android:layout_gravity="center_horizontal"
-                        android:src="@drawable/placeholder2" />
+                        android:src="@drawable/buy_planes" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -343,7 +343,7 @@
                         android:layout_width="40dp"
                         android:layout_height="40dp"
                         android:layout_gravity="center_horizontal"
-                        android:src="@drawable/placeholder2" />
+                        android:src="@drawable/party" />
 
                 </LinearLayout>
 
@@ -374,7 +374,7 @@
                         android:layout_width="40dp"
                         android:layout_height="40dp"
                         android:layout_gravity="center_horizontal"
-                        android:src="@drawable/placeholder" />
+                        android:src="@drawable/fly" />
 
                 </LinearLayout>
 
@@ -415,7 +415,7 @@
                         android:layout_width="40dp"
                         android:layout_height="40dp"
                         android:layout_gravity="center_horizontal"
-                        android:src="@drawable/placeholder3" />
+                        android:src="@drawable/charity" />
 
                 </LinearLayout>
 
@@ -446,7 +446,7 @@
                         android:layout_width="40dp"
                         android:layout_height="40dp"
                         android:layout_gravity="center_horizontal"
-                        android:src="@drawable/placeholder2" />
+                        android:src="@drawable/will" />
                 </LinearLayout>
             </LinearLayout>
             <LinearLayout
@@ -483,7 +483,7 @@
                         android:layout_width="40dp"
                         android:layout_height="40dp"
                         android:layout_gravity="center_horizontal"
-                        android:src="@drawable/placeholder3" />
+                        android:src="@drawable/emigrate" />
 
                 </LinearLayout>
 
@@ -514,7 +514,7 @@
                         android:layout_width="40dp"
                         android:layout_height="40dp"
                         android:layout_gravity="center_horizontal"
-                        android:src="@drawable/placeholder2" />
+                        android:src="@drawable/die" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
