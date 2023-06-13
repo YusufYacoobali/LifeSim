@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#303030"
+    android:background="@color/greyBackground"
     android:orientation="vertical">
 
     <!-- Main Page Title: Occupation -->
@@ -33,10 +33,39 @@
             android:padding="20dp">
 
             <!-- Component 1: Full-time Job -->
+            <LinearLayout
+                android:id="@+id/familyButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/rounded_job_buttons"
+                android:clickable="true"
+                android:focusable="true"
+                android:orientation="vertical"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal|center_vertical"
+                    android:padding="10dp"
+                    android:text="Family"
+                    android:textColor="@color/insidePagesText"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/placeholder" />
+
+            </LinearLayout>
 
             <!-- Component 2: Part-time Job -->
             <LinearLayout
-                android:id="@+id/partTimeJobLayout"
+                android:id="@+id/loversButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
@@ -50,7 +79,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal|center_vertical"
                     android:padding="10dp"
-                    android:text="Father"
+                    android:text="Lovers"
+                    android:textColor="@color/insidePagesText"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
@@ -58,19 +88,68 @@
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_gravity="center_horizontal"
-                    android:src="@drawable/baby1" />
+                    android:src="@drawable/placeholder2" />
 
             </LinearLayout>
 
             <!-- Component 3: Entrepreneur -->
+            <LinearLayout
+                android:id="@+id/friendsButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/rounded_job_buttons"
+                android:orientation="vertical"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal|center_vertical"
+                    android:padding="10dp"
+                    android:text="Friends"
+                    android:textColor="@color/insidePagesText"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/placeholder3" />
+
+            </LinearLayout>
 
             <!-- Component 4: Government -->
+            <LinearLayout
+                android:id="@+id/enemiesButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/rounded_job_buttons"
+                android:orientation="vertical"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp">
 
-            <!-- Component 5: Criminal -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal|center_vertical"
+                    android:padding="10dp"
+                    android:text="Enemies"
+                    android:textColor="@color/insidePagesText"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/placeholder" />
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
-
 </LinearLayout>
 
 
