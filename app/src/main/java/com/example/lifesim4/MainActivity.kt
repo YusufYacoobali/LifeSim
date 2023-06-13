@@ -72,6 +72,7 @@ class MainActivity : AppCompatActivity()  {
     //Start new Life
     private fun startLife(){
         binding.playerName.text = player.name
+        binding.workStatus.text = "Baby"
         addAgeTextViewToEvents()
         addTextViewToEvents("You are born as a ${player.gender}")
         addTextViewToEvents("Your name is ${player.name}")

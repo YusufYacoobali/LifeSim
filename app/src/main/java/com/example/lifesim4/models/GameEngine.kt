@@ -130,4 +130,12 @@ class GameEngine private constructor() {
 
         persons.addAll(listOf(father, mother, child1, child2))
     }
+
+    fun formatMoney(amount: Long): String {
+        val suffixes = listOf("", "K", "M", "B", "T", "Q", "Qu", "S")
+        val suffixIndex = (Math.floor(Math.log10(amount.toDouble())) / 3).toInt()
+        val shortValue = amount / Math.pow(10.0, (suffixIndex * 3).toDouble())
+        val formattedValue = "%.2f".format(shortValue)
+        return "$$formattedValue${suffixes[suffixIndex]}"
+    }
 }
