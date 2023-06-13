@@ -13,6 +13,18 @@
         android:theme="@style/Theme.Fab_Bottom_app_bar"
         tools:targetApi="31">
         <activity
+            android:name=".assets.PlanesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".assets.CarsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".assets.BoatActivity"
+            android:exported="false" />
+        <activity
+            android:name=".assets.HouseActivity"
+            android:exported="false" />
+        <activity
             android:name=".relations.EnemiesActivity"
             android:exported="false" />
         <activity
