@@ -2,17 +2,15 @@ package com.example.lifesim4
 
 import android.app.Activity
 import android.content.Intent
-import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Bundle
-import android.util.Log
 import android.widget.ScrollView
 import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
-import com.example.lifesim4.databinding.ActivityMainBinding
+import com.example.lifesim4.databinding.MainMainBinding
 import com.example.lifesim4.models.GameEngine
 import com.example.lifesim4.models.Person
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -20,12 +18,12 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 class MainActivity : AppCompatActivity()  {
 
     private lateinit var gameEngine: GameEngine
-    private lateinit var binding: ActivityMainBinding
+    private lateinit var binding: MainMainBinding
     private lateinit var player: Person
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        binding = DataBindingUtil.setContentView(this, R.layout.main_main)
         setContentView(binding.root)
         gameEngine = GameEngine.getInstance().apply { startGame() }
         player = gameEngine.getPlayer()

@@ -41,7 +41,7 @@
 
                 <!-- First Box -->
                 <LinearLayout
-                    android:id="@+id/fitnessButton"
+                    android:id="@+id/doctorButton"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_margin="10dp"
@@ -72,7 +72,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/endLifeButton"
+                    android:id="@+id/loveButton"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_margin="10dp"
@@ -141,7 +141,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/endLifeButton"
+                    android:id="@+id/skillsButton"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_margin="10dp"
@@ -179,7 +179,7 @@
 
                 <!-- First Box -->
                 <LinearLayout
-                    android:id="@+id/fitnessButton"
+                    android:id="@+id/housesButton"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_margin="10dp"
@@ -210,7 +210,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/endLifeButton"
+                    android:id="@+id/carsButton"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_margin="10dp"
@@ -248,7 +248,7 @@
 
                 <!-- First Box -->
                 <LinearLayout
-                    android:id="@+id/fitnessButton"
+                    android:id="@+id/boatsButton"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_margin="10dp"
@@ -279,7 +279,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/endLifeButton"
+                    android:id="@+id/planesButton"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_margin="10dp"
@@ -317,7 +317,7 @@
 
                 <!-- First Box -->
                 <LinearLayout
-                    android:id="@+id/healthButton"
+                    android:id="@+id/partyButton"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_margin="10dp"
@@ -377,9 +377,6 @@
                         android:src="@drawable/fly" />
 
                 </LinearLayout>
-
-                <!-- Second Box -->
-
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -389,7 +386,7 @@
 
                 <!-- First Box -->
                 <LinearLayout
-                    android:id="@+id/fitnessButton"
+                    android:id="@+id/charityButton"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_margin="10dp"
@@ -420,7 +417,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/endLifeButton"
+                    android:id="@+id/willButton"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_margin="10dp"
@@ -457,7 +454,7 @@
 
                 <!-- First Box -->
                 <LinearLayout
-                    android:id="@+id/fitnessButton"
+                    android:id="@+id/emigrateButton"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_margin="10dp"

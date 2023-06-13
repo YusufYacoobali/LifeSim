@@ -11,15 +11,11 @@ import com.example.lifesim4.assets.BoatActivity
 import com.example.lifesim4.assets.CarsActivity
 import com.example.lifesim4.assets.HouseActivity
 import com.example.lifesim4.assets.PlanesActivity
-import com.example.lifesim4.relations.EnemiesActivity
-import com.example.lifesim4.relations.FamilyActivity
-import com.example.lifesim4.relations.FriendsActivity
-import com.example.lifesim4.relations.LoversActivity
 
 class AssetActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_asset)
+        setContentView(R.layout.main_asset)
 
         val myContract = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {

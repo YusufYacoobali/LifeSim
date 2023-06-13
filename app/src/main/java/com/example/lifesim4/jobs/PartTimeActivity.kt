@@ -1,11 +1,11 @@
-package com.example.lifesim4
+package com.example.lifesim4.jobs
 
 import android.app.Activity
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.LinearLayout
+import com.example.lifesim4.R
 import com.example.lifesim4.models.GameEngine
 
 class PartTimeActivity : AppCompatActivity() {
@@ -13,7 +13,7 @@ class PartTimeActivity : AppCompatActivity() {
     private lateinit var gameEngine: GameEngine
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_part_time)
+        setContentView(R.layout.job_part_time)
         gameEngine = GameEngine.getInstance()
 
         val partTime1: LinearLayout = findViewById(R.id.partTime1)

@@ -7,6 +7,6 @@ import com.example.lifesim4.R
 class FriendsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_friends)
+        setContentView(R.layout.relation_friends)
     }
 }

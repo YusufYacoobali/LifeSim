@@ -4,13 +4,10 @@ import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.LinearLayout
-import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
-import com.example.lifesim4.R
-import com.example.lifesim4.databinding.ActivityMainBinding
+import com.example.lifesim4.jobs.PartTimeActivity
 import com.example.lifesim4.models.GameEngine
 
 class JobActivity : AppCompatActivity()  {
@@ -18,7 +15,7 @@ class JobActivity : AppCompatActivity()  {
     private lateinit var gameEngine: GameEngine
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_job)
+        setContentView(R.layout.main_job)
         gameEngine = GameEngine.getInstance()
 
         //Get data from next screen and pass it to main screen

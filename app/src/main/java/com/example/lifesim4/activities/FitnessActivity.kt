@@ -1,13 +1,11 @@
-package com.example.lifesim4
+package com.example.lifesim4.activities
 
 import android.app.Activity
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.LinearLayout
-import android.widget.TextView
-import androidx.activity.result.contract.ActivityResultContracts
+import com.example.lifesim4.R
 import com.example.lifesim4.models.GameEngine
 
 class FitnessActivity : AppCompatActivity() {

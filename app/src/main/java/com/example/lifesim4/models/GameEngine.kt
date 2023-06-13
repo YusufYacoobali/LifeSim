@@ -38,12 +38,6 @@ class GameEngine private constructor() {
         }
     }
 
-    // Method to add a Person to the game world
-    fun addPerson(person: Person) {
-        persons.add(person)
-    }
-
-    // Method to simulate the game world
     fun simulate() {
         // Perform game simulation logic here
         // Example: Update the age, money, and health of the current player
@@ -51,7 +45,17 @@ class GameEngine private constructor() {
             age++
             money += 100
             health--
+            //applycashflow() add salary to net worth and money
+            //changeWorkStatus() check if student/baby/unemployed etc
+            //applyStatResults() eg if going gym for full year
+            //ageAssets() deteritoate asset conditions
+            //randomEvents() cause random events with 40% chance of happing
         }
+    }
+
+    // Method to add a Person to the game world
+    fun addPerson(person: Person) {
+        persons.add(person)
     }
 
     fun goGym(){

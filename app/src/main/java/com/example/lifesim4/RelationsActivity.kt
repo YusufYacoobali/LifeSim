@@ -15,7 +15,7 @@ import com.example.lifesim4.relations.LoversActivity
 class RelationsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_relations)
+        setContentView(R.layout.relation_relations)
 
         val myContract = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {

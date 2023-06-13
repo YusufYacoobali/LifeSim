@@ -37,13 +37,13 @@
             android:name=".relations.FamilyActivity"
             android:exported="false" />
         <activity
-            android:name=".HolidayActivity"
+            android:name=".activities.HolidayActivity"
             android:exported="false" />
         <activity
-            android:name=".HealthActivity"
+            android:name=".activities.HealthActivity"
             android:exported="false" />
         <activity
-            android:name=".FitnessActivity"
+            android:name=".activities.FitnessActivity"
             android:exported="false" />
         <activity
             android:name=".ActivitiesActivity"
@@ -55,7 +55,7 @@
             android:name=".AssetActivity"
             android:exported="false" />
         <activity
-            android:name=".PartTimeActivity"
+            android:name=".jobs.PartTimeActivity"
             android:exported="false" />
         <activity
             android:name=".JobActivity"

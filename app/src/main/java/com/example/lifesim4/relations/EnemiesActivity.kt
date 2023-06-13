@@ -7,6 +7,6 @@ import com.example.lifesim4.R
 class EnemiesActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_enemies)
+        setContentView(R.layout.relation_enemies)
     }
 }

@@ -7,6 +7,6 @@ import com.example.lifesim4.R
 class HouseActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_house)
+        setContentView(R.layout.owned_house)
     }
 }
