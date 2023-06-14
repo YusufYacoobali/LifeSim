@@ -33,7 +33,7 @@
 
             <!-- Health & Holiday-->
             <LinearLayout
-                android:id="@+id/gymOption"
+                android:id="@+id/bestDoctor"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="10dp"
@@ -72,7 +72,7 @@
                         android:layout_height="0dp"
                         android:layout_gravity="center_horizontal|center_vertical"
                         android:layout_weight="1"
-                        android:text="+10 Vitality"
+                        android:text="The best money can buy"
                         android:textColor="#575555"
                         android:textSize="16sp"
                         android:textStyle="bold" />
@@ -82,7 +82,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/swimOption"
+                android:id="@+id/cheapDoctor"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="10dp"
@@ -121,7 +121,7 @@
                         android:layout_height="0dp"
                         android:layout_gravity="center_horizontal|center_vertical"
                         android:layout_weight="1"
-                        android:text="+3 Vitality"
+                        android:text="Affordable"
                         android:textColor="#575555"
                         android:textSize="16sp"
                         android:textStyle="bold" />
@@ -131,7 +131,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/runOption"
+                android:id="@+id/witch"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="10dp"
@@ -180,7 +180,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/footballOption"
+                android:id="@+id/potion"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="10dp"
@@ -220,14 +220,14 @@
                         android:layout_height="0dp"
                         android:layout_gravity="center_horizontal|center_vertical"
                         android:layout_weight="1"
-                        android:text="Vitality ???"
+                        android:text="Did it work?"
                         android:textColor="#575555"
                         android:textSize="16sp"
                         android:textStyle="bold" />
                 </LinearLayout>
             </LinearLayout>
             <LinearLayout
-                android:id="@+id/footballOption"
+                android:id="@+id/surgery"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="10dp"
@@ -252,7 +252,6 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/textView2"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_gravity="center_horizontal|center_vertical"

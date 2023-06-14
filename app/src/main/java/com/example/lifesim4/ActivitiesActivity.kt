@@ -14,6 +14,7 @@ import com.example.lifesim4.activities.EmigrateActivity
 import com.example.lifesim4.activities.FitnessActivity
 import com.example.lifesim4.activities.HealthActivity
 import com.example.lifesim4.activities.HolidayActivity
+import com.example.lifesim4.activities.LawsuitActivity
 import com.example.lifesim4.activities.LoveActivity
 import com.example.lifesim4.activities.PartyActivity
 import com.example.lifesim4.activities.PlanesActivity
@@ -91,6 +92,10 @@ class ActivitiesActivity : AppCompatActivity() {
                     val intent = Intent(this, EmigrateActivity::class.java)
                     myContract.launch(intent)
                 }
+                R.id.lawsuitButton -> {
+                    val intent = Intent(this, LawsuitActivity::class.java)
+                    myContract.launch(intent)
+                }
                 R.id.endLifeButton -> {
                     gameEngine.startGame()
                     val intent = Intent()
@@ -115,6 +120,7 @@ class ActivitiesActivity : AppCompatActivity() {
         val charityButton: LinearLayout = findViewById(R.id.charityButton)
         val willButton: LinearLayout = findViewById(R.id.willButton)
         val emigrateButton: LinearLayout = findViewById(R.id.emigrateButton)
+        val lawsuitButton: LinearLayout = findViewById(R.id.lawsuitButton)
 
         fitnessButton.setOnClickListener(clickListener)
         endLifeButton.setOnClickListener(clickListener)
@@ -130,5 +136,6 @@ class ActivitiesActivity : AppCompatActivity() {
         charityButton.setOnClickListener(clickListener)
         willButton.setOnClickListener(clickListener)
         emigrateButton.setOnClickListener(clickListener)
+        lawsuitButton.setOnClickListener(clickListener)
     }
 }

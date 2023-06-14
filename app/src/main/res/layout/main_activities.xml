@@ -485,7 +485,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/endLifeButton"
+                    android:id="@+id/lawsuitButton"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_margin="10dp"

@@ -66,6 +66,40 @@ class GameEngine private constructor() {
         }
     }
 
+    fun goDoctors(option: Int) {
+        when (option) {
+            1 -> {
+                sendMessage("Visited best doctor")
+                // Additional actions for option 1
+                currentPlayer.money -= if (20000 > currentPlayer.money * 0.15) 20000 else (currentPlayer.money * 0.15).toLong()
+                currentPlayer.health = 100
+            }
+            2 -> {
+                sendMessage("Visited doctor")
+                // Additional actions for option 2
+            }
+            3 -> {
+                sendMessage("Visited witch")
+                // Additional actions for option 3
+            }
+            4 -> {
+                sendMessage("Made home potion")
+                // Additional actions for option 4
+            }
+            5 -> {
+                sendMessage("Got surgery")
+                // Additional actions for option 5
+            }
+            else -> {
+                sendMessage("Invalid option")
+                // Additional actions for invalid options
+            }
+        }
+    }
+
+
+
+
     fun sendMessage(message: String){
         messages.add(message)
     }
