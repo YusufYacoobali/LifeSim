@@ -7,9 +7,19 @@ import android.os.Bundle
 import android.view.View
 import android.widget.LinearLayout
 import androidx.activity.result.contract.ActivityResultContracts
+import com.example.lifesim4.activities.BoatsActivity
+import com.example.lifesim4.activities.CarsActivity
+import com.example.lifesim4.activities.CharityActivity
+import com.example.lifesim4.activities.EmigrateActivity
 import com.example.lifesim4.activities.FitnessActivity
 import com.example.lifesim4.activities.HealthActivity
 import com.example.lifesim4.activities.HolidayActivity
+import com.example.lifesim4.activities.LoveActivity
+import com.example.lifesim4.activities.PartyActivity
+import com.example.lifesim4.activities.PlanesActivity
+import com.example.lifesim4.activities.PropertiesActivity
+import com.example.lifesim4.activities.SkillsActivity
+import com.example.lifesim4.activities.WillActivity
 import com.example.lifesim4.models.GameEngine
 
 class ActivitiesActivity : AppCompatActivity() {
@@ -42,43 +52,43 @@ class ActivitiesActivity : AppCompatActivity() {
                     myContract.launch(intent)
                 }
                 R.id.loveButton -> {
-                    val intent = Intent(this, FitnessActivity::class.java)
+                    val intent = Intent(this, LoveActivity::class.java)
                     myContract.launch(intent)
                 }
                 R.id.skillsButton -> {
-                    val intent = Intent(this, HealthActivity::class.java)
+                    val intent = Intent(this, SkillsActivity::class.java)
                     myContract.launch(intent)
                 }
                 R.id.housesButton -> {
-                    val intent = Intent(this, HolidayActivity::class.java)
+                    val intent = Intent(this, PropertiesActivity::class.java)
                     myContract.launch(intent)
                 }
                 R.id.carsButton -> {
-                    val intent = Intent(this, FitnessActivity::class.java)
+                    val intent = Intent(this, CarsActivity::class.java)
                     myContract.launch(intent)
                 }
                 R.id.boatsButton -> {
-                    val intent = Intent(this, HealthActivity::class.java)
+                    val intent = Intent(this, BoatsActivity::class.java)
                     myContract.launch(intent)
                 }
                 R.id.planesButton -> {
-                    val intent = Intent(this, HolidayActivity::class.java)
+                    val intent = Intent(this, PlanesActivity::class.java)
                     myContract.launch(intent)
                 }
                 R.id.partyButton -> {
-                    val intent = Intent(this, HolidayActivity::class.java)
+                    val intent = Intent(this, PartyActivity::class.java)
                     myContract.launch(intent)
                 }
                 R.id.charityButton -> {
-                    val intent = Intent(this, FitnessActivity::class.java)
+                    val intent = Intent(this, CharityActivity::class.java)
                     myContract.launch(intent)
                 }
                 R.id.willButton -> {
-                    val intent = Intent(this, HealthActivity::class.java)
+                    val intent = Intent(this, WillActivity::class.java)
                     myContract.launch(intent)
                 }
                 R.id.emigrateButton -> {
-                    val intent = Intent(this, HolidayActivity::class.java)
+                    val intent = Intent(this, EmigrateActivity::class.java)
                     myContract.launch(intent)
                 }
                 R.id.endLifeButton -> {

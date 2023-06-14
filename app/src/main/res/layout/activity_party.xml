@@ -13,7 +13,7 @@
         android:background="@color/insidePagesText"
         android:gravity="center"
         android:padding="16dp"
-        android:text="Holidays"
+        android:text="Party"
         android:textColor="@color/white"
         android:textSize="24sp"
         android:textStyle="bold" />
@@ -49,7 +49,7 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="center_horizontal"
                     android:layout_weight="1"
-                    android:src="@drawable/ski" />
+                    android:src="@drawable/dining" />
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -62,7 +62,7 @@
                         android:layout_height="0dp"
                         android:layout_gravity="center_horizontal|center_vertical"
                         android:layout_weight="1"
-                        android:text="Skiing &amp; Snowboarding"
+                        android:text="Day Out"
                         android:textColor="@color/black"
                         android:textSize="18sp"
                         android:textStyle="bold" />
@@ -72,7 +72,7 @@
                         android:layout_height="0dp"
                         android:layout_gravity="center_horizontal|center_vertical"
                         android:layout_weight="1"
-                        android:text="Have a fun holiday"
+                        android:text="Go to the movies, eat out etc"
                         android:textColor="#575555"
                         android:textSize="16sp"
                         android:textStyle="bold" />
@@ -98,7 +98,7 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="center_horizontal"
                     android:layout_weight="1"
-                    android:src="@drawable/resort" />
+                    android:src="@drawable/record" />
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -111,7 +111,7 @@
                         android:layout_height="0dp"
                         android:layout_gravity="center_horizontal|center_vertical"
                         android:layout_weight="1"
-                        android:text="Resort"
+                        android:text="Break A World Record"
                         android:textColor="@color/black"
                         android:textSize="18sp"
                         android:textStyle="bold" />
@@ -121,7 +121,7 @@
                         android:layout_height="0dp"
                         android:layout_gravity="center_horizontal|center_vertical"
                         android:layout_weight="1"
-                        android:text="Unwind and relax"
+                        android:text="Attempt to break a world record"
                         android:textColor="#575555"
                         android:textSize="16sp"
                         android:textStyle="bold" />
@@ -147,7 +147,7 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="center_horizontal"
                     android:layout_weight="1"
-                    android:src="@drawable/buy_boat" />
+                    android:src="@drawable/spa" />
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -160,7 +160,7 @@
                         android:layout_height="0dp"
                         android:layout_gravity="center_horizontal|center_vertical"
                         android:layout_weight="1"
-                        android:text="Cruise"
+                        android:text="Spa"
                         android:textColor="@color/black"
                         android:textSize="18sp"
                         android:textStyle="bold" />
@@ -170,7 +170,7 @@
                         android:layout_height="0dp"
                         android:layout_gravity="center_horizontal|center_vertical"
                         android:layout_weight="1"
-                        android:text="Go on an adventure"
+                        android:text="Have a relaxing time"
                         android:textColor="#575555"
                         android:textSize="16sp"
                         android:textStyle="bold" />
@@ -196,7 +196,7 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="center_horizontal"
                     android:layout_weight="1"
-                    android:src="@drawable/hotel" />
+                    android:src="@drawable/party" />
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -210,7 +210,7 @@
                         android:layout_height="0dp"
                         android:layout_gravity="center_horizontal|center_vertical"
                         android:layout_weight="1"
-                        android:text="Affordable"
+                        android:text="Host A Party"
                         android:textColor="@color/black"
                         android:textSize="18sp"
                         android:textStyle="bold" />
@@ -220,7 +220,54 @@
                         android:layout_height="0dp"
                         android:layout_gravity="center_horizontal|center_vertical"
                         android:layout_weight="1"
-                        android:text="Be sensible with your money"
+                        android:text="Invite friends and family"
+                        android:textColor="#575555"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/footballOption"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:background="#FFFFFF"
+                android:clickable="true"
+                android:focusable="true"
+                android:orientation="horizontal"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp">
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="1"
+                    android:src="@drawable/money" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="5"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/textView2"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_gravity="center_horizontal|center_vertical"
+                        android:layout_weight="1"
+                        android:text="Casino"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_gravity="center_horizontal|center_vertical"
+                        android:layout_weight="1"
+                        android:text="Try winning?"
                         android:textColor="#575555"
                         android:textSize="16sp"
                         android:textStyle="bold" />

@@ -10,6 +10,7 @@
         android:id="@+id/titleOccupation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/insidePagesText"
         android:gravity="center"
         android:padding="16dp"
         android:text="Fitness"
@@ -48,7 +49,7 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="center_horizontal"
                     android:layout_weight="1"
-                    android:src="@drawable/placeholder2" />
+                    android:src="@drawable/dumbbell" />
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -97,7 +98,7 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="center_horizontal"
                     android:layout_weight="1"
-                    android:src="@drawable/placeholder" />
+                    android:src="@drawable/swim" />
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -146,7 +147,7 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="center_horizontal"
                     android:layout_weight="1"
-                    android:src="@drawable/placeholder3" />
+                    android:src="@drawable/running" />
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -195,7 +196,7 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="center_horizontal"
                     android:layout_weight="1"
-                    android:src="@drawable/placeholder2" />
+                    android:src="@drawable/baseline_sports_soccer_24" />
 
                 <LinearLayout
                     android:layout_width="0dp"

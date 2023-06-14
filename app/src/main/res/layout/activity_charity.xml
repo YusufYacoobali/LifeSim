@@ -13,7 +13,7 @@
         android:background="@color/insidePagesText"
         android:gravity="center"
         android:padding="16dp"
-        android:text="Holidays"
+        android:text="Charity"
         android:textColor="@color/white"
         android:textSize="24sp"
         android:textStyle="bold" />
@@ -49,7 +49,7 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="center_horizontal"
                     android:layout_weight="1"
-                    android:src="@drawable/ski" />
+                    android:src="@drawable/clothes" />
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -62,7 +62,7 @@
                         android:layout_height="0dp"
                         android:layout_gravity="center_horizontal|center_vertical"
                         android:layout_weight="1"
-                        android:text="Skiing &amp; Snowboarding"
+                        android:text="Donate Clothes"
                         android:textColor="@color/black"
                         android:textSize="18sp"
                         android:textStyle="bold" />
@@ -72,7 +72,7 @@
                         android:layout_height="0dp"
                         android:layout_gravity="center_horizontal|center_vertical"
                         android:layout_weight="1"
-                        android:text="Have a fun holiday"
+                        android:text="Give your unused old clothes"
                         android:textColor="#575555"
                         android:textSize="16sp"
                         android:textStyle="bold" />
@@ -98,7 +98,7 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="center_horizontal"
                     android:layout_weight="1"
-                    android:src="@drawable/resort" />
+                    android:src="@drawable/money" />
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -111,7 +111,7 @@
                         android:layout_height="0dp"
                         android:layout_gravity="center_horizontal|center_vertical"
                         android:layout_weight="1"
-                        android:text="Resort"
+                        android:text="Give Money"
                         android:textColor="@color/black"
                         android:textSize="18sp"
                         android:textStyle="bold" />
@@ -121,7 +121,7 @@
                         android:layout_height="0dp"
                         android:layout_gravity="center_horizontal|center_vertical"
                         android:layout_weight="1"
-                        android:text="Unwind and relax"
+                        android:text="Be a good human being"
                         android:textColor="#575555"
                         android:textSize="16sp"
                         android:textStyle="bold" />
@@ -147,7 +147,7 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="center_horizontal"
                     android:layout_weight="1"
-                    android:src="@drawable/buy_boat" />
+                    android:src="@drawable/charity" />
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -160,7 +160,7 @@
                         android:layout_height="0dp"
                         android:layout_gravity="center_horizontal|center_vertical"
                         android:layout_weight="1"
-                        android:text="Cruise"
+                        android:text="Volunteer "
                         android:textColor="@color/black"
                         android:textSize="18sp"
                         android:textStyle="bold" />
@@ -170,7 +170,7 @@
                         android:layout_height="0dp"
                         android:layout_gravity="center_horizontal|center_vertical"
                         android:layout_weight="1"
-                        android:text="Go on an adventure"
+                        android:text="Spend a day in an orphanage"
                         android:textColor="#575555"
                         android:textSize="16sp"
                         android:textStyle="bold" />
@@ -179,53 +179,6 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/footballOption"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="10dp"
-                android:background="#FFFFFF"
-                android:clickable="true"
-                android:focusable="true"
-                android:orientation="horizontal"
-                android:paddingTop="8dp"
-                android:paddingBottom="8dp">
-
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_weight="1"
-                    android:src="@drawable/hotel" />
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="5"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/textView2"
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_gravity="center_horizontal|center_vertical"
-                        android:layout_weight="1"
-                        android:text="Affordable"
-                        android:textColor="@color/black"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_gravity="center_horizontal|center_vertical"
-                        android:layout_weight="1"
-                        android:text="Be sensible with your money"
-                        android:textColor="#575555"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
-                </LinearLayout>
-            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
