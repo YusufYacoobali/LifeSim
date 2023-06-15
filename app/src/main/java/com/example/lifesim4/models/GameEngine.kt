@@ -97,9 +97,6 @@ class GameEngine private constructor() {
         }
     }
 
-
-
-
     fun sendMessage(message: String){
         messages.add(message)
     }

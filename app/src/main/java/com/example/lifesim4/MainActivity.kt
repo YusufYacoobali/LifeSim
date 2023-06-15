@@ -1,9 +1,17 @@
 package com.example.lifesim4
 
 import android.app.Activity
+import android.app.Dialog
+import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Bundle
+import android.view.Gravity
+import android.view.ViewGroup
+import android.view.Window
+import android.widget.Button
+import android.widget.LinearLayout
 import android.widget.ScrollView
 import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
@@ -81,6 +89,7 @@ class MainActivity : AppCompatActivity()  {
         val messages = gameEngine.getAllMessages()
         for (message in messages){
             addTextViewToEvents(message)
+            showPopupDialog(this,message)
         }
     }
 
@@ -89,6 +98,27 @@ class MainActivity : AppCompatActivity()  {
         changestatusUI()
         addAgeTextViewToEvents()
     }
+
+    fun showPopupDialog(context: Context, message: String) {
+        val dialog = Dialog(context)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setContentView(R.layout.dialog_layout)
+
+        val dialogMessage: TextView = dialog.findViewById(R.id.dialog_message)
+        val dialogButton: Button = dialog.findViewById(R.id.dialog_button)
+
+        dialogMessage.text = message
+
+        dialogButton.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        dialog.setCancelable(true)
+        dialog.setCanceledOnTouchOutside(true)
+
+        dialog.show()
+    }
+
 
     //Used by events from other pages
     private fun addTextViewToEvents(text: String){
