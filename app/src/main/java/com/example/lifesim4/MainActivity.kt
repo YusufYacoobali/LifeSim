@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.Typeface
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.Gravity
 import android.view.ViewGroup
@@ -89,7 +90,7 @@ class MainActivity : AppCompatActivity()  {
         val messages = gameEngine.getAllMessages()
         for (message in messages){
             addTextViewToEvents(message)
-            showPopupDialog(this,message)
+            showPopupDialog(message)
         }
     }
 
@@ -99,13 +100,15 @@ class MainActivity : AppCompatActivity()  {
         addAgeTextViewToEvents()
     }
 
-    fun showPopupDialog(context: Context, message: String) {
-        val dialog = Dialog(context)
+    fun showPopupDialog(message: String) {
+        val dialog = Dialog(this)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.setContentView(R.layout.dialog_layout)
 
         val dialogMessage: TextView = dialog.findViewById(R.id.dialog_message)
-        val dialogButton: Button = dialog.findViewById(R.id.dialog_button)
+        val dialogButton: TextView = dialog.findViewById(R.id.dialog_button)
+
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
         dialogMessage.text = message
 
