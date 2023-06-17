@@ -179,7 +179,16 @@ class MainActivity : AppCompatActivity()  {
         binding.fortuneProgressText.text = player.fortune.toString()
         binding.fortuneProgressBar.progress = player.fortune
 
-        binding.moneyText.text = player.money.toString()
+        binding.moneyText.text = formatMoney(player.money)
         binding.playerName.text = player.name
     }
+
+    private fun formatMoney(amount: Long): String {
+        val suffixes = listOf("", "K", "M", "B", "T", "Q", "Qu", "S")
+        val suffixIndex = (Math.max(0, Math.floor(Math.log10(amount.toDouble()) / 3).toInt())).coerceAtMost(suffixes.size - 1)
+        val shortValue = amount / Math.pow(10.0, (suffixIndex * 3).toDouble())
+        val formattedValue = "%.2f".format(shortValue)
+        return "$$formattedValue${suffixes[suffixIndex]}"
+    }
+
 }

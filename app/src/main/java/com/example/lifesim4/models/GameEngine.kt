@@ -1,6 +1,7 @@
 package com.example.lifesim4.models
 
 import com.github.javafaker.Faker
+import java.util.Random
 
 class GameEngine private constructor() {
 
@@ -9,6 +10,7 @@ class GameEngine private constructor() {
         private var messages: MutableList<String> = mutableListOf()
         private val persons: MutableList<Person> = mutableListOf()
         private lateinit var currentPlayer: Person
+        val random = Random()
         val faker = Faker()
         val femaleFirstNames = listOf(
             "Emma", "Olivia", "Ava", "Sophia", "Isabella", "Mia", "Charlotte", "Amelia",
@@ -43,13 +45,14 @@ class GameEngine private constructor() {
         // Example: Update the age, money, and health of the current player
         currentPlayer.apply {
             age++
-            money += 100
+            money += 10000
             health--
             //applycashflow() add salary to net worth and money
             //changeWorkStatus() check if student/baby/unemployed etc
             //applyStatResults() eg if going gym for full year
             //ageAssets() deteritoate asset conditions
             //randomEvents() cause random events with 40% chance of happing
+            //calcNetworth()
         }
     }
 
@@ -66,33 +69,40 @@ class GameEngine private constructor() {
         }
     }
 
+    private fun processDoctorOption(minCharge: Long, thresholdHealth: Int, defaultHealth: Int, additional: Int, minChargeRate: Double, maxChargeRate: Double) {
+        if (currentPlayer.money > minCharge) {
+            currentPlayer.health = if (currentPlayer.health < thresholdHealth) random.nextInt(11) + additional else defaultHealth
+            val randomCharge = ((random.nextDouble() * (maxChargeRate - minChargeRate) + minChargeRate) * currentPlayer.money).toLong()
+            currentPlayer.money -= randomCharge
+            sendMessage("Nice! Your health is now ${currentPlayer.health}. This costed you ${formatMoney(randomCharge)}")
+        } else {
+            sendMessage("Minimum charge is $${minCharge}. You are broke and cannot afford this...lol")
+        }
+    }
+
+
     fun goDoctors(option: Int) {
         when (option) {
             1 -> {
-                sendMessage("Visited best doctor")
-                // Additional actions for option 1
-                currentPlayer.money -= if (20000 > currentPlayer.money * 0.15) 20000 else (currentPlayer.money * 0.15).toLong()
-                currentPlayer.health = 100
+                processDoctorOption(20000, 90, 100, 90,0.5, 0.3)
             }
             2 -> {
-                sendMessage("Visited doctor")
-                // Additional actions for option 2
+                processDoctorOption(2000, 70, 88, 70,0.27, 0.19)
             }
             3 -> {
-                sendMessage("Visited witch")
-                // Additional actions for option 3
+                processDoctorOption(400, 99, 100, 50,0.8, 0.2)
             }
             4 -> {
-                sendMessage("Made home potion")
-                // Additional actions for option 4
+                processDoctorOption(0, 10, 30, 10,0.0, 0.1)
             }
             5 -> {
-                sendMessage("Got surgery")
-                // Additional actions for option 5
+                //plastic surgery
+                currentPlayer.money -= 20000
+                currentPlayer.charm += 10
+                sendMessage("You got that plastic. It costed you $20k")
             }
             else -> {
                 sendMessage("Invalid option")
-                // Additional actions for invalid options
             }
         }
     }
@@ -166,9 +176,9 @@ class GameEngine private constructor() {
         persons.addAll(listOf(father, mother, child1, child2))
     }
 
-    fun formatMoney(amount: Long): String {
+    private fun formatMoney(amount: Long): String {
         val suffixes = listOf("", "K", "M", "B", "T", "Q", "Qu", "S")
-        val suffixIndex = (Math.floor(Math.log10(amount.toDouble())) / 3).toInt()
+        val suffixIndex = (Math.max(0, Math.floor(Math.log10(amount.toDouble()) / 3).toInt())).coerceAtMost(suffixes.size - 1)
         val shortValue = amount / Math.pow(10.0, (suffixIndex * 3).toDouble())
         val formattedValue = "%.2f".format(shortValue)
         return "$$formattedValue${suffixes[suffixIndex]}"
