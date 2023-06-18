@@ -21,14 +21,13 @@ class FamilyActivity : AppCompatActivity() {
 
         val parentsContainer: LinearLayout = findViewById(R.id.parents)
 
-        addPersonToView(parentsContainer, player.father?.name, "Lovely", R.drawable.potion)
-        addPersonToView(parentsContainer, player.father?.name, "Lovely", R.drawable.potion)
-        addPersonToView(parentsContainer, player.mother?.name, "Lovely", R.drawable.potion)
+        addPersonToView(parentsContainer, player.father?.name, "Father", R.drawable.male)
+        addPersonToView(parentsContainer, player.mother?.name, "Mother", R.drawable.female)
     }
 
     private fun addPersonToView(placement: LinearLayout, name: String?, caption: String, icon: Int){
         // Create an instance of the card_basic layout
-        val personCard = layoutInflater.inflate(R.layout.card_basic, placement, true)
+        val personCard = layoutInflater.inflate(R.layout.card_basic, placement, false)
 
         // Find the views inside the fatherCard layout and set the father's details
         val nameTextView: TextView = personCard.findViewById(R.id.name)
@@ -38,8 +37,7 @@ class FamilyActivity : AppCompatActivity() {
         nameTextView.text = name
         captionTextView.text = caption
         image.setImageResource(icon)
-
-        // Add the fatherCard layout to the fatherContainer LinearLayout
-       // placement.addView(personCard)
+        placement.addView(personCard)
+        //return personCard
     }
 }

@@ -24,7 +24,7 @@ data class Person(
     var mother: Person? = null,
     var sisters: List<Person> = emptyList(),
     var brothers: List<Person> = emptyList(),
-    var assets: MutableList<String> = mutableListOf(),
+    var assets: MutableList<Asset> = mutableListOf(),
     var job: Job? = null,
     var educationLevel: String? = null,
     var relationshipStatus: String? = null,
@@ -65,4 +65,21 @@ data class Job(
     val nextJob: Job?,
     val jobLevel: Int
 )
+
+sealed class Asset(val name: String, val value: Double, val condition: Int) {
+    class House(name: String, value: Double, condition: Int, val squareFeet: Int, var state: HouseState) :
+        Asset(name, value, condition)
+    class Car(name: String, value: Double, condition: Int) : Asset(name, value, condition)
+    class Plane(name: String, value: Double, condition: Int) : Asset(name, value, condition)
+    class Boat(name: String, value: Double, condition: Int) : Asset(name, value, condition)
+}
+
+enum class HouseState {
+    LIVING_IN,
+    RENTING_OUT,
+    VACANT,
+    UNDER_CONSTRUCTION,
+    // Add more states as needed
+}
+
 

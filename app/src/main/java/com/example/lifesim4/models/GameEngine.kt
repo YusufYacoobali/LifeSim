@@ -244,6 +244,13 @@ class GameEngine private constructor() {
         currentPlayer = child1
 
         persons.addAll(listOf(father, mother, child1, child2))
+
+        val house1 = Asset.House("My House", 250000.0, 80, 2200, HouseState.LIVING_IN)
+        val house2 = Asset.House("Casa Primero", 2500000.0, 100, 4000, HouseState.RENTING_OUT)
+        val house3 = Asset.House("Casa Cinco", 280000.0, 59, 3600, HouseState.VACANT)
+        val car = Asset.Car("My Car", 30000.0, 9)
+        currentPlayer.assets.addAll(listOf(house1,house2,house3))
+        currentPlayer.assets.add(car)
     }
 
     private fun formatMoney(amount: Long): String {
