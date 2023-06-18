@@ -49,6 +49,7 @@ class MainActivity : AppCompatActivity()  {
                     deleteAllEvents()
                     startLife()
                 }
+                gameEngine.calcNetWorth()
                 changestatusUI()
                 printAllMessages()
             }
@@ -98,6 +99,7 @@ class MainActivity : AppCompatActivity()  {
     private fun simulateUI() {
         changestatusUI()
         addAgeTextViewToEvents()
+        printAllMessages()
     }
 
     fun showPopupDialog(message: String) {
@@ -180,7 +182,9 @@ class MainActivity : AppCompatActivity()  {
         binding.fortuneProgressBar.progress = player.fortune
 
         binding.moneyText.text = formatMoney(player.money)
+        binding.netWorthText.text = formatMoney(player.netWorth)
         binding.playerName.text = player.name
+        binding.workStatus.text = player.title
     }
 
     private fun formatMoney(amount: Long): String {

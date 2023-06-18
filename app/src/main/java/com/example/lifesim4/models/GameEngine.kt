@@ -41,19 +41,57 @@ class GameEngine private constructor() {
     }
 
     fun simulate() {
-        // Perform game simulation logic here
-        // Example: Update the age, money, and health of the current player
+        applyStatsAndAge()
+        changeWorkStatus()  //check if student/baby/unemployed etc
+        ageAssets() //deteritoate asset conditions
+        randomEvents() //cause random events with 40% chance of happing
+        calcNetWorth()
+    }
+
+    fun applyStatsAndAge(){
         currentPlayer.apply {
             age++
-            money += 10000
-            health--
-            //applycashflow() add salary to net worth and money
-            //changeWorkStatus() check if student/baby/unemployed etc
-            //applyStatResults() eg if going gym for full year
-            //ageAssets() deteritoate asset conditions
-            //randomEvents() cause random events with 40% chance of happing
-            //calcNetworth()
+            health += healthChange
+            charm += charmChange
+            genius += geniusChange
+            money += moneyChange
+            money += 1000000000 //testing
         }
+    }
+
+    fun changeWorkStatus(){
+        if (currentPlayer.age == 3) {
+            currentPlayer.title = "Student"
+            sendMessage("Nursery Started")
+        } else if (currentPlayer.age == 5) {
+            sendMessage("Primary School Started")
+        } else if (currentPlayer.age == 11) {
+            sendMessage("Secondary School Started")
+        } else if (currentPlayer.age == 22 && currentPlayer.job == null) {
+            currentPlayer.title = "Unemployed"
+        } else if (currentPlayer.job != null) {
+            sendMessage(currentPlayer.title)
+        }
+    }
+
+    fun ageAssets(){
+        for (asset in currentPlayer.assets){
+            //actions to deterioate and pay rent etc
+        }
+    }
+
+    fun randomEvents() {
+        val chance = 0.4 // 40% chance
+
+        if (random.nextDouble() < chance) {
+            sendMessage("Random event occurred")
+        }
+    }
+
+    fun calcNetWorth(){
+        var businessTotal = 0
+        var assetTotal = 0
+        currentPlayer.netWorth = currentPlayer.money + assetTotal + businessTotal
     }
 
     // Method to add a Person to the game world
