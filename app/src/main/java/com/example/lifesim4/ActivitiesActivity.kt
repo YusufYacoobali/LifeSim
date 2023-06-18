@@ -97,7 +97,6 @@ class ActivitiesActivity : AppCompatActivity() {
                     myContract.launch(intent)
                 }
                 R.id.endLifeButton -> {
-                    gameEngine.startGame()
                     val intent = Intent()
                     intent.putExtra("New", "1")
                     setResult(Activity.RESULT_OK, intent)

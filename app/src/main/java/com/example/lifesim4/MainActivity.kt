@@ -34,9 +34,8 @@ class MainActivity : AppCompatActivity()  {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.main_main)
         setContentView(binding.root)
-        gameEngine = GameEngine.getInstance().apply { startGame() }
-        player = gameEngine.getPlayer()
-        startLife()
+        gameEngine = GameEngine.getInstance()
+        startNewGame()
 
         //handle data when user comes back to main page
         val myContract = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -45,9 +44,7 @@ class MainActivity : AppCompatActivity()  {
                 val newLife = data?.getStringExtra("New")
 
                 if (newLife != null) {
-                    player = gameEngine.getPlayer()
-                    deleteAllEvents()
-                    startLife()
+                    startNewGame()
                 }
                 gameEngine.calcNetWorth()
                 changestatusUI()
@@ -78,7 +75,10 @@ class MainActivity : AppCompatActivity()  {
     }
 
     //Start new Life
-    private fun startLife(){
+    private fun startNewGame(){
+        gameEngine.startGame()
+        player = gameEngine.getPlayer()
+        deleteAllEvents()
         binding.playerName.text = player.name
         binding.workStatus.text = "Baby"
         addAgeTextViewToEvents()
@@ -100,6 +100,11 @@ class MainActivity : AppCompatActivity()  {
         changestatusUI()
         addAgeTextViewToEvents()
         printAllMessages()
+        if (gameEngine.startNew == true){
+            startNewGame()
+            gameEngine.startNew = false
+
+        }
     }
 
     fun showPopupDialog(message: String) {

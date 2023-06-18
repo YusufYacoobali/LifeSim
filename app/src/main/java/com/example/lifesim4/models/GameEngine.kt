@@ -5,6 +5,8 @@ import java.util.Random
 
 class GameEngine private constructor() {
 
+    var startNew: Boolean = false
+
     companion object {
         private var instance: GameEngine? = null
         private var messages: MutableList<String> = mutableListOf()
@@ -42,35 +44,65 @@ class GameEngine private constructor() {
 
     fun simulate() {
         applyStatsAndAge()
-        changeWorkStatus()  //check if student/baby/unemployed etc
+        lifeChanges()  //check if student/baby/unemployed etc
         ageAssets() //deteritoate asset conditions
-        randomEvents() //cause random events with 40% chance of happing
+       // randomEvents() //cause random events with 40% chance of happing
         calcNetWorth()
+        checkLife()
+    }
+
+    fun checkLife(){
+        if (currentPlayer.health <= 0){
+            sendMessage("You Died!")
+            startNew = true
+        }
     }
 
     fun applyStatsAndAge(){
         currentPlayer.apply {
             age++
-            health += healthChange
-            charm += charmChange
-            genius += geniusChange
+            health = (health + healthChange).coerceAtMost(100)
+            charm = (charm + charmChange).coerceAtMost(100)
+            genius = (genius + geniusChange).coerceAtMost(100)
             money += moneyChange
             money += 1000000000 //testing
         }
     }
 
-    fun changeWorkStatus(){
+    fun lifeChanges(){
         if (currentPlayer.age == 3) {
-            currentPlayer.title = "Student"
+            currentPlayer.apply {
+                title = "Student"
+                healthChange += 1
+                geniusChange += 1
+            }
             sendMessage("Nursery Started")
         } else if (currentPlayer.age == 5) {
             sendMessage("Primary School Started")
         } else if (currentPlayer.age == 11) {
             sendMessage("Secondary School Started")
+        } else if (currentPlayer.age == 18){
+            currentPlayer.apply {
+                healthChange -= 1
+                geniusChange -= 1
+            }
         } else if (currentPlayer.age == 22 && currentPlayer.job == null) {
             currentPlayer.title = "Unemployed"
         } else if (currentPlayer.job != null) {
             sendMessage(currentPlayer.title)
+        } else if (currentPlayer.age == 40){
+            currentPlayer.apply {
+                healthChange -= 1
+                healthChange -= 4 //testing
+                geniusChange -= 1
+                charmChange -= 1
+            }
+        } else if (currentPlayer.age == 60){
+            currentPlayer.apply {
+                healthChange -= 2
+                geniusChange -= 1
+                charmChange -= 3
+            }
         }
     }
 
