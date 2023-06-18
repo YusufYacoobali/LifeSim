@@ -69,7 +69,7 @@ data class Job(
 sealed class Asset(val name: String, val value: Double, val condition: Int) {
     class House(name: String, value: Double, condition: Int, val squareFeet: Int, var state: HouseState) :
         Asset(name, value, condition)
-    class Car(name: String, value: Double, condition: Int) : Asset(name, value, condition)
+    class Car(name: String, value: Double, condition: Int, var state: CarState) : Asset(name, value, condition)
     class Plane(name: String, value: Double, condition: Int) : Asset(name, value, condition)
     class Boat(name: String, value: Double, condition: Int) : Asset(name, value, condition)
 }
@@ -79,6 +79,14 @@ enum class HouseState {
     RENTING_OUT,
     VACANT,
     UNDER_CONSTRUCTION,
+    // Add more states as needed
+}
+
+enum class CarState {
+    PRIMARY,
+    RENTING,
+    FINANCE,
+    STOLEN,
     // Add more states as needed
 }
 

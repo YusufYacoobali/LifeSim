@@ -65,7 +65,7 @@ class GameEngine private constructor() {
             charm = (charm + charmChange).coerceAtMost(100)
             genius = (genius + geniusChange).coerceAtMost(100)
             money += moneyChange
-            money += 1000000000 //testing
+            //money += 1000000000 //testing
         }
     }
 
@@ -122,7 +122,7 @@ class GameEngine private constructor() {
 
     fun calcNetWorth(){
         var businessTotal = 0
-        var assetTotal = 0
+        val assetTotal = currentPlayer.assets.sumOf { asset -> asset.value }.toLong()
         currentPlayer.netWorth = currentPlayer.money + assetTotal + businessTotal
     }
 
@@ -248,9 +248,11 @@ class GameEngine private constructor() {
         val house1 = Asset.House("My House", 250000.0, 80, 2200, HouseState.LIVING_IN)
         val house2 = Asset.House("Casa Primero", 2500000.0, 100, 4000, HouseState.RENTING_OUT)
         val house3 = Asset.House("Casa Cinco", 280000.0, 59, 3600, HouseState.VACANT)
-        val car = Asset.Car("My Car", 30000.0, 9)
-        currentPlayer.assets.addAll(listOf(house1,house2,house3))
-        currentPlayer.assets.add(car)
+        val car = Asset.Car("My Car", 30000.0, 9, CarState.PRIMARY)
+        val car2 = Asset.Car("Rover", 2000.0, 19, CarState.STOLEN)
+        val boat = Asset.Boat("My Yacth", 3000000.0, 9)
+        val plane = Asset.Plane("My Jet", 5000000.0, 9)
+        currentPlayer.assets.addAll(listOf(house1,house2,house3,car,car2,boat,plane))
     }
 
     private fun formatMoney(amount: Long): String {
