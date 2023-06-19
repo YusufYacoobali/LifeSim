@@ -20,9 +20,21 @@ class FamilyActivity : AppCompatActivity() {
         player = gameEngine.getPlayer()
 
         val parentsContainer: LinearLayout = findViewById(R.id.parents)
+        val siblingsContainer: LinearLayout = findViewById(R.id.siblings)
+        val childrenContainer: LinearLayout = findViewById(R.id.children)
 
         addPersonToView(parentsContainer, player.father?.name, "Father", R.drawable.male)
         addPersonToView(parentsContainer, player.mother?.name, "Mother", R.drawable.female)
+
+        player.brothers.forEach{ sibling ->
+            addPersonToView(siblingsContainer, sibling.name , "Health ${sibling.health}%", R.drawable.male)
+        }
+        player.sisters.forEach{ sibling ->
+            addPersonToView(siblingsContainer, sibling.name , "Health ${sibling.health}%", R.drawable.female)
+        }
+        player.children.forEach{ person ->
+            addPersonToView(childrenContainer, person.name , "Health ${person.health}%", R.drawable.baby)
+        }
     }
 
     private fun addPersonToView(placement: LinearLayout, name: String?, caption: String, icon: Int){

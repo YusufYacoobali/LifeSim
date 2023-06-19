@@ -65,7 +65,7 @@ class GameEngine private constructor() {
             charm = (charm + charmChange).coerceAtMost(100)
             genius = (genius + geniusChange).coerceAtMost(100)
             money += moneyChange
-            //money += 1000000000 //testing
+            money += 100000 //testing
         }
     }
 
@@ -239,8 +239,29 @@ class GameEngine private constructor() {
             mother = mother
         )
 
+        val child3 = Person(
+            name = "${maleFirstNames.random()} $lastName",
+            age = 10,
+            gender = "Male",
+            fame = FameLevel.C,
+            father = father,
+            mother = mother
+        )
+
+        val grandchild = Person(
+            name = "${femaleFirstNames.random()} $lastName",
+            age = 10,
+            gender = "Female",
+            fame = FameLevel.C,
+            father = child1,
+            mother = mother
+        )
+
         father.children = mutableListOf(child1, child2)
         mother.children = mutableListOf(child1, child2)
+        child1.sisters.add(child2)
+        child1.brothers.add(child3)
+        child1.children.add(grandchild)
         currentPlayer = child1
 
         persons.addAll(listOf(father, mother, child1, child2))

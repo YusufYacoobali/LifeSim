@@ -81,6 +81,7 @@ class MainActivity : AppCompatActivity()  {
         deleteAllEvents()
         binding.playerName.text = player.name
         binding.workStatus.text = "Baby"
+        gameEngine.calcNetWorth()
         addAgeTextViewToEvents()
         addTextViewToEvents("You are born as a ${player.gender}")
         addTextViewToEvents("Your name is ${player.name}")
