@@ -157,6 +157,31 @@ class GameEngine private constructor() {
         }
     }
 
+    fun sendMessage(message: String){
+        messages.add(message)
+    }
+
+    fun getAllMessages(): MutableList<String> {
+        val currentMessages = messages.toMutableList()
+        messages.clear()
+        return currentMessages
+    }
+
+
+    // Method to get all persons in the game world
+    fun getAllPersons(): List<Person> {
+        return persons.toList()
+    }
+
+    fun getPlayer(): Person {
+        return currentPlayer
+    }
+
+    fun startGame() {
+        // Create the current player and their family
+        createFamily()
+    }
+
     private fun processDoctorOption(message: String, minCharge: Long, thresholdHealth: Int, defaultHealth: Int, additional: Int, minChargeRate: Double, maxChargeRate: Double) {
         if (currentPlayer.money >= minCharge) {
             val newHealth = if (currentPlayer.health < thresholdHealth) random.nextInt(11) + additional else defaultHealth
@@ -197,7 +222,7 @@ class GameEngine private constructor() {
             5 -> {
                 //plastic surgery
                 if (currentPlayer.money >= 20000)
-                currentPlayer.money -= (currentPlayer.money*0.12).toLong()
+                    currentPlayer.money -= (currentPlayer.money*0.12).toLong()
                 currentPlayer.charm += 10
                 sendMessage("You got that plastic. \nIt costed you $20k")
             }
@@ -205,31 +230,6 @@ class GameEngine private constructor() {
                 sendMessage("Invalid option")
             }
         }
-    }
-
-    fun sendMessage(message: String){
-        messages.add(message)
-    }
-
-    fun getAllMessages(): MutableList<String> {
-        val currentMessages = messages.toMutableList()
-        messages.clear()
-        return currentMessages
-    }
-
-
-    // Method to get all persons in the game world
-    fun getAllPersons(): List<Person> {
-        return persons.toList()
-    }
-
-    fun getPlayer(): Person {
-        return currentPlayer
-    }
-
-    fun startGame() {
-        // Create the current player and their family
-        createFamily()
     }
 
     private fun createFamily() {
