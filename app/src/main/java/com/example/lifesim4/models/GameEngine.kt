@@ -51,66 +51,84 @@ class GameEngine private constructor() {
         checkLife()
     }
 
-    fun checkLife(){
+    private fun checkLife(){
         if (currentPlayer.health <= 0){
-            sendMessage("You Died!")
+            sendMessage("You Died! You will now start as another person")
             startNew = true
         }
     }
 
-    fun applyStatsAndAge(){
+    private fun applyStatsAndAge(){
         currentPlayer.apply {
             age++
             health = (health + healthChange).coerceAtMost(100)
             charm = (charm + charmChange).coerceAtMost(100)
             genius = (genius + geniusChange).coerceAtMost(100)
             money += moneyChange
-            money += 100000 //testing
+            //money += 100000 //testing
         }
     }
 
     fun lifeChanges(){
-        if (currentPlayer.age == 3) {
-            currentPlayer.apply {
-                title = "Student"
-                healthChange += 1
-                geniusChange += 1
+        when (currentPlayer.age) {
+            3 -> {
+                currentPlayer.apply {
+                    title = "Student"
+                    healthChange += 1
+                    geniusChange += 1
+                }
+                sendMessage("Nursery Started")
             }
-            sendMessage("Nursery Started")
-        } else if (currentPlayer.age == 5) {
-            sendMessage("Primary School Started")
-        } else if (currentPlayer.age == 11) {
-            sendMessage("Secondary School Started")
-        } else if (currentPlayer.age == 18){
-            currentPlayer.apply {
+            5 -> sendMessage("Primary School Started")
+            11 -> sendMessage("Secondary School Started")
+            18 -> currentPlayer.apply {
                 healthChange -= 1
                 geniusChange -= 1
             }
-        } else if (currentPlayer.age == 22 && currentPlayer.job == null) {
-            currentPlayer.title = "Unemployed"
-        } else if (currentPlayer.job != null) {
-            sendMessage(currentPlayer.title)
-        } else if (currentPlayer.age == 40){
-            currentPlayer.apply {
+            22 -> {
+                if (currentPlayer.job == null) {
+                    currentPlayer.title = "Unemployed"
+                }
+            }
+            40 -> currentPlayer.apply {
                 healthChange -= 1
-                healthChange -= 4 //testing
+                healthChange -= 4 // testing
                 geniusChange -= 1
                 charmChange -= 1
             }
-        } else if (currentPlayer.age == 60){
-            currentPlayer.apply {
+            60 -> currentPlayer.apply {
                 healthChange -= 2
                 geniusChange -= 1
                 charmChange -= 3
             }
         }
-    }
-
-    fun ageAssets(){
-        for (asset in currentPlayer.assets){
-            //actions to deterioate and pay rent etc
+        if (currentPlayer.job != null) {
+            sendMessage(currentPlayer.title)
         }
     }
+
+    fun ageAssets() {
+        for (asset in currentPlayer.assets) {
+            when (asset) {
+                is Asset.House -> {
+                    asset.value *= 1.02
+                    asset.value *= ((asset.condition / 2) / 100.0 + 0.5)
+                }
+                is Asset.Car -> {
+                    asset.value *= when (asset.type) {
+                        CarType.NORMAL -> 0.97
+                        CarType.SPORTS -> 0.95
+                        CarType.HYPERCAR -> 1.02
+                        CarType.COLLECTABLE -> 1.032
+                    }
+                }
+                is Asset.Plane, is Asset.Boat -> {
+                    asset.value *= 0.99
+                }
+            }
+        }
+    }
+
 
     fun randomEvents() {
         val chance = 0.4 // 40% chance
@@ -309,8 +327,8 @@ class GameEngine private constructor() {
         val house1 = Asset.House("My House", 250000.0, 80, 2200, HouseState.LIVING_IN)
         val house2 = Asset.House("Casa Primero", 2500000.0, 100, 4000, HouseState.RENTING_OUT)
         val house3 = Asset.House("Casa Cinco", 280000.0, 59, 3600, HouseState.VACANT)
-        val car = Asset.Car("My Car", 30000.0, 9, CarState.PRIMARY)
-        val car2 = Asset.Car("Rover", 2000.0, 19, CarState.STOLEN)
+        val car = Asset.Car("My Car", 30000.0, 9, CarState.PRIMARY, CarType.NORMAL)
+        val car2 = Asset.Car("Rover", 2000.0, 19, CarState.STOLEN, CarType.SPORTS)
         val boat = Asset.Boat("My Yacth", 3000000.0, 9)
         val plane = Asset.Plane("My Jet", 5000000.0, 9)
         currentPlayer.assets.addAll(listOf(house1,house2,house3,car,car2,boat,plane))
