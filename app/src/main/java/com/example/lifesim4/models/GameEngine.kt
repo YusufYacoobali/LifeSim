@@ -257,11 +257,51 @@ class GameEngine private constructor() {
             mother = mother
         )
 
+
+// Create a Lover instance
+        val lover = NPC(
+            name = "${femaleFirstNames.random()} ${maleFirstNames.random()}",
+            age = 10,
+            gender = "Female",
+            fame = FameLevel.C,
+            affection = 90,
+            affectionType = AffectionType.Wife
+        )
+        val gf = NPC(
+            name = "${femaleFirstNames.random()} ${maleFirstNames.random()}",
+            age = 10,
+            gender = "Female",
+            fame = FameLevel.C,
+            affection = 90,
+            affectionType = AffectionType.Girlfriend
+        )
+
+        val enemy = NPC(
+            name = "${femaleFirstNames.random()} ${faker.name().lastName()}",
+            age = 10,
+            gender = "Female",
+            fame = FameLevel.C,
+            affection = 90,
+            affectionType = AffectionType.Enemy
+        )
+        val friend = NPC(
+            name = "${femaleFirstNames.random()} ${faker.name().lastName()}",
+            age = 10,
+            gender = "Female",
+            fame = FameLevel.C,
+            affection = 90,
+            affectionType = AffectionType.Friend
+        )
+
         father.children = mutableListOf(child1, child2)
         mother.children = mutableListOf(child1, child2)
         child1.sisters.add(child2)
         child1.brothers.add(child3)
         child1.children.add(grandchild)
+        child1.lovers.add(lover)
+        child1.lovers.add(gf)
+        child1.enemies.add(enemy)
+        child1.friends.add(friend)
         currentPlayer = child1
 
         persons.addAll(listOf(father, mother, child1, child2))

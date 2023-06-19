@@ -31,8 +31,9 @@ data class Person(
     var children: MutableList<Person> = mutableListOf(),
     var resident: String? = null,
     var nationality: String? = null,
-    var friends: MutableList<Person> = mutableListOf(),
-    var enemies: MutableList<Person> = mutableListOf()
+    var friends: MutableList<NPC> = mutableListOf(),
+    var enemies: MutableList<NPC> = mutableListOf(),
+    var lovers: MutableList<NPC> = mutableListOf()
 )
 
 data class NPC(
@@ -40,12 +41,16 @@ data class NPC(
     var age: Int = 0,
     val gender: String,
     var health: Int = 100,
+    var charm: Int = Random.nextInt(0, 101),
+    var genius: Int = Random.nextInt(0, 101),
     var money: Long = 0,
     var fame: FameLevel = FameLevel.U,
     var job: Job? = null,
     var relationshipStatus: String? = null,
     var residence: String? = null,
     var nationality: String? = null,
+    var affectionType: AffectionType,
+    var affection: Int
 )
 
 // FameLevel.kt
@@ -79,7 +84,6 @@ enum class HouseState {
     RENTING_OUT,
     VACANT,
     UNDER_CONSTRUCTION,
-    // Add more states as needed
 }
 
 enum class CarState {
@@ -87,7 +91,14 @@ enum class CarState {
     RENTING,
     FINANCE,
     STOLEN,
-    // Add more states as needed
+}
+
+enum class AffectionType {
+    Friend,
+    BestFriend,
+    Enemy,
+    Wife,
+    Girlfriend,
 }
 
 
