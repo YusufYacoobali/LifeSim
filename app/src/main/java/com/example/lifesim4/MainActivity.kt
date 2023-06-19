@@ -23,6 +23,7 @@ import com.example.lifesim4.databinding.MainMainBinding
 import com.example.lifesim4.models.GameEngine
 import com.example.lifesim4.models.Person
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import java.lang.ProcessBuilder.Redirect
 
 class MainActivity : AppCompatActivity()  {
 
@@ -134,7 +135,7 @@ class MainActivity : AppCompatActivity()  {
     //Used by events from other pages
     private fun addTextViewToEvents(text: String){
         val textView = TextView(this)
-        textView.text = text // Set the text for the TextView
+        textView.text = text.replace("\n", "") // Set the text for the TextView
         textView.setTextColor(ContextCompat.getColor(this, R.color.eventText))
         textView.textSize = 15F
         textView.setPadding(0,0,0,7)
@@ -187,6 +188,12 @@ class MainActivity : AppCompatActivity()  {
         binding.fortuneProgressText.text = player.fortune.toString()
         binding.fortuneProgressBar.progress = player.fortune
 
+        val moneyColor = if (player.money < 0) {
+            ContextCompat.getColor(this, R.color.negativeCash)
+        } else {
+            ContextCompat.getColor(this, R.color.positiveCash)
+        }
+        binding.moneyText.setTextColor(moneyColor)
         binding.moneyText.text = formatMoney(player.money)
         binding.netWorthText.text = formatMoney(player.netWorth)
         binding.playerName.text = player.name

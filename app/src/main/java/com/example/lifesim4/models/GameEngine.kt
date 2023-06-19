@@ -65,7 +65,7 @@ class GameEngine private constructor() {
             charm = (charm + charmChange).coerceAtMost(100)
             genius = (genius + geniusChange).coerceAtMost(100)
             money += moneyChange
-            //money += 100000 //testing
+            money += 100000 //testing
         }
     }
 
@@ -157,37 +157,49 @@ class GameEngine private constructor() {
         }
     }
 
-    private fun processDoctorOption(minCharge: Long, thresholdHealth: Int, defaultHealth: Int, additional: Int, minChargeRate: Double, maxChargeRate: Double) {
-        if (currentPlayer.money > minCharge) {
-            currentPlayer.health = if (currentPlayer.health < thresholdHealth) random.nextInt(11) + additional else defaultHealth
+    private fun processDoctorOption(message: String, minCharge: Long, thresholdHealth: Int, defaultHealth: Int, additional: Int, minChargeRate: Double, maxChargeRate: Double) {
+        if (currentPlayer.money >= minCharge) {
+            val newHealth = if (currentPlayer.health < thresholdHealth) random.nextInt(11) + additional else defaultHealth
+            val change = newHealth - currentPlayer.health
+            currentPlayer.health = newHealth
             val randomCharge = ((random.nextDouble() * (maxChargeRate - minChargeRate) + minChargeRate) * currentPlayer.money).toLong()
             currentPlayer.money -= randomCharge
-            sendMessage("Nice! Your health is now ${currentPlayer.health}. This costed you ${formatMoney(randomCharge)}")
+            sendMessage("You visited the ${message}.\nHealth ${if (change >= 0) "+$change" else change} costing you\n ${formatMoney(randomCharge)}")
         } else {
             sendMessage("Minimum charge is $${minCharge}. You are broke and cannot afford this...lol")
         }
     }
 
-
     fun goDoctors(option: Int) {
         when (option) {
             1 -> {
-                processDoctorOption(20000, 90, 100, 90,0.5, 0.3)
+                processDoctorOption("expensive Doctor",20000, 90, 100, 90,0.5, 0.3)
             }
             2 -> {
-                processDoctorOption(2000, 70, 88, 70,0.27, 0.19)
+                processDoctorOption("GP",2000, 70, 88, 70,0.27, 0.19)
             }
             3 -> {
-                processDoctorOption(400, 99, 100, 50,0.8, 0.2)
+                processDoctorOption("witch",400, 99, 100, 50,0.8, 0.2)
+//                val witchAttack = random.nextInt(10) - 5 // -2 to +2
+//                if (witchAttack != 0) {
+//                    currentPlayer.health += witchAttack
+//                    val message = if (witchAttack > 0) {
+//                        "The witches have helped!\n+$witchAttack health"
+//                    } else {
+//                        "The witches have cursed you!\n-${witchAttack} health."
+//                    }
+//                    sendMessage(message)
+//                }
             }
             4 -> {
-                processDoctorOption(0, 10, 30, 10,0.0, 0.1)
+                processDoctorOption("medicine cupboard",0, 10, 30, 10,0.0, 0.1)
             }
             5 -> {
                 //plastic surgery
-                currentPlayer.money -= 20000
+                if (currentPlayer.money >= 20000)
+                currentPlayer.money -= (currentPlayer.money*0.12).toLong()
                 currentPlayer.charm += 10
-                sendMessage("You got that plastic. It costed you $20k")
+                sendMessage("You got that plastic. \nIt costed you $20k")
             }
             else -> {
                 sendMessage("Invalid option")
