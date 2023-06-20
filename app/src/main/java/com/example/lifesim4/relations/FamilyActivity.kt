@@ -1,13 +1,18 @@
 package com.example.lifesim4.relations
 
+import android.app.Dialog
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Window
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.example.lifesim4.R
 import com.example.lifesim4.models.GameEngine
 import com.example.lifesim4.models.Person
+import com.example.lifesim4.tools.Tools
 
 class FamilyActivity : AppCompatActivity() {
 
@@ -33,7 +38,7 @@ class FamilyActivity : AppCompatActivity() {
             addPersonToView(siblingsContainer, sibling.name , "Health ${sibling.health}%", R.drawable.female)
         }
         player.children.forEach{ person ->
-            addPersonToView(childrenContainer, person.name , "Health ${person.health}%", R.drawable.baby)
+            Tools.addPersonToView(this, childrenContainer, person.name , "Health ${person.health}%", R.drawable.baby)
         }
     }
 
@@ -49,7 +54,34 @@ class FamilyActivity : AppCompatActivity() {
         nameTextView.text = name
         captionTextView.text = caption
         image.setImageResource(icon)
+
+        personCard.setOnClickListener {
+            showPopupDialog("Family")
+        }
+
         placement.addView(personCard)
         //return personCard
+    }
+
+    fun showPopupDialog(message: String) {
+        val dialog = Dialog(this)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setContentView(R.layout.dialog_layout)
+
+        val dialogMessage: TextView = dialog.findViewById(R.id.dialog_message)
+        val dialogButton: TextView = dialog.findViewById(R.id.dialog_button)
+
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+        dialogMessage.text = message
+
+        dialogButton.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        dialog.setCancelable(true)
+        dialog.setCanceledOnTouchOutside(true)
+
+        dialog.show()
     }
 }

@@ -59,7 +59,7 @@
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_gravity="center_horizontal"
-                    android:src="@drawable/placeholder" />
+                    android:src="@drawable/home" />
 
             </LinearLayout>
 
@@ -88,7 +88,7 @@
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_gravity="center_horizontal"
-                    android:src="@drawable/placeholder2" />
+                    android:src="@drawable/buy_car" />
 
             </LinearLayout>
 
@@ -117,7 +117,7 @@
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_gravity="center_horizontal"
-                    android:src="@drawable/placeholder3" />
+                    android:src="@drawable/buy_boat" />
 
             </LinearLayout>
 
@@ -146,7 +146,7 @@
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_gravity="center_horizontal"
-                    android:src="@drawable/placeholder" />
+                    android:src="@drawable/buy_planes" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
