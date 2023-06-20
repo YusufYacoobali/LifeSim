@@ -1,7 +1,9 @@
 package com.example.lifesim4.tools
 
+import android.app.Activity
 import android.app.Dialog
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
@@ -9,23 +11,26 @@ import android.view.Window
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import com.example.lifesim4.R
+import com.example.lifesim4.models.Person
+import java.util.Objects
 
 object Tools {
-    fun addPersonToView(
+    fun addCardToView(
         context: Context,
+        cardObject: Objects,
         placement: LinearLayout,
         name: String?,
         caption: String,
-        icon: Int
+        icon: Int,
+        nextActivity: Class<*>,
+        contract: ActivityResultLauncher<Intent>
     ) {
-        // Get LayoutInflater instance from the context
         val inflater = LayoutInflater.from(context)
-
-        // Create an instance of the card_basic layout
         val personCard = inflater.inflate(R.layout.card_basic, placement, false)
 
-        // Find the views inside the personCard layout and set the person's details
         val nameTextView: TextView = personCard.findViewById(R.id.name)
         val captionTextView: TextView = personCard.findViewById(R.id.caption)
         val image: ImageView = personCard.findViewById(R.id.image)
@@ -35,10 +40,10 @@ object Tools {
         image.setImageResource(icon)
 
         personCard.setOnClickListener {
-            showPopupDialog(context, "Family")
+            val intent = Intent(context, nextActivity)
+            contract.launch(intent)
         }
 
-        // Add the personCard to the placement LinearLayout
         placement.addView(personCard)
     }
 

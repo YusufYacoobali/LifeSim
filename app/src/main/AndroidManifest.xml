@@ -13,6 +13,12 @@
         android:theme="@style/Theme.Fab_Bottom_app_bar"
         tools:targetApi="31">
         <activity
+            android:name=".assets.AssetActivity"
+            android:exported="false" />
+        <activity
+            android:name=".relations.PersonActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.LawsuitActivity"
             android:exported="false" />
         <activity

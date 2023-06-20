@@ -1,5 +1,6 @@
 package com.example.lifesim4.relations
 
+import android.app.Activity
 import android.app.Dialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -9,7 +10,9 @@ import android.view.Window
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.activity.result.contract.ActivityResultContracts
 import com.example.lifesim4.R
+import com.example.lifesim4.RelationsActivity
 import com.example.lifesim4.models.GameEngine
 import com.example.lifesim4.models.Person
 import com.example.lifesim4.tools.Tools
@@ -23,6 +26,13 @@ class FamilyActivity : AppCompatActivity() {
         setContentView(R.layout.relation_family)
         gameEngine = GameEngine.getInstance()
         player = gameEngine.getPlayer()
+
+        val myContract = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                setResult(Activity.RESULT_OK)
+                finish()
+            }
+        }
 
         val parentsContainer: LinearLayout = findViewById(R.id.parents)
         val siblingsContainer: LinearLayout = findViewById(R.id.siblings)
@@ -38,7 +48,7 @@ class FamilyActivity : AppCompatActivity() {
             addPersonToView(siblingsContainer, sibling.name , "Health ${sibling.health}%", R.drawable.female)
         }
         player.children.forEach{ person ->
-            Tools.addPersonToView(this, childrenContainer, person.name , "Health ${person.health}%", R.drawable.baby)
+            Tools.addCardToView(this, person, childrenContainer, person.name , "Health ${person.health}%", R.drawable.baby, PersonActivity::class.java, myContract)
         }
     }
 
