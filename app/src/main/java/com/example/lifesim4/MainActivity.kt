@@ -1,55 +1,60 @@
 package com.example.lifesim4
 
 import android.app.Activity
+import android.app.Dialog
+import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.Typeface
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.util.Log
+import android.view.Gravity
+import android.view.ViewGroup
+import android.view.Window
+import android.widget.Button
+import android.widget.LinearLayout
 import android.widget.ScrollView
 import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
-import com.example.lifesim4.databinding.ActivityMainBinding
+import com.example.lifesim4.databinding.MainMainBinding
 import com.example.lifesim4.models.GameEngine
 import com.example.lifesim4.models.Person
+import com.example.lifesim4.tools.Tools
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import java.lang.ProcessBuilder.Redirect
 
 class MainActivity : AppCompatActivity()  {
 
     private lateinit var gameEngine: GameEngine
+    private lateinit var binding: MainMainBinding
     private lateinit var player: Person
-    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        binding = DataBindingUtil.setContentView(this, R.layout.main_main)
         setContentView(binding.root)
+        gameEngine = GameEngine.getInstance()
+        startNewGame()
 
-        gameEngine = GameEngine.getInstance().apply { startGame() }
-        player = gameEngine.getPlayer()
-        binding.person = player
-       // binding.statusBar.person = player
-
+        //handle data when user comes back to main page
         val myContract = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
-                val data: Intent? = result.data
-                simulateUI()
-                if (data != null) {
-                    val job = data.getStringExtra("Job")
-                    val partTime = data.getStringExtra("Part Time")
-                    if (job != null) {
-                        Log.d("Debug", "Job: $job")
-                        addTextViewToEvents(job)
-                    }
-                    if (partTime != null) {
-                        addTextViewToEvents(partTime)
-                    }
+                val data = result.data
+                val newLife = data?.getStringExtra("New")
+
+                if (newLife != null) {
+                    startNewGame()
                 }
+                gameEngine.calcNetWorth()
+                changestatusUI()
+                printAllMessages()
             }
         }
 
+        //bottom nav bar button navigation
         val bottomNavBar = findViewById<BottomNavigationView>(R.id.bottomNavBar)
         bottomNavBar.setOnItemSelectedListener { item ->
             val intent: Intent? = when (item.itemId) {
@@ -64,38 +69,113 @@ class MainActivity : AppCompatActivity()  {
                 R.id.Personal -> Intent(this, ActivitiesActivity::class.java)
                 else -> null
             }
-
             intent?.let {
                 myContract.launch(it)
             }
-
             intent != null
         }
     }
 
-    fun simulateUI() {
+    //Start new Life
+    private fun startNewGame(){
+        gameEngine.startGame()
+        player = gameEngine.getPlayer()
+        deleteAllEvents()
+        binding.playerName.text = player.name
+        binding.workStatus.text = "Baby"
+        gameEngine.calcNetWorth()
+        addAgeTextViewToEvents()
+        addTextViewToEvents("You are born as a ${player.gender}")
+        addTextViewToEvents("Your name is ${player.name}")
         changestatusUI()
-       addTextViewToEvents("Age: ${player.age}")
     }
 
-    fun addTextViewToEvents(text: String){
-        val scrollView = binding.scrollView
-        val eventLayout = binding.eventLayout
+    private fun printAllMessages(){
+        val messages = gameEngine.getAllMessages()
+        for (message in messages){
+            addTextViewToEvents(message)
+        }
+        messages.reverse()
+        for (message in messages){
+            Tools.showPopupDialog(this, message)
+        }
+    }
 
+    //Used for Age button
+    private fun simulateUI() {
+        changestatusUI()
+        addAgeTextViewToEvents()
+        printAllMessages()
+        if (gameEngine.startNew == true){
+            startNewGame()
+            gameEngine.startNew = false
+
+        }
+    }
+
+    fun showPopupDialog(message: String) {
+        val dialog = Dialog(this)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setContentView(R.layout.dialog_layout)
+
+        val dialogMessage: TextView = dialog.findViewById(R.id.dialog_message)
+        val dialogButton: TextView = dialog.findViewById(R.id.dialog_button)
+
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+        dialogMessage.text = message
+
+        dialogButton.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        dialog.setCancelable(true)
+        dialog.setCanceledOnTouchOutside(true)
+
+        dialog.show()
+    }
+
+
+    //Used by events from other pages
+    private fun addTextViewToEvents(text: String){
         val textView = TextView(this)
-        textView.text = text // Set the text for the TextView
-        textView.setTextColor(Color.BLUE) // Set the text color
-        textView.setTextSize(16F)
-        textView.setTypeface(null, Typeface.BOLD)
+        textView.text = text.replace("\n", "") // Set the text for the TextView
+        textView.setTextColor(ContextCompat.getColor(this, R.color.eventText))
+        textView.textSize = 15F
+        textView.setPadding(0,0,0,7)
+        textView.setTypeface(null, Typeface.NORMAL)
 
         // Add the TextView to the LinearLayout
-        eventLayout.addView(textView)
-
+        binding.eventLayout.addView(textView)
+        val scrollView = binding.scrollView
         scrollView.post {
             scrollView.fullScroll(ScrollView.FOCUS_DOWN)
         }
     }
 
+    //Different Age text style
+    private fun addAgeTextViewToEvents(){
+        val textView = TextView(this)
+        val text = "Age: ${player.age} years"
+        textView.text = text
+        textView.setTextColor(ContextCompat.getColor(this, R.color.ageText))
+        textView.textSize = 17F
+        textView.setPadding(0,20,0,10)
+        textView.setTypeface(null, Typeface.BOLD)
+
+        // Add the TextView to the LinearLayout
+        binding.eventLayout.addView(textView)
+        val scrollView = binding.scrollView
+        scrollView.post {
+            scrollView.fullScroll(ScrollView.FOCUS_DOWN)
+        }
+    }
+
+    private fun deleteAllEvents(){
+        binding.eventLayout.removeAllViews()
+    }
+
+    //Update status bar
     private fun changestatusUI() {
         binding.ageText.text = player.age.toString()
         binding.fameText.text = player.fame.name
@@ -112,6 +192,15 @@ class MainActivity : AppCompatActivity()  {
         binding.fortuneProgressText.text = player.fortune.toString()
         binding.fortuneProgressBar.progress = player.fortune
 
-        binding.moneyText.text = player.money.toString()
+        val moneyColor = if (player.money < 0) {
+            ContextCompat.getColor(this, R.color.negativeCash)
+        } else {
+            ContextCompat.getColor(this, R.color.positiveCash)
+        }
+        binding.moneyText.setTextColor(moneyColor)
+        binding.moneyText.text = Tools.formatMoney(player.money)
+        binding.netWorthText.text = Tools.formatMoney(player.netWorth)
+        binding.playerName.text = player.name
+        binding.workStatus.text = player.title
     }
 }

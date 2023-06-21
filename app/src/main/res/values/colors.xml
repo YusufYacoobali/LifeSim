@@ -2,4 +2,18 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="positiveCash">#48C612</color>
+    <color name="negativeCash">#F3040D</color>
+    <color name="ageText">#0423BD</color>
+    <color name="eventText">#FF000000</color>
+    <color name="fameU">#FFFFFF</color>
+    <color name="fameE">#F3040D</color>
+    <color name="fameD">#C67D12</color>
+    <color name="fameC">#EA9B27</color>
+    <color name="fameB">#9FB674</color>
+    <color name="fameA">#48C612</color>
+    <color name="fameAA">#C1A20A</color>
+    <color name="insidePagesText">#EF5806</color>
+    <color name="greyBackground">#303030</color>
+
 </resources>

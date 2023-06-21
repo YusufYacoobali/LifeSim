@@ -3,6 +3,7 @@
     <style name="Base.Theme.LifeSim4" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="android:textColor">@android:color/black</item>
     </style>
 
     <!-- Base application theme. -->

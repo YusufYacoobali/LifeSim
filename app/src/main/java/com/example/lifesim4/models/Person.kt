@@ -1,30 +1,56 @@
 package com.example.lifesim4.models
 
+import com.github.javafaker.Faker
+import kotlin.random.Random
+
 data class Person(
     var name: String,
     var age: Int = 0,
-    var health: Int = 100,
+    val gender: String,
+    var title: String = "Baby",
+    var health: Int = Random.nextInt(65, 101),
+    var healthChange: Int = 0,
     var money: Long = 0,
-    var genius: Int = 100,
-    var charm: Int = 20,
-    var fortune: Int = 100,
+    var moneyChange: Long = 0,
+    var netWorth: Long = 0,
+    var genius: Int = Random.nextInt(0, 101),
+    var geniusChange: Int = 0,
+    var charm: Int = Random.nextInt(0, 101),
+    var charmChange: Int = 0,
+    var fortune: Int = Random.nextInt(30, 100),
     var fame: FameLevel = FameLevel.U,
+    val cashFlow: Long = 0,
     var father: Person? = null,
     var mother: Person? = null,
-    var sisters: List<Person> = emptyList(),
-    var brothers: List<Person> = emptyList(),
-    var assets: MutableList<String> = mutableListOf(),
+    var sisters: MutableList<Person> = mutableListOf(),
+    var brothers: MutableList<Person> = mutableListOf(),
+    var assets: MutableList<Asset> = mutableListOf(),
     var job: Job? = null,
     var educationLevel: String? = null,
     var relationshipStatus: String? = null,
     var children: MutableList<Person> = mutableListOf(),
-    var skills: MutableList<String> = mutableListOf(),
-    var hobbies: MutableList<String> = mutableListOf(),
+    var resident: String? = null,
+    var nationality: String? = null,
+    var friends: MutableList<NPC> = mutableListOf(),
+    var enemies: MutableList<NPC> = mutableListOf(),
+    var lovers: MutableList<NPC> = mutableListOf()
+)
+
+data class NPC(
+    var name: String,
+    var age: Int = 0,
+    val gender: String,
+    var health: Int = 100,
+    var charm: Int = Random.nextInt(0, 101),
+    var genius: Int = Random.nextInt(0, 101),
+    var money: Long = 0,
+    var fame: FameLevel = FameLevel.U,
+    var job: Job? = null,
+    var relationshipStatus: String? = null,
     var residence: String? = null,
     var nationality: String? = null,
-    var currentCity: String? = null,
-    var friends: MutableList<Person> = mutableListOf(),
-    var enemies: MutableList<Person> = mutableListOf()
+    var affectionType: AffectionType,
+    var affection: Int
 )
 
 // FameLevel.kt
@@ -44,4 +70,42 @@ data class Job(
     val nextJob: Job?,
     val jobLevel: Int
 )
+
+sealed class Asset(val name: String, var value: Double, val condition: Int) {
+    class House(name: String, value: Double, condition: Int, val squareFeet: Int, var state: HouseState) :
+        Asset(name, value, condition)
+    class Car(name: String, value: Double, condition: Int, var state: CarState, var type: CarType) : Asset(name, value, condition)
+    class Plane(name: String, value: Double, condition: Int) : Asset(name, value, condition)
+    class Boat(name: String, value: Double, condition: Int) : Asset(name, value, condition)
+}
+
+enum class HouseState {
+    LIVING_IN,
+    RENTING_OUT,
+    VACANT,
+    UNDER_CONSTRUCTION,
+}
+
+enum class CarState {
+    PRIMARY,
+    RENTING,
+    FINANCE,
+    STOLEN,
+}
+
+enum class CarType {
+    NORMAL,
+    SPORTS,
+    HYPERCAR,
+    COLLECTABLE,
+}
+
+enum class AffectionType {
+    Friend,
+    BestFriend,
+    Enemy,
+    Wife,
+    Girlfriend,
+}
+
 
