@@ -29,7 +29,6 @@ class PersonActivity : AppCompatActivity() {
             player.money -= 432
             player.children[0].money += 100
             buttonTextView.text = "$personID ${player.children[0].money}"
-            gameEngine.sendMessage(player.children[0].money.toString())
             setResult(Activity.RESULT_OK)
             //finish()
         }
