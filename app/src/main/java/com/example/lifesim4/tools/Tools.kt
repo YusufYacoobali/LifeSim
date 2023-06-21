@@ -18,9 +18,9 @@ import com.example.lifesim4.models.Person
 import java.util.Objects
 
 object Tools {
-    fun addCardToView(
+    fun <T> addCardToView(
         context: Context,
-        cardObject: Objects,
+        cardObject: T,
         placement: LinearLayout,
         name: String?,
         caption: String,
@@ -35,14 +35,16 @@ object Tools {
         val captionTextView: TextView = personCard.findViewById(R.id.caption)
         val image: ImageView = personCard.findViewById(R.id.image)
 
-        nameTextView.text = name
+        if (cardObject is Person) {
+            nameTextView.text = cardObject.name
+            personCard.setOnClickListener {
+                val intent = Intent(context, nextActivity)
+                intent.putExtra("Object", cardObject.name)
+                contract.launch(intent)
+            }
+        }
         captionTextView.text = caption
         image.setImageResource(icon)
-
-        personCard.setOnClickListener {
-            val intent = Intent(context, nextActivity)
-            contract.launch(intent)
-        }
 
         placement.addView(personCard)
     }
@@ -67,5 +69,13 @@ object Tools {
         dialog.setCanceledOnTouchOutside(true)
 
         dialog.show()
+    }
+
+     fun formatMoney(amount: Long): String {
+        val suffixes = listOf("", "K", "M", "B", "T", "Q", "Qu", "S")
+        val suffixIndex = (Math.max(0, Math.floor(Math.log10(amount.toDouble()) / 3).toInt())).coerceAtMost(suffixes.size - 1)
+        val shortValue = amount / Math.pow(10.0, (suffixIndex * 3).toDouble())
+        val formattedValue = "%.2f".format(shortValue)
+        return "$$formattedValue${suffixes[suffixIndex]}"
     }
 }

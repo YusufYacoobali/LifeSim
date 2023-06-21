@@ -22,6 +22,7 @@ import androidx.databinding.DataBindingUtil
 import com.example.lifesim4.databinding.MainMainBinding
 import com.example.lifesim4.models.GameEngine
 import com.example.lifesim4.models.Person
+import com.example.lifesim4.tools.Tools
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import java.lang.ProcessBuilder.Redirect
 
@@ -93,7 +94,10 @@ class MainActivity : AppCompatActivity()  {
         val messages = gameEngine.getAllMessages()
         for (message in messages){
             addTextViewToEvents(message)
-            showPopupDialog(message)
+        }
+        messages.reverse()
+        for (message in messages){
+            Tools.showPopupDialog(this, message)
         }
     }
 
@@ -194,18 +198,9 @@ class MainActivity : AppCompatActivity()  {
             ContextCompat.getColor(this, R.color.positiveCash)
         }
         binding.moneyText.setTextColor(moneyColor)
-        binding.moneyText.text = formatMoney(player.money)
-        binding.netWorthText.text = formatMoney(player.netWorth)
+        binding.moneyText.text = Tools.formatMoney(player.money)
+        binding.netWorthText.text = Tools.formatMoney(player.netWorth)
         binding.playerName.text = player.name
         binding.workStatus.text = player.title
     }
-
-    private fun formatMoney(amount: Long): String {
-        val suffixes = listOf("", "K", "M", "B", "T", "Q", "Qu", "S")
-        val suffixIndex = (Math.max(0, Math.floor(Math.log10(amount.toDouble()) / 3).toInt())).coerceAtMost(suffixes.size - 1)
-        val shortValue = amount / Math.pow(10.0, (suffixIndex * 3).toDouble())
-        val formattedValue = "%.2f".format(shortValue)
-        return "$$formattedValue${suffixes[suffixIndex]}"
-    }
-
 }

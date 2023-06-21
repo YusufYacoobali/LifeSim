@@ -41,11 +41,11 @@ class FamilyActivity : AppCompatActivity() {
         addPersonToView(parentsContainer, player.father?.name, "Father", R.drawable.male)
         addPersonToView(parentsContainer, player.mother?.name, "Mother", R.drawable.female)
 
-        player.brothers.forEach{ sibling ->
-            addPersonToView(siblingsContainer, sibling.name , "Health ${sibling.health}%", R.drawable.male)
+        player.brothers.forEach{ person ->
+            Tools.addCardToView(this, person,  siblingsContainer, person.name , "Health ${person.health}%", R.drawable.male, PersonActivity::class.java, myContract)
         }
-        player.sisters.forEach{ sibling ->
-            addPersonToView(siblingsContainer, sibling.name , "Health ${sibling.health}%", R.drawable.female)
+        player.sisters.forEach{ person ->
+            Tools.addCardToView(this, person, siblingsContainer, person.name , "Health ${person.health}%", R.drawable.female, PersonActivity::class.java, myContract)
         }
         player.children.forEach{ person ->
             Tools.addCardToView(this, person, childrenContainer, person.name , "Health ${person.health}%", R.drawable.baby, PersonActivity::class.java, myContract)

@@ -1,5 +1,6 @@
 package com.example.lifesim4.models
 
+import com.example.lifesim4.tools.Tools
 import com.github.javafaker.Faker
 import java.util.Random
 
@@ -164,6 +165,7 @@ class GameEngine private constructor() {
     fun getAllMessages(): MutableList<String> {
         val currentMessages = messages.toMutableList()
         messages.clear()
+        //currentMessages.reverse() //works for dialog box but not for
         return currentMessages
     }
 
@@ -189,7 +191,7 @@ class GameEngine private constructor() {
             currentPlayer.health = newHealth
             val randomCharge = ((random.nextDouble() * (maxChargeRate - minChargeRate) + minChargeRate) * currentPlayer.money).toLong()
             currentPlayer.money -= randomCharge
-            sendMessage("You visited the ${message}.\nHealth ${if (change >= 0) "+$change" else change} costing you\n ${formatMoney(randomCharge)}")
+            sendMessage("You visited the ${message}.\nHealth ${if (change >= 0) "+$change" else change} costing you\n ${Tools.formatMoney(randomCharge)}")
         } else {
             sendMessage("Minimum charge is $${minCharge}. You are broke and cannot afford this...lol")
         }
@@ -344,13 +346,5 @@ class GameEngine private constructor() {
         val boat = Asset.Boat("My Yacth", 3000000.0, 9)
         val plane = Asset.Plane("My Jet", 5000000.0, 9)
         currentPlayer.assets.addAll(listOf(house1,house2,house3,car,car2,boat,plane))
-    }
-
-    private fun formatMoney(amount: Long): String {
-        val suffixes = listOf("", "K", "M", "B", "T", "Q", "Qu", "S")
-        val suffixIndex = (Math.max(0, Math.floor(Math.log10(amount.toDouble()) / 3).toInt())).coerceAtMost(suffixes.size - 1)
-        val shortValue = amount / Math.pow(10.0, (suffixIndex * 3).toDouble())
-        val formattedValue = "%.2f".format(shortValue)
-        return "$$formattedValue${suffixes[suffixIndex]}"
     }
 }

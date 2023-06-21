@@ -21,11 +21,15 @@ class PersonActivity : AppCompatActivity() {
         player = gameEngine.getPlayer()
 
         val buttonTextView = findViewById<TextView>(R.id.button)
+        val personID = intent.getStringExtra("Object")
 
-        buttonTextView.text = player.children[0].name
+        buttonTextView.text = "$personID ${player.children[0].money}"
         buttonTextView.setOnClickListener{
             //gameEngine.simulate()
             player.money -= 432
+            player.children[0].money += 100
+            buttonTextView.text = "$personID ${player.children[0].money}"
+            gameEngine.sendMessage(player.children[0].money.toString())
             setResult(Activity.RESULT_OK)
             //finish()
         }
