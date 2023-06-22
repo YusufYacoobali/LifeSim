@@ -14,6 +14,7 @@ import android.widget.TextView
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import com.example.lifesim4.R
+import com.example.lifesim4.models.Asset
 import com.example.lifesim4.models.Character
 import com.example.lifesim4.models.Person
 import java.util.Objects
@@ -35,14 +36,23 @@ object Tools {
         val captionTextView: TextView = personCard.findViewById(R.id.caption)
         val image: ImageView = personCard.findViewById(R.id.image)
 
-        if (cardObject is Character) {
-            nameTextView.text = cardObject.name
+        if (cardObject is Character || cardObject is Asset) {
+            if (cardObject is Character) {
+                val character = cardObject as Character
+                nameTextView.text = character.name
+            } else if (cardObject is Asset) {
+                val asset = cardObject as Asset
+                nameTextView.text = asset.name
+            }
+
             personCard.setOnClickListener {
                 val intent = Intent(context, nextActivity)
-                intent.putExtra("ObjectName", cardObject.name)
+                intent.putExtra("ObjectName", nameTextView.text)
                 contract.launch(intent)
             }
         }
+
+
         captionTextView.text = caption
         image.setImageResource(icon)
 

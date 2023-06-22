@@ -1,15 +1,18 @@
 package com.example.lifesim4.assets
 
+import android.app.Activity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.activity.result.contract.ActivityResultContracts
 import com.example.lifesim4.R
 import com.example.lifesim4.models.Asset
 import com.example.lifesim4.models.GameEngine
 import com.example.lifesim4.models.HouseState
 import com.example.lifesim4.models.Person
+import com.example.lifesim4.tools.Tools
 
 class HouseActivity : AppCompatActivity() {
 
@@ -21,6 +24,13 @@ class HouseActivity : AppCompatActivity() {
         gameEngine = GameEngine.getInstance()
         player = gameEngine.getPlayer()
 
+        val myContract = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                setResult(Activity.RESULT_OK)
+                //finish()
+            }
+        }
+
         val currentContainer: LinearLayout = findViewById(R.id.current)
         val allHomesContainer: LinearLayout = findViewById(R.id.allHomes)
 
@@ -31,27 +41,11 @@ class HouseActivity : AppCompatActivity() {
         val allHomes = player.assets.filterIsInstance<Asset.House>().filter { it.state != HouseState.LIVING_IN }
 
         if (currentHome != null) {
-            addHouseToView(currentContainer, currentHome.name , "${currentHome.squareFeet}sq ft  Condition ${currentHome.condition}%", R.drawable.home)
+            Tools.addCardToView(this, currentHome,  currentContainer, "${currentHome.squareFeet}sq ft  Condition ${currentHome.condition}%", R.drawable.home, AssetActivity::class.java, myContract)
         }
 
-        allHomes.forEach { home ->
-            addHouseToView(allHomesContainer, home.name , "${home.squareFeet}sq ft  Condition ${home.condition}%", R.drawable.home)
+        allHomes.forEach { thing ->
+            Tools.addCardToView(this, thing,  allHomesContainer, "${thing.squareFeet}sq ft  Condition ${thing.condition}%", R.drawable.home, AssetActivity::class.java, myContract)
         }
-    }
-
-    private fun addHouseToView(placement: LinearLayout, name: String?, caption: String, icon: Int){
-        // Create an instance of the card_basic layout
-        val personCard = layoutInflater.inflate(R.layout.card_basic, placement, false)
-
-        // Find the views inside the fatherCard layout and set the father's details
-        val nameTextView: TextView = personCard.findViewById(R.id.name)
-        val captionTextView: TextView = personCard.findViewById(R.id.caption)
-        val image: ImageView = personCard.findViewById(R.id.image)
-
-        nameTextView.text = name
-        captionTextView.text = caption
-        image.setImageResource(icon)
-        placement.addView(personCard)
-        //return personCard
     }
 }
