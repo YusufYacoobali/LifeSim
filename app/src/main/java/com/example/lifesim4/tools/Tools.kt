@@ -14,6 +14,7 @@ import android.widget.TextView
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import com.example.lifesim4.R
+import com.example.lifesim4.models.Character
 import com.example.lifesim4.models.Person
 import java.util.Objects
 
@@ -22,7 +23,6 @@ object Tools {
         context: Context,
         cardObject: T,
         placement: LinearLayout,
-        name: String?,
         caption: String,
         icon: Int,
         nextActivity: Class<*>,
@@ -35,7 +35,7 @@ object Tools {
         val captionTextView: TextView = personCard.findViewById(R.id.caption)
         val image: ImageView = personCard.findViewById(R.id.image)
 
-        if (cardObject is Person) {
+        if (cardObject is Character) {
             nameTextView.text = cardObject.name
             personCard.setOnClickListener {
                 val intent = Intent(context, nextActivity)

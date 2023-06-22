@@ -1,14 +1,17 @@
 package com.example.lifesim4.relations
 
+import android.app.Activity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.activity.result.contract.ActivityResultContracts
 import com.example.lifesim4.R
 import com.example.lifesim4.models.AffectionType
 import com.example.lifesim4.models.GameEngine
 import com.example.lifesim4.models.Person
+import com.example.lifesim4.tools.Tools
 
 class EnemiesActivity : AppCompatActivity() {
     private lateinit var gameEngine: GameEngine
@@ -21,28 +24,19 @@ class EnemiesActivity : AppCompatActivity() {
 
         val enemiesContainer: LinearLayout = findViewById(R.id.enemies)
 
+        val myContract = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                setResult(Activity.RESULT_OK)
+                //finish()
+            }
+        }
+
         val enemies = player.enemies.filter { person ->
             person.affectionType == AffectionType.Enemy
         }
 
         enemies.forEach{ person ->
-            addPersonToView(enemiesContainer, person.name , "Health ${person.health}%", R.drawable.female)
+            Tools.addCardToView(this, person,  enemiesContainer, "Health ${person.health}%", R.drawable.female, PersonActivity::class.java, myContract)
         }
-    }
-
-    private fun addPersonToView(placement: LinearLayout, name: String?, caption: String, icon: Int){
-        // Create an instance of the card_basic layout
-        val personCard = layoutInflater.inflate(R.layout.card_basic, placement, false)
-
-        // Find the views inside the fatherCard layout and set the father's details
-        val nameTextView: TextView = personCard.findViewById(R.id.name)
-        val captionTextView: TextView = personCard.findViewById(R.id.caption)
-        val image: ImageView = personCard.findViewById(R.id.image)
-
-        nameTextView.text = name
-        captionTextView.text = caption
-        image.setImageResource(icon)
-        placement.addView(personCard)
-        //return personCard
     }
 }
