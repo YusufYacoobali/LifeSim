@@ -3,8 +3,14 @@ package com.example.lifesim4.models
 import com.github.javafaker.Faker
 import kotlin.random.Random
 
+interface Character {
+    // Define common properties and methods here
+    val name: String
+    // ...
+}
+
 data class Person(
-    var name: String,
+    override val name: String,
     var age: Int = 0,
     val gender: String,
     var title: String = "Baby",
@@ -34,10 +40,10 @@ data class Person(
     var friends: MutableList<NPC> = mutableListOf(),
     var enemies: MutableList<NPC> = mutableListOf(),
     var lovers: MutableList<NPC> = mutableListOf()
-)
+) : Character
 
 data class NPC(
-    var name: String,
+    override val name: String,
     var age: Int = 0,
     val gender: String,
     var health: Int = 100,
@@ -51,7 +57,7 @@ data class NPC(
     var nationality: String? = null,
     var affectionType: AffectionType,
     var affection: Int
-)
+) : Character
 
 // FameLevel.kt
 enum class FameLevel(val multiplier: Double) {

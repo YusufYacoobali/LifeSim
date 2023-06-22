@@ -39,7 +39,7 @@ object Tools {
             nameTextView.text = cardObject.name
             personCard.setOnClickListener {
                 val intent = Intent(context, nextActivity)
-                intent.putExtra("Object", cardObject.name)
+                intent.putExtra("ObjectName", cardObject.name)
                 contract.launch(intent)
             }
         }

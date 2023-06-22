@@ -11,7 +11,7 @@ class GameEngine private constructor() {
     companion object {
         private var instance: GameEngine? = null
         private var messages: MutableList<String> = mutableListOf()
-        private val persons: MutableList<Person> = mutableListOf()
+        private val everyone: MutableList<Character> = mutableListOf()
         private lateinit var currentPlayer: Person
         val random = Random()
         val faker = Faker()
@@ -147,7 +147,7 @@ class GameEngine private constructor() {
 
     // Method to add a Person to the game world
     fun addPerson(person: Person) {
-        persons.add(person)
+        everyone.add(person)
     }
 
     fun goGym(){
@@ -171,8 +171,8 @@ class GameEngine private constructor() {
 
 
     // Method to get all persons in the game world
-    fun getAllPersons(): List<Person> {
-        return persons.toList()
+    fun getPerson(name: String): Character? {
+        return everyone.find { it.name == name }
     }
 
     fun getPlayer(): Person {
@@ -336,7 +336,7 @@ class GameEngine private constructor() {
         child1.friends.add(friend)
         currentPlayer = child1
 
-        persons.addAll(listOf(father, mother, child1, child2))
+        everyone.addAll(listOf(father, mother, child1, child2, child3, grandchild, lover, gf, enemy, friend))
 
         val house1 = Asset.House("My House", 250000.0, 80, 2200, HouseState.LIVING_IN)
         val house2 = Asset.House("Casa Primero", 2500000.0, 100, 4000, HouseState.RENTING_OUT)
