@@ -3,6 +3,7 @@ package com.example.lifesim4.relations
 import android.app.Activity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
@@ -26,23 +27,24 @@ class PersonActivity : AppCompatActivity() {
         val personName = intent.getStringExtra("ObjectName")
         if (personName != null) {
             person = gameEngine.getPerson(personName)!!
-            if (person == null) {
-                gameEngine.sendMessage("No person found")
-            } else {
-                updateUI()
-//                buttonTextView.setOnClickListener{
-//                    //gameEngine.simulate()
-//                    player.money -= 432
-//                    player.children[0].money += 100
-//                    //buttonTextView.text = "${person.name} ${player.children[0].money}"
-//                    setResult(Activity.RESULT_OK)
-//                    //finish()
-//                }
+            updateUI()
+
+            val askMoneyOption: LinearLayout = findViewById(R.id.askMoney)
+            val clickListener = View.OnClickListener { view ->
+                when (view.id) {
+                    R.id.askMoney -> {
+                        //gameEngine.askMoney()
+                        gameEngine.sendMessage("Asked money from ${person.affectionType.toString().lowercase()}")
+                    }
+                }
+                setResult(Activity.RESULT_OK)
+                //finish()
             }
+
+            askMoneyOption.setOnClickListener(clickListener)
         } else {
             gameEngine.sendMessage("Invalid person name")
         }
-
     }
 
     private fun updateUI(){
