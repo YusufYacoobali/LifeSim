@@ -6,17 +6,23 @@ import kotlin.random.Random
 interface Character {
     // Define common properties and methods here
     val name: String
-    // ...
+    var affectionType: AffectionType
+    var age: Int
+    val gender: String
+    var money: Long
+    var fame: FameLevel
+    var job: Job?
+    var affection: Int
 }
 
 data class Person(
     override val name: String,
-    var age: Int = 0,
-    val gender: String,
+    override var age: Int = 0,
+    override val gender: String,
     var title: String = "Baby",
     var health: Int = Random.nextInt(65, 101),
     var healthChange: Int = 0,
-    var money: Long = 0,
+    override var money: Long = 0,
     var moneyChange: Long = 0,
     var netWorth: Long = 0,
     var genius: Int = Random.nextInt(0, 101),
@@ -24,14 +30,14 @@ data class Person(
     var charm: Int = Random.nextInt(0, 101),
     var charmChange: Int = 0,
     var fortune: Int = Random.nextInt(30, 100),
-    var fame: FameLevel = FameLevel.U,
+    override var fame: FameLevel = FameLevel.U,
     val cashFlow: Long = 0,
     var father: Person? = null,
     var mother: Person? = null,
     var sisters: MutableList<Person> = mutableListOf(),
     var brothers: MutableList<Person> = mutableListOf(),
     var assets: MutableList<Asset> = mutableListOf(),
-    var job: Job? = null,
+    override var job: Job? = null,
     var educationLevel: String? = null,
     var relationshipStatus: String? = null,
     var children: MutableList<Person> = mutableListOf(),
@@ -39,24 +45,26 @@ data class Person(
     var nationality: String? = null,
     var friends: MutableList<NPC> = mutableListOf(),
     var enemies: MutableList<NPC> = mutableListOf(),
-    var lovers: MutableList<NPC> = mutableListOf()
+    var lovers: MutableList<NPC> = mutableListOf(),
+    override var affectionType: AffectionType,
+    override var affection: Int
 ) : Character
 
 data class NPC(
     override val name: String,
-    var age: Int = 0,
-    val gender: String,
+    override var age: Int = 0,
+    override val gender: String,
     var health: Int = 100,
     var charm: Int = Random.nextInt(0, 101),
     var genius: Int = Random.nextInt(0, 101),
-    var money: Long = 0,
-    var fame: FameLevel = FameLevel.U,
-    var job: Job? = null,
+    override var money: Long = 0,
+    override var fame: FameLevel = FameLevel.U,
+    override var job: Job? = null,
     var relationshipStatus: String? = null,
     var residence: String? = null,
     var nationality: String? = null,
-    var affectionType: AffectionType,
-    var affection: Int
+    override var affectionType: AffectionType,
+    override var affection: Int
 ) : Character
 
 // FameLevel.kt
@@ -112,6 +120,11 @@ enum class AffectionType {
     Enemy,
     Wife,
     Girlfriend,
+    Father,
+    Mother,
+    Sibling,
+    Child,
+    Me
 }
 
 

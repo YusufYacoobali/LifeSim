@@ -242,14 +242,19 @@ class GameEngine private constructor() {
             name = "${maleFirstNames.random()} $lastName",
             age = 40,
             gender = "Male",
-            money = 1000
+            money = 1000,
+            affection = 90,
+            affectionType = AffectionType.Father
+
         )
 
         val mother = Person(
             name = "${femaleFirstNames.random()} $lastName",
             age = 40,
             gender = "Female",
-            money = 1000
+            money = 1000,
+            affection = 90,
+            affectionType = AffectionType.Mother
         )
 
         val child1 = Person(
@@ -259,34 +264,42 @@ class GameEngine private constructor() {
             gender = "Male",
             fame = FameLevel.U,
             father = father,
-            mother = mother
+            mother = mother,
+            affection = 90,
+            affectionType = AffectionType.Me
         )
 
         val child2 = Person(
             name = "${femaleFirstNames.random()} $lastName",
-            age = 10,
+            age = 7,
             gender = "Female",
-            fame = FameLevel.C,
+            fame = FameLevel.A,
             father = father,
-            mother = mother
+            mother = mother,
+            affection = 90,
+            affectionType = AffectionType.Sibling
         )
 
         val child3 = Person(
             name = "${maleFirstNames.random()} $lastName",
-            age = 10,
+            age = 16,
             gender = "Male",
-            fame = FameLevel.C,
+            fame = FameLevel.B,
             father = father,
-            mother = mother
+            mother = mother,
+            affection = 90,
+            affectionType = AffectionType.Sibling
         )
 
         val grandchild = Person(
             name = "${femaleFirstNames.random()} $lastName",
-            age = 10,
+            age = 2,
             gender = "Female",
             fame = FameLevel.C,
             father = child1,
-            mother = mother
+            mother = mother,
+            affection = 90,
+            affectionType = AffectionType.Child
         )
 
 
