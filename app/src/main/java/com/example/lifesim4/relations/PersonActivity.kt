@@ -3,6 +3,7 @@ package com.example.lifesim4.relations
 import android.app.Activity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
 import com.example.lifesim4.R
@@ -21,22 +22,22 @@ class PersonActivity : AppCompatActivity() {
         gameEngine = GameEngine.getInstance()
         player = gameEngine.getPlayer()
 
-        val buttonTextView = findViewById<TextView>(R.id.button)
+        val nameTextView = findViewById<TextView>(R.id.name)
         val personName = intent.getStringExtra("ObjectName")
         if (personName != null) {
             val person: Character? = gameEngine.getPerson(personName)
             if (person == null) {
                 gameEngine.sendMessage("No person found")
             } else {
-                buttonTextView.text = "${person.name} ${player.children[0].money}"
-                buttonTextView.setOnClickListener{
-                    //gameEngine.simulate()
-                    player.money -= 432
-                    player.children[0].money += 100
-                    buttonTextView.text = "${person.name} ${player.children[0].money}"
-                    setResult(Activity.RESULT_OK)
-                    //finish()
-                }
+                nameTextView.text = "${person.name}"
+//                buttonTextView.setOnClickListener{
+//                    //gameEngine.simulate()
+//                    player.money -= 432
+//                    player.children[0].money += 100
+//                    //buttonTextView.text = "${person.name} ${player.children[0].money}"
+//                    setResult(Activity.RESULT_OK)
+//                    //finish()
+//                }
             }
         } else {
             gameEngine.sendMessage("Invalid person name")
