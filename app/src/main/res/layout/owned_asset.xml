@@ -42,7 +42,7 @@
                 android:paddingBottom="20dp">
 
                 <ImageView
-                    android:id="@+id/person_icon"
+                    android:id="@+id/asset_icon"
                     android:layout_width="120dp"
                     android:layout_height="120dp"
                     android:src="@drawable/home" />
@@ -59,7 +59,7 @@
 
                 <!-- Person Age -->
                 <TextView
-                    android:id="@+id/person_age"
+                    android:id="@+id/boughtValue"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Bought for: $1,000"
@@ -68,7 +68,7 @@
 
                 <!-- Money -->
                 <TextView
-                    android:id="@+id/money"
+                    android:id="@+id/curValue"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Current value: $10,000"
@@ -77,7 +77,7 @@
 
                 <!-- Fame -->
                 <TextView
-                    android:id="@+id/fame"
+                    android:id="@+id/condition"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Condition: 80%"
@@ -86,7 +86,7 @@
 
                 <!-- Job -->
                 <TextView
-                    android:id="@+id/job"
+                    android:id="@+id/state"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Car/House state"
@@ -95,7 +95,7 @@
 
                 <!-- Salary -->
                 <TextView
-                    android:id="@+id/salary"
+                    android:id="@+id/info"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="General info, 54sq ft, 400hp"

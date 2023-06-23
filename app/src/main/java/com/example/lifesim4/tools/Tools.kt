@@ -52,7 +52,6 @@ object Tools {
             }
         }
 
-
         captionTextView.text = caption
         image.setImageResource(icon)
 

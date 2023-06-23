@@ -175,6 +175,10 @@ class GameEngine private constructor() {
         return everyone.find { it.name == name }
     }
 
+    fun getAsset(name: String): Asset? {
+        return currentPlayer.assets.find { it.name == name }
+    }
+
     fun getPlayer(): Person {
         return currentPlayer
     }
@@ -351,13 +355,13 @@ class GameEngine private constructor() {
 
         everyone.addAll(listOf(father, mother, child1, child2, child3, grandchild, lover, gf, enemy, friend))
 
-        val house1 = Asset.House("My House", 250000.0, 80, 2200, HouseState.LIVING_IN)
-        val house2 = Asset.House("Casa Primero", 2500000.0, 100, 4000, HouseState.RENTING_OUT)
-        val house3 = Asset.House("Casa Cinco", 280000.0, 59, 3600, HouseState.VACANT)
-        val car = Asset.Car("My Car", 30000.0, 9, CarState.PRIMARY, CarType.NORMAL)
-        val car2 = Asset.Car("Rover", 2000.0, 19, CarState.STOLEN, CarType.SPORTS)
-        val boat = Asset.Boat("My Yacth", 3000000.0, 9)
-        val plane = Asset.Plane("My Jet", 5000000.0, 9)
+        val house1 = Asset.House("My House", 250000.0, 80, 250000, 2200, HouseState.LIVING_IN)
+        val house2 = Asset.House("Casa Primero", 2500000.0, 100, 100000, 4000, HouseState.RENTING_OUT)
+        val house3 = Asset.House("Casa Cinco", 280000.0, 59, 30, 3600, HouseState.VACANT)
+        val car = Asset.Car("My Car", 30000.0, 9, 29000, CarState.PRIMARY, CarType.NORMAL)
+        val car2 = Asset.Car("Rover", 2000.0, 19, 4000, CarState.STOLEN, CarType.SPORTS)
+        val boat = Asset.Boat("My Yacth", 3000000.0, 9, 200000)
+        val plane = Asset.Plane("My Jet", 5000000.0, 9, 10000000)
         currentPlayer.assets.addAll(listOf(house1,house2,house3,car,car2,boat,plane))
     }
 }
