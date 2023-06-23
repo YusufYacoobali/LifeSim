@@ -113,7 +113,7 @@ class GameEngine private constructor() {
             when (asset) {
                 is Asset.House -> {
                     asset.value *= 1.02
-                    asset.value *= ((asset.condition / 2) / 100.0 + 0.5)
+                    asset.value *= ((asset.condition / 2) / 100.0 + 0.59)
                 }
                 is Asset.Car -> {
                     asset.value *= when (asset.type) {
@@ -127,6 +127,7 @@ class GameEngine private constructor() {
                     asset.value *= 0.99
                 }
             }
+            asset.condition -= 2
         }
     }
 

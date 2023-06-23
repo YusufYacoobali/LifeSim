@@ -27,7 +27,8 @@ class HouseActivity : AppCompatActivity() {
         val myContract = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
                 setResult(Activity.RESULT_OK)
-                //finish()
+                //updateUI()
+                finish()
             }
         }
 
@@ -48,4 +49,23 @@ class HouseActivity : AppCompatActivity() {
             Tools.addCardToView(this, thing,  allHomesContainer, "${thing.squareFeet}sq ft  Condition ${thing.condition}%", R.drawable.home, AssetActivity::class.java, myContract)
         }
     }
+
+//    fun updateUI(){
+//        val currentContainer: LinearLayout = findViewById(R.id.current)
+//        val allHomesContainer: LinearLayout = findViewById(R.id.allHomes)
+//
+//        val currentHome = player.assets.find { asset ->
+//            asset is Asset.House && asset.state == HouseState.LIVING_IN
+//        } as? Asset.House
+//
+//        val allHomes = player.assets.filterIsInstance<Asset.House>().filter { it.state != HouseState.LIVING_IN }
+//
+//        if (currentHome != null) {
+//            Tools.addCardToView(this, currentHome,  currentContainer, "${currentHome.squareFeet}sq ft  Condition ${currentHome.condition}%", R.drawable.home, AssetActivity::class.java, myContract)
+//        }
+//
+//        allHomes.forEach { thing ->
+//            Tools.addCardToView(this, thing,  allHomesContainer, "${thing.squareFeet}sq ft  Condition ${thing.condition}%", R.drawable.home, AssetActivity::class.java, myContract)
+//        }
+//    }
 }

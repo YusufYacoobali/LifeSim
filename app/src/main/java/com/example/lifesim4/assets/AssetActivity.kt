@@ -11,35 +11,42 @@ import com.example.lifesim4.R
 import com.example.lifesim4.models.Asset
 import com.example.lifesim4.models.Character
 import com.example.lifesim4.models.GameEngine
+import com.example.lifesim4.models.Person
 import com.example.lifesim4.tools.Tools
 
 class AssetActivity : AppCompatActivity() {
 
     private lateinit var gameEngine: GameEngine
     private lateinit var asset: Asset
+    private lateinit var player: Person
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.owned_asset)
         gameEngine = GameEngine.getInstance()
+        player = gameEngine.getPlayer()
 
         val assetName = intent.getStringExtra("ObjectName")
         if (assetName != null) {
             asset = gameEngine.getAsset(assetName)!!
             updateUI()
 
+            val conditionButton = findViewById<LinearLayout>(R.id.conditionButton)
 //            val askMoneyOption: LinearLayout = findViewById(R.id.askMoney)
-//            val clickListener = View.OnClickListener { view ->
-//                when (view.id) {
-//                    R.id.askMoney -> {
-//                        //gameEngine.askMoney()
-//                        gameEngine.sendMessage("Asked money from ${person.affectionType.toString().lowercase()}")
-//                    }
-//                }
-//                setResult(Activity.RESULT_OK)
-//                //finish()
-//            }
-//
-//            askMoneyOption.setOnClickListener(clickListener)
+            val clickListener = View.OnClickListener { view ->
+                when (view.id) {
+                    R.id.conditionButton -> {
+                        //gameEngine.askMoney()
+                        asset.condition = 100
+                        player.money -= 10000
+                        gameEngine.sendMessage("Asset fixed")
+                        updateUI()
+                    }
+                }
+                setResult(Activity.RESULT_OK)
+                //finish()
+            }
+
+            conditionButton.setOnClickListener(clickListener)
         } else {
             gameEngine.sendMessage("Invalid Asset name")
         }
@@ -53,28 +60,35 @@ class AssetActivity : AppCompatActivity() {
         val condition = findViewById<TextView>(R.id.condition)
         val state = findViewById<TextView>(R.id.state)
         val info = findViewById<TextView>(R.id.info)
-        val image: ImageView = findViewById<ImageView>(R.id.asset_icon)
+        val image: ImageView = findViewById(R.id.asset_icon)
+        val rentButton = findViewById<LinearLayout>(R.id.rent)
 
         name.text = asset.name
         boughtValue.text = "Bought For: " + Tools.formatMoney(asset.boughtFor)
         curValue.text = "Current Value: " + Tools.formatMoney(asset.value.toLong())
         condition.text = "Condition: " + asset.condition
 
-
         if (asset is Asset.House){
-            state.text = (asset as Asset.House).state.toString()
+            state.text = (asset as Asset.House).state.description
+            info.text = (asset as Asset.House).squareFeet.toString() + "sq ft"
         }
         else if (asset is Asset.Car){
             image.setImageResource(R.drawable.buy_car)
-            state.text = (asset as Asset.Car).state.toString()
+            state.text = "Type: " + (asset as Asset.Car).state.toString().lowercase()
+            info.visibility = View.GONE
+            rentButton.visibility = View.GONE
         }
-//        name.text = person.name
-//        relationship.text = person.affectionType.toString()
-//        age.text = "Age: " + person.age.toString()
-//        money.text = "Money: " + Tools.formatMoney(person.money)
-//        fame.text = "Fame: " + person.fame.toString()
-//        job.text = if (person.job == null) "Job: Unemployed" else "Job: " + person.job.toString()
-//        affection.text = "Affection to you: " + person.affection.toString()
-
+        else if (asset is Asset.Boat){
+            image.setImageResource(R.drawable.buy_boat)
+            state.visibility = View.GONE
+            info.visibility = View.GONE
+            rentButton.visibility = View.GONE
+        }
+        else if (asset is Asset.Plane){
+            image.setImageResource(R.drawable.buy_planes)
+            state.visibility = View.GONE
+            info.visibility = View.GONE
+            rentButton.visibility = View.GONE
+        }
     }
 }
