@@ -9,7 +9,6 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import com.example.lifesim4.R
 import com.example.lifesim4.models.Asset
-import com.example.lifesim4.models.Character
 import com.example.lifesim4.models.GameEngine
 import com.example.lifesim4.models.Person
 import com.example.lifesim4.tools.Tools

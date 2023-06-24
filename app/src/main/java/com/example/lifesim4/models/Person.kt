@@ -85,7 +85,7 @@ data class Job(
     val jobLevel: Int
 )
 
-sealed class Asset(val name: String, var value: Double, var condition: Int, val boughtFor: Long) {
+sealed class Asset(val name: String, var value: Double, var condition: Int, var boughtFor: Long) {
     class House(name: String, value: Double, condition: Int, boughtFor: Long, val squareFeet: Int, var state: HouseState) :
         Asset(name, value, condition, boughtFor)
     class Car(name: String, value: Double, condition: Int, boughtFor: Long, var state: CarState, var type: CarType) : Asset(name, value, condition, boughtFor)
@@ -97,7 +97,8 @@ enum class HouseState(val description: String) {
     LIVING_IN("Living In"),
     RENTING_OUT("Renting Out"),
     VACANT("Vacant"),
-    UNDER_CONSTRUCTION("Under Construction")
+    UNDER_CONSTRUCTION("Under Construction"),
+    MARKET("On The Market")
 }
 
 enum class CarState {

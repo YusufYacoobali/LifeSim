@@ -12,6 +12,7 @@ class GameEngine private constructor() {
         private var instance: GameEngine? = null
         private var messages: MutableList<String> = mutableListOf()
         private val everyone: MutableList<Character> = mutableListOf()
+        private val assets: MutableList<Asset> = mutableListOf()
         private lateinit var currentPlayer: Person
         val random = Random()
         val faker = Faker()
@@ -151,6 +152,16 @@ class GameEngine private constructor() {
         everyone.add(person)
     }
 
+    fun addAssets(asset: Asset) {
+        assets.add(asset)
+    }
+
+    fun buyAsset(asset: Asset){
+        currentPlayer.money -= asset.value.toLong()
+        currentPlayer.assets.add(asset)
+        asset.boughtFor = asset.value.toLong()
+    }
+
     fun goGym(){
         currentPlayer.apply {
             health += 5
@@ -177,7 +188,7 @@ class GameEngine private constructor() {
     }
 
     fun getAsset(name: String): Asset? {
-        return currentPlayer.assets.find { it.name == name }
+        return assets.find { it.name == name }
     }
 
     fun getPlayer(): Person {
@@ -364,5 +375,6 @@ class GameEngine private constructor() {
         val boat = Asset.Boat("My Yacth", 3000000.0, 9, 200000)
         val plane = Asset.Plane("My Jet", 5000000.0, 9, 10000000)
         currentPlayer.assets.addAll(listOf(house1,house2,house3,car,car2,boat,plane))
+        assets.addAll(listOf(house2,house3,house1,car,car2,boat,plane))
     }
 }

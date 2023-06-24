@@ -3,15 +3,12 @@ package com.example.lifesim4.assets
 import android.app.Activity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.ImageView
 import android.widget.LinearLayout
-import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
 import com.example.lifesim4.R
 import com.example.lifesim4.models.Asset
 import com.example.lifesim4.models.CarState
 import com.example.lifesim4.models.GameEngine
-import com.example.lifesim4.models.HouseState
 import com.example.lifesim4.models.Person
 import com.example.lifesim4.tools.Tools
 

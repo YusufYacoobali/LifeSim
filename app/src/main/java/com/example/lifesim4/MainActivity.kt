@@ -1,18 +1,9 @@
 package com.example.lifesim4
 
 import android.app.Activity
-import android.app.Dialog
-import android.content.Context
 import android.content.Intent
-import android.graphics.Color
 import android.graphics.Typeface
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.view.Gravity
-import android.view.ViewGroup
-import android.view.Window
-import android.widget.Button
-import android.widget.LinearLayout
 import android.widget.ScrollView
 import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
@@ -24,7 +15,6 @@ import com.example.lifesim4.models.GameEngine
 import com.example.lifesim4.models.Person
 import com.example.lifesim4.tools.Tools
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import java.lang.ProcessBuilder.Redirect
 
 class MainActivity : AppCompatActivity()  {
 
@@ -97,7 +87,7 @@ class MainActivity : AppCompatActivity()  {
         }
         messages.reverse()
         for (message in messages){
-            Tools.showPopupDialog(this, message)
+            Tools.showPopupDialog(this, message, null)
         }
     }
 
@@ -112,29 +102,6 @@ class MainActivity : AppCompatActivity()  {
 
         }
     }
-
-    fun showPopupDialog(message: String) {
-        val dialog = Dialog(this)
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        dialog.setContentView(R.layout.dialog_layout)
-
-        val dialogMessage: TextView = dialog.findViewById(R.id.dialog_message)
-        val dialogButton: TextView = dialog.findViewById(R.id.dialog_button)
-
-        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-
-        dialogMessage.text = message
-
-        dialogButton.setOnClickListener {
-            dialog.dismiss()
-        }
-
-        dialog.setCancelable(true)
-        dialog.setCanceledOnTouchOutside(true)
-
-        dialog.show()
-    }
-
 
     //Used by events from other pages
     private fun addTextViewToEvents(text: String){

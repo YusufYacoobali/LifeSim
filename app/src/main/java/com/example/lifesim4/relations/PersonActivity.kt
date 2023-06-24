@@ -6,12 +6,9 @@ import android.os.Bundle
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.activity.result.contract.ActivityResultContracts
 import com.example.lifesim4.R
 import com.example.lifesim4.models.Character
 import com.example.lifesim4.models.GameEngine
-import com.example.lifesim4.models.NPC
-import com.example.lifesim4.models.Person
 import com.example.lifesim4.tools.Tools
 
 class PersonActivity : AppCompatActivity() {
