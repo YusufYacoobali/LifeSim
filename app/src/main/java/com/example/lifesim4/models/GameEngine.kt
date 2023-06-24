@@ -160,6 +160,9 @@ class GameEngine private constructor() {
         currentPlayer.money -= asset.value.toLong()
         currentPlayer.assets.add(asset)
         asset.boughtFor = asset.value.toLong()
+        if (asset is Asset.House){
+            asset.state = HouseState.VACANT
+        }
     }
 
     fun goGym(){

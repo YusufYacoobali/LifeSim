@@ -7,6 +7,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
+import android.view.View
 import android.view.Window
 import android.widget.ImageView
 import android.widget.LinearLayout
@@ -19,6 +20,26 @@ import com.example.lifesim4.models.GameEngine
 import kotlin.math.absoluteValue
 
 object Tools {
+
+    data class CardWithAsset(val personCard: View, val asset: Asset)
+    fun <T> addCardsToView(
+        context: Context,
+        cardObjects: List<T>,
+        placement: LinearLayout,
+        caption: String,
+        icon: Int,
+        nextActivity: Class<*>?,
+        contract: ActivityResultLauncher<Intent>,
+    ): MutableList<CardWithAsset> {
+        val cards = mutableListOf<CardWithAsset>()
+
+        cardObjects.forEach { cardObject ->
+            val card = addCardToView(context, cardObject, placement, caption, icon, nextActivity, contract)
+            cards.add(card)
+        }
+
+        return cards
+    }
     fun <T> addCardToView(
         context: Context,
         cardObject: T,
@@ -27,7 +48,7 @@ object Tools {
         icon: Int,
         nextActivity: Class<*>?,
         contract: ActivityResultLauncher<Intent>,
-    ) {
+    ): CardWithAsset {
         val inflater = LayoutInflater.from(context)
         val personCard = inflater.inflate(R.layout.card_basic, placement, false)
 
@@ -53,7 +74,7 @@ object Tools {
                     contract.launch(intent)
                 } else {
                     //for assets to buy
-                    showPopupDialog(context, "Would you like to buy for ${formatMoney(asset.value.toLong())}", asset)
+                   // showPopupDialog(context, "Would you like to buy for ${formatMoney(asset.value.toLong())}", asset)
                     //contract.launch(Intent().apply { putExtra("result", Activity.RESULT_OK) })
                 }
             }
@@ -62,9 +83,11 @@ object Tools {
         image.setImageResource(icon)
 
         placement.addView(personCard)
+
+        return CardWithAsset(personCard, asset)
     }
 
-    fun <T> showPopupDialog(context: Context, message: String, obj: T) {
+    fun <T> showPopupDialog(context: Context, message: String, obj: T, resultCallback: ((Int) -> Unit)?) {
         val dialog = Dialog(context)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.setContentView(R.layout.dialog_layout)
@@ -81,6 +104,7 @@ object Tools {
             dialogButton.text = "Buy"
             dialogButton.setOnClickListener {
                 gameEngine.buyAsset(obj)
+                resultCallback?.invoke(Activity.RESULT_OK)
                 dialog.dismiss()
             }
         } else {

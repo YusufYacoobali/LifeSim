@@ -87,7 +87,7 @@ class MainActivity : AppCompatActivity()  {
         }
         messages.reverse()
         for (message in messages){
-            Tools.showPopupDialog(this, message, null)
+            Tools.showPopupDialog(this, message, null, null)
         }
     }
 

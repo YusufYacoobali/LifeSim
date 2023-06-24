@@ -4,6 +4,7 @@ import android.app.Activity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
 import com.example.lifesim4.R
 import com.example.lifesim4.models.Asset
@@ -11,6 +12,7 @@ import com.example.lifesim4.models.GameEngine
 import com.example.lifesim4.models.HouseState
 import com.example.lifesim4.models.Person
 import com.example.lifesim4.tools.Tools
+import com.example.lifesim4.tools.Tools.formatMoney
 
 class PropertiesActivity : AppCompatActivity() {
 
@@ -38,10 +40,23 @@ class PropertiesActivity : AppCompatActivity() {
 
         houses.forEach { thing ->
             Tools.addCardToView(this, thing,  houseContainer, "${thing.squareFeet}sq ft  Condition ${thing.condition}%", R.drawable.home, null, myContract)
-            setResult(Activity.RESULT_OK)
             //dont need to send in contract, coz gotta buy the house instead
         }
+        val cards = Tools.addCardsToView(this, houses,  houseContainer, "sq ft  Condition%", R.drawable.home, null, myContract)
+        //setResult(Activity.RESULT_OK)
+        cards.forEach {card ->
+            card.personCard.setOnClickListener{
+                Tools.showPopupDialog(this, "Would you like to buy for ${formatMoney(card.asset.value.toLong())}", card.asset) { resultCode ->
+                    gameEngine.sendMessage("Bought a house")
+                    setResult(resultCode)
+                    finish()
+                }
+            }
 
+        }
+
+        //callback version but directly from here
+        //so get list of cards, add listeners, launch popupdialog from here and listen for result here
     }
 
     private fun makeHouses(): List<Asset.House> {
