@@ -4,8 +4,11 @@ import android.app.Activity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
 import com.example.lifesim4.R
+import com.example.lifesim4.models.Asset
+import com.example.lifesim4.models.Character
 import com.example.lifesim4.models.GameEngine
 import com.example.lifesim4.models.Person
 import com.example.lifesim4.tools.Tools
@@ -34,14 +37,16 @@ class FamilyActivity : AppCompatActivity() {
         Tools.addCardToView(this, player.father,  parentsContainer, "Health ${player.father?.health}%", R.drawable.male, PersonActivity::class.java, myContract)
         Tools.addCardToView(this, player.mother,  parentsContainer, "Health ${player.mother?.health}%", R.drawable.female, PersonActivity::class.java, myContract)
 
-        player.brothers.forEach{ person ->
-            Tools.addCardToView(this, person,  siblingsContainer, "Health ${person.health}%", R.drawable.male, PersonActivity::class.java, myContract)
-        }
-        player.sisters.forEach{ person ->
-            Tools.addCardToView(this, person, siblingsContainer, "Health ${person.health}%", R.drawable.female, PersonActivity::class.java, myContract)
-        }
-        player.children.forEach{ person ->
-            Tools.addCardToView(this, person, childrenContainer, "Health ${person.health}%", R.drawable.baby, PersonActivity::class.java, myContract)
+        val brothers = Tools.addCardsToView(this, player.brothers,  siblingsContainer, "test", R.drawable.male, PersonActivity::class.java, myContract)
+        val sisters = Tools.addCardsToView(this, player.sisters,  siblingsContainer, "test", R.drawable.male, PersonActivity::class.java, myContract)
+        val children = Tools.addCardsToView(this, player.children,  childrenContainer, "test", R.drawable.baby, PersonActivity::class.java, myContract)
+
+        val allFamilyMembers = brothers + sisters + children
+
+        allFamilyMembers.forEach { card ->
+            val person = card.obj as Character
+            val captionTextView: TextView = card.personCard.findViewById(R.id.caption)
+            captionTextView.text = "Health ${person.health}%"
         }
     }
 }

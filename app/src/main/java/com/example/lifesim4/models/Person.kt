@@ -8,6 +8,7 @@ interface Character {
     val name: String
     var affectionType: AffectionType
     var age: Int
+    var health: Int
     val gender: String
     var money: Long
     var fame: FameLevel
@@ -20,7 +21,7 @@ data class Person(
     override var age: Int = 0,
     override val gender: String,
     var title: String = "Baby",
-    var health: Int = Random.nextInt(65, 101),
+    override var health: Int = Random.nextInt(65, 101),
     var healthChange: Int = 0,
     override var money: Long = 0,
     var moneyChange: Long = 0,
@@ -54,7 +55,7 @@ data class NPC(
     override val name: String,
     override var age: Int = 0,
     override val gender: String,
-    var health: Int = 100,
+    override var health: Int = 100,
     var charm: Int = Random.nextInt(0, 101),
     var genius: Int = Random.nextInt(0, 101),
     override var money: Long = 0,

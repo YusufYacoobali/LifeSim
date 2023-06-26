@@ -166,7 +166,7 @@ class MainActivity : AppCompatActivity()  {
         }
         binding.moneyText.setTextColor(moneyColor)
         binding.moneyText.text = Tools.formatMoney(player.money)
-        binding.netWorthText.text = Tools.formatMoney(player.netWorth)
+        binding.netWorthText.text = Tools.formatNetWorthMoney(player.netWorth)
         binding.playerName.text = player.name
         binding.workStatus.text = player.title
     }

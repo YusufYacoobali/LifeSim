@@ -21,7 +21,7 @@ import kotlin.math.absoluteValue
 
 object Tools {
 
-    data class CardWithAsset(val personCard: View, val asset: Asset)
+    data class CardWithAsset<T>(val personCard: View, val obj: T)
     fun <T> addCardsToView(
         context: Context,
         cardObjects: List<T>,
@@ -30,8 +30,8 @@ object Tools {
         icon: Int,
         nextActivity: Class<*>?,
         contract: ActivityResultLauncher<Intent>,
-    ): MutableList<CardWithAsset> {
-        val cards = mutableListOf<CardWithAsset>()
+    ): MutableList<CardWithAsset<T>> {
+        val cards = mutableListOf<CardWithAsset<T>>()
 
         cardObjects.forEach { cardObject ->
             val card = addCardToView(context, cardObject, placement, caption, icon, nextActivity, contract)
@@ -48,23 +48,26 @@ object Tools {
         icon: Int,
         nextActivity: Class<*>?,
         contract: ActivityResultLauncher<Intent>,
-    ): CardWithAsset {
+    ): CardWithAsset<T> {
         val inflater = LayoutInflater.from(context)
         val personCard = inflater.inflate(R.layout.card_basic, placement, false)
 
         val nameTextView: TextView = personCard.findViewById(R.id.name)
         val captionTextView: TextView = personCard.findViewById(R.id.caption)
+        val costTextView: TextView = personCard.findViewById(R.id.value)
         val image: ImageView = personCard.findViewById(R.id.image)
 
-        var asset = cardObject as Asset
+       // var asset = cardObject as Asset
 
         if (cardObject is Character || cardObject is Asset) {
             if (cardObject is Character) {
                 val character = cardObject as Character
                 nameTextView.text = character.name
+                costTextView.visibility = View.GONE
             } else if (cardObject is Asset) {
-                asset = cardObject
+                val asset = cardObject
                 nameTextView.text = asset.name
+                costTextView.text = formatMoney(asset.value.toLong())
             }
 
             personCard.setOnClickListener {
@@ -72,19 +75,14 @@ object Tools {
                     val intent = Intent(context, nextActivity)
                     intent.putExtra("ObjectName", nameTextView.text)
                     contract.launch(intent)
-                } else {
-                    //for assets to buy
-                   // showPopupDialog(context, "Would you like to buy for ${formatMoney(asset.value.toLong())}", asset)
-                    //contract.launch(Intent().apply { putExtra("result", Activity.RESULT_OK) })
                 }
             }
         }
         captionTextView.text = caption
         image.setImageResource(icon)
-
         placement.addView(personCard)
 
-        return CardWithAsset(personCard, asset)
+        return CardWithAsset(personCard, cardObject)
     }
 
     fun <T> showPopupDialog(context: Context, message: String, obj: T, resultCallback: ((Int) -> Unit)?) {
@@ -126,6 +124,15 @@ object Tools {
         val formattedValue = "%.2f".format(shortValue)
         val sign = if (amount < 0) "-" else ""
         return "$$sign$formattedValue${suffixes[suffixIndex]}"
+    }
+
+    fun formatNetWorthMoney(amount: Long): String {
+        val suffixes = listOf("", "K", "M", "B", "T", "Q", "Qu", "S")
+        val suffixIndex = (Math.max(0, Math.floor(Math.log10(amount.toDouble().absoluteValue) / 3).toInt())).coerceAtMost(suffixes.size - 1)
+        val shortValue = amount.toDouble().absoluteValue / Math.pow(10.0, (suffixIndex * 3).toDouble())
+        val formattedValue = "%.2f".format(shortValue)
+        val sign = if (amount < 0) "-" else ""
+        return "$$formattedValue${suffixes[suffixIndex]}"
     }
 
 }
