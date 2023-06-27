@@ -57,7 +57,7 @@ object Tools {
         val costTextView: TextView = personCard.findViewById(R.id.value)
         val image: ImageView = personCard.findViewById(R.id.image)
 
-       // var asset = cardObject as Asset
+        image.setImageResource(icon)
 
         if (cardObject is Character || cardObject is Asset) {
             if (cardObject is Character) {
@@ -68,18 +68,21 @@ object Tools {
                 val asset = cardObject
                 nameTextView.text = asset.name
                 costTextView.text = formatMoney(asset.value.toLong())
+                image.setImageResource(asset.icon)
             }
 
             personCard.setOnClickListener {
                 if (nextActivity != null) {
                     val intent = Intent(context, nextActivity)
+                    if (cardObject is Asset){
+                        intent.putExtra("ObjectID", (cardObject.id).toString())
+                    }
                     intent.putExtra("ObjectName", nameTextView.text)
                     contract.launch(intent)
                 }
             }
         }
         captionTextView.text = caption
-        image.setImageResource(icon)
         placement.addView(personCard)
 
         return CardWithAsset(personCard, cardObject)
@@ -98,7 +101,7 @@ object Tools {
 
         dialogMessage.text = message
 
-        if (obj is Asset && obj.boughtFor == -1L){
+        if (obj is Asset){
             dialogButton.text = "Buy"
             dialogButton.setOnClickListener {
                 gameEngine.buyAsset(obj)

@@ -37,7 +37,7 @@ class HouseActivity : AppCompatActivity() {
             asset is Asset.House && asset.state == HouseState.LIVING_IN
         } as? Asset.House
 
-        val allHomes = player.assets.filterIsInstance<Asset.House>().filter { it.state != HouseState.LIVING_IN }
+        val allHomes = player.assets.filterIsInstance<Asset.House>().filter { it.state != HouseState.LIVING_IN }.sortedByDescending { it.value }
 
         if (currentHome != null) {
             Tools.addCardToView(this, currentHome,  currentContainer, "${currentHome.squareFeet}sq ft  Condition ${currentHome.condition}%", R.drawable.home, AssetActivity::class.java, myContract)

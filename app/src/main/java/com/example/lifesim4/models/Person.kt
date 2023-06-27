@@ -86,13 +86,49 @@ data class Job(
     val jobLevel: Int
 )
 
-sealed class Asset(val name: String, var value: Double, var condition: Int, var boughtFor: Long) {
-    class House(name: String, value: Double, condition: Int, boughtFor: Long, val squareFeet: Int, var state: HouseState) :
-        Asset(name, value, condition, boughtFor)
-    class Car(name: String, value: Double, condition: Int, boughtFor: Long, var state: CarState, var type: CarType) : Asset(name, value, condition, boughtFor)
-    class Plane(name: String, value: Double, condition: Int, boughtFor: Long) : Asset(name, value, condition, boughtFor)
-    class Boat(name: String, value: Double, condition: Int, boughtFor: Long) : Asset(name, value, condition, boughtFor)
+sealed class Asset(val id: Int, val name: String, var value: Double, var condition: Int, var boughtFor: Long, val icon: Int) {
+    init {
+        require(id >= 0) { "ID must be non-negative" }
+    }
+
+    class House(
+        id: Int,
+        name: String,
+        value: Double,
+        condition: Int,
+        boughtFor: Long,
+        val squareFeet: Int,
+        var state: HouseState,
+        icon: Int
+    ) : Asset(id, name, value, condition, boughtFor, icon)
+
+    class Car(
+        id: Int,
+        name: String,
+        value: Double,
+        condition: Int,
+        boughtFor: Long,
+        var state: CarState,
+        var type: CarType,
+        icon: Int
+    ) : Asset(id, name, value, condition, boughtFor, icon)
+
+    class Plane(id: Int, name: String, value: Double, condition: Int, boughtFor: Long, icon: Int) :
+        Asset(id, name, value, condition, boughtFor, icon)
+
+    class Boat(id: Int, name: String, value: Double, condition: Int, boughtFor: Long, icon: Int) :
+        Asset(id, name, value, condition, boughtFor, icon)
+
+    companion object {
+        private var nextId = 0
+
+        fun getNextId(): Int {
+            return nextId++
+        }
+    }
 }
+
+
 
 enum class HouseState(val description: String) {
     LIVING_IN("Living In"),

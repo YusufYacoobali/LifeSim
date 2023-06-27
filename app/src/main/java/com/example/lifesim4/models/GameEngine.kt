@@ -1,5 +1,6 @@
 package com.example.lifesim4.models
 
+import com.example.lifesim4.R
 import com.example.lifesim4.tools.Tools
 import com.github.javafaker.Faker
 import java.util.Random
@@ -157,12 +158,15 @@ class GameEngine private constructor() {
     }
 
     fun buyAsset(asset: Asset){
+        println("BUYING ASSET.")
+        asset.boughtFor = asset.value.toLong()
+        println("Asset BOUGHT FOR: ${asset.boughtFor}")
         currentPlayer.money -= asset.value.toLong()
         currentPlayer.assets.add(asset)
-        asset.boughtFor = asset.value.toLong()
         if (asset is Asset.House){
             asset.state = HouseState.VACANT
         }
+        println("FINISHED WITH ASSET ${asset.name}")
     }
 
     fun goGym(){
@@ -190,8 +194,9 @@ class GameEngine private constructor() {
         return everyone.find { it.name == name }
     }
 
-    fun getAsset(name: String): Asset? {
-        return assets.find { it.name == name }
+    fun getAsset(id: String): Asset? {
+        val idInt = id.toIntOrNull()
+        return assets.find { it.id == idInt }
     }
 
     fun getPlayer(): Person {
@@ -370,13 +375,13 @@ class GameEngine private constructor() {
 
         everyone.addAll(listOf(father, mother, child1, child2, child3, grandchild, lover, gf, enemy, friend))
 
-        val house1 = Asset.House("My House", 250000.0, 80, 250000, 2200, HouseState.LIVING_IN)
-        val house2 = Asset.House("Casa Primero", 2500000.0, 100, 100000, 4000, HouseState.RENTING_OUT)
-        val house3 = Asset.House("Casa Cinco", 280000.0, 59, 30, 3600, HouseState.VACANT)
-        val car = Asset.Car("My Car", 30000.0, 9, 29000, CarState.PRIMARY, CarType.NORMAL)
-        val car2 = Asset.Car("Rover", 2000.0, 19, 4000, CarState.STOLEN, CarType.SPORTS)
-        val boat = Asset.Boat("My Yacth", 3000000.0, 9, 200000)
-        val plane = Asset.Plane("My Jet", 5000000.0, 9, 10000000)
+        val house1 = Asset.House(900,"My House", 250000.0, 80, 250000, 2200, HouseState.LIVING_IN, R.drawable.home_cheap_1)
+        val house2 = Asset.House(901,"Casa Primero", 2500000.0, 100, 100000, 4000, HouseState.RENTING_OUT, R.drawable.home_luxury_1)
+        val house3 = Asset.House(902,"Casa Cinco", 280000.0, 59, 30, 3600, HouseState.VACANT, R.drawable.home_medium_1)
+        val car = Asset.Car(903,"My Car", 30000.0, 9, 29000, CarState.PRIMARY, CarType.NORMAL, R.drawable.buy_car)
+        val car2 = Asset.Car(904,"Rover", 2000.0, 19, 4000, CarState.STOLEN, CarType.SPORTS, R.drawable.buy_car)
+        val boat = Asset.Boat(905,"My Yacth", 3000000.0, 9, 200000, R.drawable.buy_boat)
+        val plane = Asset.Plane(906,"My Jet", 5000000.0, 9, 10000000, R.drawable.buy_planes)
         currentPlayer.assets.addAll(listOf(house1,house2,house3,car,car2,boat,plane))
         assets.addAll(listOf(house2,house3,house1,car,car2,boat,plane))
     }

@@ -72,40 +72,50 @@ class PropertiesActivity : AppCompatActivity() {
         return houses
     }
 
-    private fun makeHouse(houseType: PriceCategory): Asset.House{
-        val name = getRandomHouseName(houseType)
+    private fun makeHouse(houseType: PriceCategory): Asset.House {
+        val (houseName, houseIcon) = getRandomHouseName(houseType)
         val price = getRandomPrice(houseType)
         val condition = getRandomCondition()
         val boughtFor = -1L
         val squareFoot = getRandomSqaureFoot(houseType)
         val state = HouseState.MARKET
-        val house = Asset.House(name, price, condition, boughtFor, squareFoot, state)
+        val house = Asset.House(Asset.getNextId(), houseName, price, condition, boughtFor, squareFoot, state, houseIcon)
         gameEngine.addAssets(house)
         return house
     }
 
-    fun getRandomHouseName(houseType: PriceCategory): String {
+    fun getRandomHouseName(houseType: PriceCategory): Pair<String, Int> {
         val houseNames = mapOf(
             PriceCategory.CHEAP to listOf(
-                "Cozy Cottage", "Rustic Cabin", "Bungalow", "Small Retreat", "Quaint Haven",
-                "Tiny Abode", "Simple Dwelling", "Charming Shack", "Affordable Home", "Budget Residence"
+                Pair("Cozy Cottage", R.drawable.home_cheap_1),
+                Pair("Rustic Cabin", R.drawable.home),
+                Pair("Bungalow", R.drawable.home_cheap_1),
+                // Add more cheap house names and their icons
             ),
             PriceCategory.MEDIUM to listOf(
-                "Modern Loft", "City Penthouse", "Contemporary Condo", "Urban Oasis", "Stylish Apartment",
-                "Metropolitan Living", "Sleek Studio", "Elegant Loft", "Cosmopolitan Home", "Trendy Residence"
+                Pair("Modern Loft", R.drawable.home_medium_1),
+                Pair("City Penthouse", R.drawable.home_medium_1),
+                Pair("Contemporary Condo", R.drawable.home_medium_1),
+                // Add more medium house names and their icons
             ),
             PriceCategory.HIGH to listOf(
-                "Luxury Villa", "Mansion", "Historic Estate", "Exquisite Manor", "Grand Chateau",
-                "Opulent Mansion", "Prestigious Residence", "Elegant Abode", "Stately Dwelling", "Palatial Home"
+                Pair("Luxury Villa", R.drawable.home_high_1),
+                Pair("Mansion", R.drawable.home_high_1),
+                Pair("Historic Estate", R.drawable.home_high_1),
+                // Add more high house names and their icons
             ),
             PriceCategory.LUXURY to listOf(
-                "Castle", "Manor House", "Spanish Villa", "Royal Residence", "Regal Palace",
-                "Imposing Fortress", "Grand Estate", "Majestic Mansion", "Magnificent Domicile", "Sumptuous Abode"
+                Pair("Castle", R.drawable.home_luxury_1),
+                Pair("Manor House", R.drawable.home_luxury_1),
+                Pair("Spanish Villa", R.drawable.home_luxury_1),
+                // Add more luxury house names and their icons
             )
         )
 
-        return houseNames[houseType]?.random() ?: error("Invalid house type")
+        val houseList = houseNames[houseType] ?: error("Invalid house type")
+        return houseList.random()
     }
+
 
     fun getRandomPrice(houseType: PriceCategory): Double {
         return when (houseType) {
