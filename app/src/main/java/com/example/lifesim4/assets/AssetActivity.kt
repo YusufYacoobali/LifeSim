@@ -67,26 +67,28 @@ class AssetActivity : AppCompatActivity() {
         boughtValue.text = "Bought For: " + Tools.formatMoney(asset.boughtFor)
         curValue.text = "Current Value: " + Tools.formatMoney(asset.value.toLong())
         condition.text = "Condition: " + asset.condition
+        image.setImageResource(asset.icon)
+        state.text = "Type: " + asset.state.description
 
         if (asset is Asset.House){
-            state.text = (asset as Asset.House).state.description
+            //state.text = (asset as Asset.House).state.description
             info.text = (asset as Asset.House).squareFeet.toString() + "sq ft"
         }
         else if (asset is Asset.Car){
-            image.setImageResource(R.drawable.buy_car)
-            state.text = "Type: " + (asset as Asset.Car).state.toString().lowercase()
+            //image.setImageResource(R.drawable.buy_car)
+            //state.text = "Type: " + (asset as Asset.Car).state.toString().lowercase()
             info.visibility = View.GONE
             rentButton.visibility = View.GONE
         }
         else if (asset is Asset.Boat){
-            image.setImageResource(R.drawable.buy_boat)
-            state.visibility = View.GONE
+           // image.setImageResource(R.drawable.buy_boat)
+            //state.visibility = View.GONE
             info.visibility = View.GONE
             rentButton.visibility = View.GONE
         }
         else if (asset is Asset.Plane){
-            image.setImageResource(R.drawable.buy_planes)
-            state.visibility = View.GONE
+            //image.setImageResource(R.drawable.buy_planes)
+            //state.visibility = View.GONE
             info.visibility = View.GONE
             rentButton.visibility = View.GONE
         }
