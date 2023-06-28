@@ -1,10 +1,12 @@
 package com.example.lifesim4.activities
 
 import android.app.Activity
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import com.example.lifesim4.R
 import com.example.lifesim4.models.Asset
@@ -13,41 +15,43 @@ import com.example.lifesim4.models.HouseState
 import com.example.lifesim4.models.Person
 import com.example.lifesim4.tools.Tools
 import com.example.lifesim4.tools.Tools.formatMoney
+import kotlin.random.Random
 
 class PropertiesActivity : AppCompatActivity() {
 
-    //ADD RENTING OPTION TOO ON POP UP DIALOG
-
     private lateinit var gameEngine: GameEngine
-    private lateinit var asset: Asset
-    private lateinit var player: Person
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_properties)
         gameEngine = GameEngine.getInstance()
-        player = gameEngine.getPlayer()
 
         val myContract = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
-                setResult(Activity.RESULT_OK)
-                //updateUI()
-                finish()
+                //setResult(Activity.RESULT_OK)
+                //finish()
             }
         }
-
         val houses = makeHouses().sortedByDescending { it.value }
-        val houseContainer = findViewById<LinearLayout>(R.id.houseMarket)
+        updatePage(houses, myContract)
+    }
 
-        val cards = Tools.addCardsToView(this, houses,  houseContainer, "sq ft  Condition%", R.drawable.home, null, myContract)
-        cards.forEach {card ->
+    private fun updatePage(houses: List<Asset.House>, myContract: ActivityResultLauncher<Intent>) {
+        val houseContainer = findViewById<LinearLayout>(R.id.houseMarket)
+        houseContainer.removeAllViews()
+
+        val marketHouses = houses.filter { it.state == HouseState.MARKET }
+        val cards = Tools.addCardsToView(this, marketHouses, houseContainer, "sq ft  Condition%", R.drawable.home, null, myContract)
+
+        cards.forEach { card ->
             val house = card.obj as Asset.House
             val captionTextView: TextView = card.personCard.findViewById(R.id.caption)
             captionTextView.text = "${house.squareFeet}sq ft  Condition ${house.condition}%"
-            card.personCard.setOnClickListener{
+            card.personCard.setOnClickListener {
                 Tools.showPopupDialog(this, "Would you like to buy for ${formatMoney(house.value.toLong())}", house) { resultCode ->
                     gameEngine.sendMessage("Bought a house")
                     setResult(resultCode)
-                    finish()
+                    updatePage(houses, myContract)
+                    //finish()
                 }
             }
         }
@@ -55,10 +59,10 @@ class PropertiesActivity : AppCompatActivity() {
 
     private fun makeHouses(): List<Asset.House> {
         val houseCounts = mapOf(
-            PriceCategory.CHEAP to 4,
-            PriceCategory.MEDIUM to 4,
-            PriceCategory.HIGH to 4,
-            PriceCategory.LUXURY to 3
+            PriceCategory.CHEAP to Random.nextInt(2, 4),
+            PriceCategory.MEDIUM to Random.nextInt(1, 3),
+            PriceCategory.HIGH to Random.nextInt(1, 3),
+            PriceCategory.LUXURY to Random.nextInt(0, 4)
         )
 
         val houses = mutableListOf<Asset.House>()

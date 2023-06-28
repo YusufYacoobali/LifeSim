@@ -96,19 +96,23 @@ object Tools {
 
         val dialogMessage: TextView = dialog.findViewById(R.id.dialog_message)
         val dialogButton: TextView = dialog.findViewById(R.id.dialog_button)
+        val dialogButton2: TextView = dialog.findViewById(R.id.dialog_button2)
 
         dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
         dialogMessage.text = message
+        //dialogButton2.visibility = View.GONE
 
         if (obj is Asset){
-            dialogButton.text = "Buy"
-            dialogButton.setOnClickListener {
+            dialogButton.text = "Rent"
+            dialogButton2.text = "Buy"
+            dialogButton2.setOnClickListener {
                 gameEngine.buyAsset(obj)
                 resultCallback?.invoke(Activity.RESULT_OK)
                 dialog.dismiss()
             }
         } else {
+            dialogButton2.visibility = View.GONE
             dialogButton.setOnClickListener {
                 dialog.dismiss()
             }
