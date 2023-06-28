@@ -10,9 +10,10 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import com.example.lifesim4.R
 import com.example.lifesim4.models.Asset
+import com.example.lifesim4.models.AssetState
 import com.example.lifesim4.models.GameEngine
-import com.example.lifesim4.models.HouseState
 import com.example.lifesim4.models.Person
+import com.example.lifesim4.models.PriceCategory
 import com.example.lifesim4.tools.Tools
 import com.example.lifesim4.tools.Tools.formatMoney
 import kotlin.random.Random
@@ -39,7 +40,7 @@ class PropertiesActivity : AppCompatActivity() {
         val houseContainer = findViewById<LinearLayout>(R.id.houseMarket)
         houseContainer.removeAllViews()
 
-        val marketHouses = houses.filter { it.state == HouseState.MARKET }
+        val marketHouses = houses.filter { it.state == AssetState.MARKET }
         val cards = Tools.addCardsToView(this, marketHouses, houseContainer, "sq ft  Condition%", R.drawable.home, null, myContract)
 
         cards.forEach { card ->
@@ -81,7 +82,7 @@ class PropertiesActivity : AppCompatActivity() {
         val condition = getRandomCondition()
         val boughtFor = -1L
         val squareFoot = getRandomSqaureFoot(houseType)
-        val state = HouseState.MARKET
+        val state = AssetState.MARKET
         val house = Asset.House(Asset.getNextId(), houseName, price, condition, boughtFor, squareFoot, state, houseIcon)
         gameEngine.addAssets(house)
         return house
@@ -148,11 +149,4 @@ class PropertiesActivity : AppCompatActivity() {
             PriceCategory.LUXURY -> luxurySquareFootRange.random()
         }
     }
-    enum class PriceCategory {
-        CHEAP,
-        MEDIUM,
-        HIGH,
-        LUXURY
-    }
-
 }

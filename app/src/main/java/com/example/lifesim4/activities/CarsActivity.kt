@@ -10,9 +10,10 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import com.example.lifesim4.R
 import com.example.lifesim4.models.Asset
+import com.example.lifesim4.models.AssetState
 import com.example.lifesim4.models.GameEngine
-import com.example.lifesim4.models.CarState
 import com.example.lifesim4.models.CarType
+import com.example.lifesim4.models.PriceCategory
 import com.example.lifesim4.tools.Tools
 import kotlin.random.Random
 
@@ -38,7 +39,7 @@ class CarsActivity : AppCompatActivity() {
         val carContainer = findViewById<LinearLayout>(R.id.carMarket)
         carContainer.removeAllViews()
 
-        val marketHouses = cars.filter { it.state == CarState.MARKET }
+        val marketHouses = cars.filter { it.state == AssetState.MARKET }
         val cards = Tools.addCardsToView(this, marketHouses, carContainer, "car", R.drawable.buy_car, null, myContract)
 
         cards.forEach { card ->
@@ -87,7 +88,7 @@ class CarsActivity : AppCompatActivity() {
         val price = getRandomPrice(carPriceType)
         val condition = getRandomCondition()
         val boughtFor = -1L
-        val carState = CarState.MARKET
+        val carState = AssetState.MARKET
         val car = Asset.Car(Asset.getNextId(), carName, price, condition, boughtFor, carState, CarType.NORMAL, carIcon)
         gameEngine.addAssets(car)
         return car
@@ -137,12 +138,5 @@ class CarsActivity : AppCompatActivity() {
         val minCondition = 0
         val maxCondition = 100
         return (minCondition..maxCondition).random()
-    }
-
-    enum class PriceCategory {
-        CHEAP,
-        MEDIUM,
-        HIGH,
-        LUXURY
     }
 }

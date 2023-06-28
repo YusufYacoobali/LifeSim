@@ -161,12 +161,7 @@ class GameEngine private constructor() {
         asset.boughtFor = asset.value.toLong()
         currentPlayer.money -= asset.value.toLong()
         currentPlayer.assets.add(asset)
-        if (asset is Asset.House){
-            asset.state = HouseState.VACANT
-        }
-        if (asset is Asset.Car){
-            asset.state = CarState.OWNED
-        }
+        asset.state = AssetState.OWNED
     }
 
     fun goGym(){
@@ -375,14 +370,11 @@ class GameEngine private constructor() {
 
         everyone.addAll(listOf(father, mother, child1, child2, child3, grandchild, lover, gf, enemy, friend))
 
-        val house1 = Asset.House(900,"My House", 250000.0, 80, 250000, 2200, HouseState.LIVING_IN, R.drawable.home_cheap_1)
-        val house2 = Asset.House(901,"Casa Primero", 2500000.0, 100, 100000, 4000, HouseState.RENTING_OUT, R.drawable.home_luxury_1)
-        val house3 = Asset.House(902,"Casa Cinco", 280000.0, 59, 30, 3600, HouseState.VACANT, R.drawable.home_medium_1)
-        val car = Asset.Car(903,"My Car", 30000.0, 9, 29000, CarState.PRIMARY, CarType.NORMAL, R.drawable.buy_car)
-        val car2 = Asset.Car(904,"Rover", 2000.0, 19, 4000, CarState.STOLEN, CarType.SPORTS, R.drawable.buy_car)
-        val boat = Asset.Boat(905,"My Yacth", 3000000.0, 9, 200000, R.drawable.buy_boat)
-        val plane = Asset.Plane(906,"My Jet", 5000000.0, 9, 10000000, R.drawable.buy_planes)
-        currentPlayer.assets.addAll(listOf(house1,house2,house3,car,car2,boat,plane))
-        assets.addAll(listOf(house2,house3,house1,car,car2,boat,plane))
+        val house1 = Asset.House(900,"My House", 250000.0, 80, 250000, 2200, AssetState.LIVING_IN, R.drawable.home_cheap_1)
+        val car = Asset.Car(903,"My Car", 30000.0, 9, 29000, AssetState.PRIMARY, CarType.NORMAL, R.drawable.buy_car)
+        val boat = Asset.Boat(905,"My Yacth", 3000000.0, 9, 200000, R.drawable.buy_boat, AssetState.OWNED)
+        val plane = Asset.Plane(906,"My Jet", 5000000.0, 9, 10000000, R.drawable.buy_planes, AssetState.OWNED)
+        currentPlayer.assets.addAll(listOf(house1,car,boat,plane))
+        assets.addAll(listOf(house1,car,boat,plane))
     }
 }

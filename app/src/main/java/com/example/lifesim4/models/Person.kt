@@ -86,7 +86,15 @@ data class Job(
     val jobLevel: Int
 )
 
-sealed class Asset(val id: Int, val name: String, var value: Double, var condition: Int, var boughtFor: Long, val icon: Int) {
+sealed class Asset(
+    val id: Int,
+    val name: String,
+    var value: Double,
+    var condition: Int,
+    var boughtFor: Long,
+    val icon: Int,
+    var state: AssetState
+) {
     init {
         require(id >= 0) { "ID must be non-negative" }
     }
@@ -98,9 +106,9 @@ sealed class Asset(val id: Int, val name: String, var value: Double, var conditi
         condition: Int,
         boughtFor: Long,
         val squareFeet: Int,
-        var state: HouseState,
+        state: AssetState,
         icon: Int
-    ) : Asset(id, name, value, condition, boughtFor, icon)
+    ) : Asset(id, name, value, condition, boughtFor, icon, state)
 
     class Car(
         id: Int,
@@ -108,16 +116,16 @@ sealed class Asset(val id: Int, val name: String, var value: Double, var conditi
         value: Double,
         condition: Int,
         boughtFor: Long,
-        var state: CarState,
-        var type: CarType,
+        state: AssetState,
+        val type: CarType,
         icon: Int
-    ) : Asset(id, name, value, condition, boughtFor, icon)
+    ) : Asset(id, name, value, condition, boughtFor, icon, state)
 
-    class Plane(id: Int, name: String, value: Double, condition: Int, boughtFor: Long, icon: Int) :
-        Asset(id, name, value, condition, boughtFor, icon)
+    class Plane(id: Int, name: String, value: Double, condition: Int, boughtFor: Long, icon: Int, state: AssetState) :
+        Asset(id, name, value, condition, boughtFor, icon, state)
 
-    class Boat(id: Int, name: String, value: Double, condition: Int, boughtFor: Long, icon: Int) :
-        Asset(id, name, value, condition, boughtFor, icon)
+    class Boat(id: Int, name: String, value: Double, condition: Int, boughtFor: Long, icon: Int, state: AssetState) :
+        Asset(id, name, value, condition, boughtFor, icon, state)
 
     companion object {
         private var nextId = 0
@@ -128,23 +136,17 @@ sealed class Asset(val id: Int, val name: String, var value: Double, var conditi
     }
 }
 
-
-
-enum class HouseState(val description: String) {
+enum class AssetState(val description: String) {
     LIVING_IN("Living In"),
     RENTING_OUT("Renting Out"),
     VACANT("Vacant"),
     UNDER_CONSTRUCTION("Under Construction"),
-    MARKET("For Sale")
-}
-
-enum class CarState(val description: String) {
+    MARKET("For Sale"),
     PRIMARY("Primary Vehicle"),
     LEASED("Leased Vehicle"),
     FINANCE("Financed Vehicle"),
     OWNED("Owned Vehicle"),
     STOLEN("Stolen Vehicle"),
-    MARKET("Available for Sale")
 }
 
 //possibly remove car types
@@ -166,6 +168,13 @@ enum class AffectionType {
     Sibling,
     Child,
     Me
+}
+
+enum class PriceCategory {
+    CHEAP,
+    MEDIUM,
+    HIGH,
+    LUXURY
 }
 
 
