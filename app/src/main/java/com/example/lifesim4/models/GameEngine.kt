@@ -158,15 +158,15 @@ class GameEngine private constructor() {
     }
 
     fun buyAsset(asset: Asset){
-        println("BUYING ASSET.")
         asset.boughtFor = asset.value.toLong()
-        println("Asset BOUGHT FOR: ${asset.boughtFor}")
         currentPlayer.money -= asset.value.toLong()
         currentPlayer.assets.add(asset)
         if (asset is Asset.House){
             asset.state = HouseState.VACANT
         }
-        println("FINISHED WITH ASSET ${asset.name}")
+        if (asset is Asset.Car){
+            asset.state = CarState.OWNED
+        }
     }
 
     fun goGym(){

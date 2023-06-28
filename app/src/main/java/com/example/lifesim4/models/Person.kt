@@ -135,21 +135,24 @@ enum class HouseState(val description: String) {
     RENTING_OUT("Renting Out"),
     VACANT("Vacant"),
     UNDER_CONSTRUCTION("Under Construction"),
-    MARKET("On The Market")
+    MARKET("For Sale")
 }
 
-enum class CarState {
-    PRIMARY,
-    RENTING,
-    FINANCE,
-    STOLEN,
+enum class CarState(val description: String) {
+    PRIMARY("Primary Vehicle"),
+    LEASED("Leased Vehicle"),
+    FINANCE("Financed Vehicle"),
+    OWNED("Owned Vehicle"),
+    STOLEN("Stolen Vehicle"),
+    MARKET("Available for Sale")
 }
 
-enum class CarType {
-    NORMAL,
-    SPORTS,
-    HYPERCAR,
-    COLLECTABLE,
+//possibly remove car types
+enum class CarType(val description: String) {
+    NORMAL("Normal Car"),
+    SPORTS("Sports Car"),
+    HYPERCAR("Hypercar"),
+    COLLECTABLE("Collectible Car"),
 }
 
 enum class AffectionType {

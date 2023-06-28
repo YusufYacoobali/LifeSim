@@ -47,8 +47,8 @@ class PropertiesActivity : AppCompatActivity() {
             val captionTextView: TextView = card.personCard.findViewById(R.id.caption)
             captionTextView.text = "${house.squareFeet}sq ft  Condition ${house.condition}%"
             card.personCard.setOnClickListener {
-                Tools.showPopupDialog(this, "Would you like to buy for ${formatMoney(house.value.toLong())}", house) { resultCode ->
-                    gameEngine.sendMessage("Bought a house")
+                Tools.showPopupDialog(this, "Would you like to buy this for \n${formatMoney(house.value.toLong())}", house) { resultCode ->
+                    gameEngine.sendMessage("You bought a ${house.name} for\n${formatMoney(house.value.toLong())}")
                     setResult(resultCode)
                     updatePage(houses, myContract)
                     //finish()
@@ -72,7 +72,6 @@ class PropertiesActivity : AppCompatActivity() {
                 houses += makeHouse(houseType)
             }
         }
-
         return houses
     }
 
