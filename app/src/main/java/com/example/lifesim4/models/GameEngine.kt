@@ -19,18 +19,18 @@ class GameEngine private constructor() {
         val faker = Faker()
         val femaleFirstNames = listOf(
             "Emma", "Olivia", "Ava", "Sophia", "Isabella", "Mia", "Charlotte", "Amelia",
-            "Harper", "Evelyn", "Abigail", "Emily", "Elizabeth", "Mila", "Ella", "Avery",
+            "Harper", "Evelyn", "Abigail", "Emily", "Liz", "Mila", "Ella", "Avery",
             "Sofia", "Camila", "Aria", "Scarlett", "Victoria", "Madison", "Luna", "Grace",
             "Chloe", "Penelope", "Layla", "Riley", "Zoey", "Nora", "Lily", "Eleanor",
             "Hannah", "Lillian", "Addison", "Aubrey", "Ellie", "Stella", "Natalie", "Zoe"
         )
 
         val maleFirstNames = listOf(
-            "Liam", "Noah", "William", "James", "Oliver", "Benjamin", "Elijah", "Lucas",
-            "Mason", "Logan", "Alexander", "Henry", "Jacob", "Michael", "Daniel", "Jackson",
-            "Sebastian", "Aiden", "Matthew", "Samuel", "David", "Joseph", "Carter", "Owen",
-            "Wyatt", "John", "Jack", "Luke", "Jayden", "Dylan", "Grayson", "Levi", "Isaac",
-            "Gabriel", "Julian", "Mateo", "Anthony", "Jaxon", "Lincoln", "Joshua", "Christopher"
+            "Liam", "Noah", "William", "James", "Oliver", "Benja", "Elijah", "Lucas",
+            "Mason", "Logan", "Alex", "Henry", "Jacob", "Michael", "Daniel", "Jackson",
+            "Seb", "Aiden", "Matthew", "Samuel", "David", "Joseph", "Carter", "Owen",
+            "Wyatt", "John", "Jack", "Luke", "Jayden", "Dylan", "Gray", "Levi", "Isaac",
+            "Gab", "Julian", "Mateo", "Anthony", "Jaxon", "Lincoln", "Joshua", "Chris"
         )
 
         fun getInstance(): GameEngine {

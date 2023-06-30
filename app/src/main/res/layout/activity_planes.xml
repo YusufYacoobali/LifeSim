@@ -13,7 +13,7 @@
         android:background="@color/insidePagesText"
         android:gravity="center"
         android:padding="16dp"
-        android:text="Aircraft"
+        android:text="Aircraft For Sale"
         android:textColor="@color/white"
         android:textSize="24sp"
         android:textStyle="bold" />
@@ -27,10 +27,10 @@
         <LinearLayout
             android:id="@+id/planeMarket"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_marginTop="15dp"
             android:orientation="vertical"
-            android:padding="20dp"/>
+            android:padding="0dp"/>
     </ScrollView>
 </LinearLayout>
 
