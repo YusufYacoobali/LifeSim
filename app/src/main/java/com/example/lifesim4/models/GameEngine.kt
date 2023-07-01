@@ -21,13 +21,16 @@ class GameEngine private constructor() : Serializable {
 
     var startNew: Boolean = false
     var name = "test1"
-
+    private lateinit var currentPlayer: Person
+    private var messages: MutableList<String> = mutableListOf()
+    private val everyone: MutableList<Character> = mutableListOf()
+    val assets: MutableList<Asset> = mutableListOf()
     companion object {
         private var instance: GameEngine? = null
-        private var messages: MutableList<String> = mutableListOf()
-        private val everyone: MutableList<Character> = mutableListOf()
-        val assets: MutableList<Asset> = mutableListOf()
-        private lateinit var currentPlayer: Person
+//        private var messages: MutableList<String> = mutableListOf()
+//        private val everyone: MutableList<Character> = mutableListOf()
+//        val assets: MutableList<Asset> = mutableListOf()
+        //private lateinit var currentPlayer: Person
         val random = Random()
         val faker = Faker()
         val femaleFirstNames = listOf(
@@ -57,19 +60,21 @@ class GameEngine private constructor() : Serializable {
             return instance!!
         }
 
-        fun loadGameEngineFromFile(context: Context, fileName: String): SaveData? {
+        fun loadGameEngineFromFile(context: Context, fileName: String): GameEngine? {
             try {
                 val file = File(context.filesDir, fileName)
                 val fileInputStream = FileInputStream(file)
                 val objectInputStream = ObjectInputStream(fileInputStream)
-                val saveData = objectInputStream.readObject() as SaveData
+                val gameEngine = objectInputStream.readObject() as GameEngine
                 objectInputStream.close()
                 fileInputStream.close()
-                println(saveData.gameEngine.name)
-                instance = saveData.gameEngine
-                currentPlayer = saveData.person
-                println(saveData.person.name)
-                return saveData
+                println(gameEngine.name)
+                println("This is field " + gameEngine.getPlayer().name)
+                instance = gameEngine
+
+                //currentPlayer = saveData.person
+                //println(saveData.person.name)
+                return gameEngine
             } catch (e: Exception) {
                 // Handle any exceptions that may occur during loading
                 e.printStackTrace()
@@ -79,19 +84,19 @@ class GameEngine private constructor() : Serializable {
 
     }
 
-    data class SaveData(val gameEngine: GameEngine, val person: Person) : Serializable
+    //data class SaveData(val gameEngine: GameEngine, val person: Person) : Serializable
 
     fun saveGameEngineToFile(context: Context, fileName: String, gameEngine: GameEngine, person: Person) {
         try {
             val file = File(context.filesDir, fileName)
-            val saveData = SaveData(gameEngine, person)
+            //val saveData = SaveData(gameEngine, person)
 
             ObjectOutputStream(FileOutputStream(file)).use { fileOutputStream ->
-                fileOutputStream.writeObject(saveData)
+                fileOutputStream.writeObject(this)
             }
             println("GAME SAVED")
-            println(person.name)
-            currentPlayer = person
+            //println(person.name)
+            //currentPlayer = person
         } catch (e: IOException) {
             e.printStackTrace()
             throw RuntimeException("Failed to save game state to file: $fileName", e)
@@ -250,6 +255,10 @@ class GameEngine private constructor() : Serializable {
 
     fun getPlayer(): Person {
         return currentPlayer
+    }
+
+    fun setPlayer(player: Person) {
+        currentPlayer = player
     }
 
     fun startGame() {

@@ -43,15 +43,11 @@ class MainActivity : AppCompatActivity()  {
 //            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), REQUEST_CODE)
 //        }
 
-        val savedData = GameEngine.loadGameEngineFromFile(this, "game_state.bin")
-        if (savedData != null) {
-            val loadedGameEngine = savedData.gameEngine
-            val loadedPerson = savedData.person
-            // Perform any necessary operations with the loaded objects
-            println(loadedGameEngine.name)
-            println(loadedPerson.name)
-            gameEngine = loadedGameEngine
-            player = loadedPerson
+        val gameEngineData = GameEngine.loadGameEngineFromFile(this, "game_state.bin")
+        if (gameEngineData != null) {
+            gameEngine = gameEngineData
+            gameEngine.setPlayer(gameEngineData.getPlayer())
+            player = gameEngineData.getPlayer()
             println("Game Loaded")
             changestatusUI()
         } else {
