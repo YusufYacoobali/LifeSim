@@ -1,19 +1,32 @@
 package com.example.lifesim4.models
 
+import android.Manifest
+import android.content.Context
+import android.content.pm.PackageManager
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import com.example.lifesim4.R
 import com.example.lifesim4.tools.Tools
 import com.github.javafaker.Faker
+import java.io.File
+import java.io.FileInputStream
+import java.io.FileOutputStream
+import java.io.IOException
+import java.io.ObjectInputStream
+import java.io.ObjectOutputStream
+import java.io.Serializable
 import java.util.Random
 
-class GameEngine private constructor() {
+class GameEngine private constructor() : Serializable {
 
     var startNew: Boolean = false
+    var name = "test1"
 
     companion object {
         private var instance: GameEngine? = null
         private var messages: MutableList<String> = mutableListOf()
         private val everyone: MutableList<Character> = mutableListOf()
-        private val assets: MutableList<Asset> = mutableListOf()
+        val assets: MutableList<Asset> = mutableListOf()
         private lateinit var currentPlayer: Person
         val random = Random()
         val faker = Faker()
@@ -43,7 +56,48 @@ class GameEngine private constructor() {
             }
             return instance!!
         }
+
+        fun loadGameEngineFromFile(context: Context, fileName: String): SaveData? {
+            try {
+                val file = File(context.filesDir, fileName)
+                val fileInputStream = FileInputStream(file)
+                val objectInputStream = ObjectInputStream(fileInputStream)
+                val saveData = objectInputStream.readObject() as SaveData
+                objectInputStream.close()
+                fileInputStream.close()
+                println(saveData.gameEngine.name)
+                instance = saveData.gameEngine
+                currentPlayer = saveData.person
+                println(saveData.person.name)
+                return saveData
+            } catch (e: Exception) {
+                // Handle any exceptions that may occur during loading
+                e.printStackTrace()
+            }
+            return null
+        }
+
     }
+
+    data class SaveData(val gameEngine: GameEngine, val person: Person) : Serializable
+
+    fun saveGameEngineToFile(context: Context, fileName: String, gameEngine: GameEngine, person: Person) {
+        try {
+            val file = File(context.filesDir, fileName)
+            val saveData = SaveData(gameEngine, person)
+
+            ObjectOutputStream(FileOutputStream(file)).use { fileOutputStream ->
+                fileOutputStream.writeObject(saveData)
+            }
+            println("GAME SAVED")
+            println(person.name)
+            currentPlayer = person
+        } catch (e: IOException) {
+            e.printStackTrace()
+            throw RuntimeException("Failed to save game state to file: $fileName", e)
+        }
+    }
+
 
     fun simulate() {
         applyStatsAndAge()

@@ -1,13 +1,17 @@
 package com.example.lifesim4
 
+import android.Manifest
 import android.app.Activity
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Typeface
 import android.os.Bundle
 import android.widget.ScrollView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import com.example.lifesim4.databinding.MainMainBinding
@@ -21,13 +25,40 @@ class MainActivity : AppCompatActivity()  {
     private lateinit var gameEngine: GameEngine
     private lateinit var binding: MainMainBinding
     private lateinit var player: Person
+    companion object {
+        private const val REQUEST_CODE = 1
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.main_main)
         setContentView(binding.root)
-        gameEngine = GameEngine.getInstance()
-        startNewGame()
+
+//        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+//            // Permission is granted, perform file write operations
+//            //performFileWriteOperations()
+//            startNewGame()
+//        } else {
+//            // Permission is not granted, request the permission
+//            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), REQUEST_CODE)
+//        }
+
+        val savedData = GameEngine.loadGameEngineFromFile(this, "game_state.bin")
+        if (savedData != null) {
+            val loadedGameEngine = savedData.gameEngine
+            val loadedPerson = savedData.person
+            // Perform any necessary operations with the loaded objects
+            println(loadedGameEngine.name)
+            println(loadedPerson.name)
+            gameEngine = loadedGameEngine
+            player = loadedPerson
+            println("Game Loaded")
+            changestatusUI()
+        } else {
+            println("Game not loaded")
+            gameEngine = GameEngine.getInstance()
+            startNewGame()
+        }
 
         //handle data when user comes back to main page
         val myContract = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -66,6 +97,18 @@ class MainActivity : AppCompatActivity()  {
         }
     }
 
+//    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+//        if (requestCode == REQUEST_CODE) {
+//            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+//                // Permission is granted, perform file write operations
+//               // performFileWriteOperations()
+//            } else {
+//                // Permission is denied, handle the scenario
+//                Toast.makeText(this, "File write permission denied.", Toast.LENGTH_SHORT).show()
+//            }
+//        }
+//    }
+
     //Start new Life
     private fun startNewGame(){
         gameEngine.startGame()
@@ -101,6 +144,8 @@ class MainActivity : AppCompatActivity()  {
             gameEngine.startNew = false
 
         }
+        gameEngine.name = "test2"
+        gameEngine.saveGameEngineToFile(this,"game_state.bin", gameEngine, player)
     }
 
     //Used by events from other pages

@@ -1,9 +1,10 @@
 package com.example.lifesim4.models
 
 import com.github.javafaker.Faker
+import java.io.Serializable
 import kotlin.random.Random
 
-interface Character {
+interface Character  : Serializable {
     // Define common properties and methods here
     val name: String
     var affectionType: AffectionType
@@ -49,7 +50,7 @@ data class Person(
     var lovers: MutableList<NPC> = mutableListOf(),
     override var affectionType: AffectionType,
     override var affection: Int
-) : Character
+) : Character, Serializable
 
 data class NPC(
     override val name: String,
@@ -69,7 +70,7 @@ data class NPC(
 ) : Character
 
 // FameLevel.kt
-enum class FameLevel(val multiplier: Double) {
+enum class FameLevel(val multiplier: Double) : Serializable {
     U(1.0),
     D(1.5),
     C(2.5),
@@ -79,7 +80,7 @@ enum class FameLevel(val multiplier: Double) {
 }
 
 // Job.kt
-data class Job(
+data class Job (
     val jobName: String,
     val salary: Double,
     val nextJob: Job?,
@@ -94,7 +95,7 @@ sealed class Asset(
     var boughtFor: Long,
     val icon: Int,
     var state: AssetState
-) {
+) : Serializable {
     init {
         require(id >= 0) { "ID must be non-negative" }
     }
@@ -136,7 +137,7 @@ sealed class Asset(
     }
 }
 
-enum class AssetState(val description: String) {
+enum class AssetState(val description: String) : Serializable {
     LIVING_IN("Living In"),
     RENTING_OUT("Renting Out"),
     VACANT("Vacant"),
@@ -150,14 +151,14 @@ enum class AssetState(val description: String) {
 }
 
 //possibly remove car types
-enum class CarType(val description: String) {
+enum class CarType(val description: String) : Serializable {
     NORMAL("Normal Car"),
     SPORTS("Sports Car"),
     HYPERCAR("Hypercar"),
     COLLECTABLE("Collectible Car"),
 }
 
-enum class AffectionType {
+enum class AffectionType : Serializable {
     Friend,
     BestFriend,
     Enemy,
@@ -170,7 +171,7 @@ enum class AffectionType {
     Me
 }
 
-enum class PriceCategory {
+enum class PriceCategory : Serializable {
     CHEAP,
     MEDIUM,
     HIGH,
