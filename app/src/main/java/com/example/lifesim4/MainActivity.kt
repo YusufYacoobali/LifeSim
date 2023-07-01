@@ -25,29 +25,18 @@ class MainActivity : AppCompatActivity()  {
     private lateinit var gameEngine: GameEngine
     private lateinit var binding: MainMainBinding
     private lateinit var player: Person
-    companion object {
-        private const val REQUEST_CODE = 1
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.main_main)
         setContentView(binding.root)
 
-//        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
-//            // Permission is granted, perform file write operations
-//            //performFileWriteOperations()
-//            startNewGame()
-//        } else {
-//            // Permission is not granted, request the permission
-//            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), REQUEST_CODE)
-//        }
-
         val gameEngineData = GameEngine.loadGameEngineFromFile(this, "game_state.bin")
         if (gameEngineData != null) {
             gameEngine = gameEngineData
             gameEngine.setPlayer(gameEngineData.getPlayer())
             player = gameEngineData.getPlayer()
+            printLoadAllMessages()
             println("Game Loaded")
             changestatusUI()
         } else {
@@ -93,18 +82,6 @@ class MainActivity : AppCompatActivity()  {
         }
     }
 
-//    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-//        if (requestCode == REQUEST_CODE) {
-//            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-//                // Permission is granted, perform file write operations
-//               // performFileWriteOperations()
-//            } else {
-//                // Permission is denied, handle the scenario
-//                Toast.makeText(this, "File write permission denied.", Toast.LENGTH_SHORT).show()
-//            }
-//        }
-//    }
-
     //Start new Life
     private fun startNewGame(){
         gameEngine.startGame()
@@ -117,6 +94,14 @@ class MainActivity : AppCompatActivity()  {
         addTextViewToEvents("You are born as a ${player.gender}")
         addTextViewToEvents("Your name is ${player.name}")
         changestatusUI()
+    }
+
+    private fun printLoadAllMessages(){
+        val messages = gameEngine.allMessage
+        for (message in messages){
+            addTextViewToEvents(message)
+        }
+        //fix for age messages
     }
 
     private fun printAllMessages(){
@@ -140,8 +125,7 @@ class MainActivity : AppCompatActivity()  {
             gameEngine.startNew = false
 
         }
-        gameEngine.name = "test2"
-        gameEngine.saveGameEngineToFile(this,"game_state.bin", gameEngine, player)
+        gameEngine.saveGameEngineToFile(this,"game_state.bin")
     }
 
     //Used by events from other pages

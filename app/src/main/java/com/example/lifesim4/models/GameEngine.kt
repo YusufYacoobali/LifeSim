@@ -23,14 +23,11 @@ class GameEngine private constructor() : Serializable {
     var name = "test1"
     private lateinit var currentPlayer: Person
     private var messages: MutableList<String> = mutableListOf()
+    var allMessage: MutableList<String> = mutableListOf()
     private val everyone: MutableList<Character> = mutableListOf()
     val assets: MutableList<Asset> = mutableListOf()
     companion object {
         private var instance: GameEngine? = null
-//        private var messages: MutableList<String> = mutableListOf()
-//        private val everyone: MutableList<Character> = mutableListOf()
-//        val assets: MutableList<Asset> = mutableListOf()
-        //private lateinit var currentPlayer: Person
         val random = Random()
         val faker = Faker()
         val femaleFirstNames = listOf(
@@ -86,7 +83,7 @@ class GameEngine private constructor() : Serializable {
 
     //data class SaveData(val gameEngine: GameEngine, val person: Person) : Serializable
 
-    fun saveGameEngineToFile(context: Context, fileName: String, gameEngine: GameEngine, person: Person) {
+    fun saveGameEngineToFile(context: Context, fileName: String) {
         try {
             val file = File(context.filesDir, fileName)
             //val saveData = SaveData(gameEngine, person)
@@ -233,6 +230,7 @@ class GameEngine private constructor() : Serializable {
 
     fun sendMessage(message: String){
         messages.add(message)
+        allMessage.add(message)
     }
 
     fun getAllMessages(): MutableList<String> {
