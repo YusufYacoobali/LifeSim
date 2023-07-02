@@ -59,7 +59,6 @@ class PropertiesActivity : AppCompatActivity() {
                             }", false
                         )
                     )
-                    println("Bought asset id: ${house.id}")
                     setResult(resultCode)
                     updatePage(houses, myContract)
                     //finish()

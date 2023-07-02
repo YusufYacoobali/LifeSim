@@ -28,8 +28,6 @@ class AssetActivity : AppCompatActivity() {
         val assetID = intent.getStringExtra("ObjectID")
         if (assetID != null) {
             asset = gameEngine.getAsset(assetID)!!
-            println("asset id: $assetID and name ${asset.name}.")
-            println("tHING: ${asset.boughtFor}.")
             updateUI()
 
             val conditionButton = findViewById<LinearLayout>(R.id.conditionButton)

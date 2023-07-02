@@ -277,6 +277,7 @@ class GameEngine private constructor() : Serializable {
             val randomCharge = ((random.nextDouble() * (maxChargeRate - minChargeRate) + minChargeRate) * currentPlayer.money).toLong()
             currentPlayer.money -= randomCharge
             sendMessage(Message("You visited the ${message}.\nHealth ${if (change >= 0) "+$change" else change} costing you\n ${Tools.formatMoney(randomCharge)}", false))
+            currentPlayer.doctorOptions(1)
         } else {
             sendMessage(Message("Minimum charge is $${minCharge}. You are broke and cannot afford this...lol", false))
         }

@@ -1,5 +1,6 @@
 package com.example.lifesim4.models
 
+import com.example.lifesim4.tools.Tools
 import com.github.javafaker.Faker
 import java.io.Serializable
 import kotlin.random.Random
@@ -50,7 +51,63 @@ data class Person(
     var lovers: MutableList<NPC> = mutableListOf(),
     override var affectionType: AffectionType,
     override var affection: Int
-) : Character, Serializable
+) : Character, Serializable {
+    fun  doctorOptions(option: Int) : Pair<Int, Long> {
+        when (option){
+            1 -> {
+                if (money > 80000) {
+                    var newHealth = 0
+                    newHealth = if (health < 90) {
+                        Random.nextInt(90, 100)
+                    } else {
+                        100
+                    }
+                    val change = newHealth - health
+                    health = newHealth
+                    val randomCharge =
+                        ((GameEngine.random.nextDouble() * (0.5 - 0.3) + 0.3) * money).toLong()
+                    change to randomCharge
+                }
+                else 0 to -1L
+
+            }
+            2 -> {
+                val newHealth = if (health < thresholdHealth) GameEngine.random.nextInt(11) + additional else defaultHealth
+            }
+            3 -> {
+                val newHealth = if (health < thresholdHealth) GameEngine.random.nextInt(11) + additional else defaultHealth
+//                val witchAttack = random.nextInt(10) - 5 // -2 to +2
+//                if (witchAttack != 0) {
+//                    currentPlayer.health += witchAttack
+//                    val message = if (witchAttack > 0) {
+//                        "The witches have helped!\n+$witchAttack health"
+//                    } else {
+//                        "The witches have cursed you!\n-${witchAttack} health."
+//                    }
+//                    sendMessage(message)
+//                }
+            }
+            4 -> {
+                val newHealth = if (health < thresholdHealth) GameEngine.random.nextInt(11) + additional else defaultHealth
+            }
+            5 -> {
+                //plastic surgery
+                if (currentPlayer.money >= 20000)
+                    currentPlayer.money -= (currentPlayer.money*0.12).toLong()
+                currentPlayer.charm += 10
+                sendMessage(GameEngine.Message("You got that plastic. \nIt costed you $20k", false))
+            }
+            else -> {
+                //sendMessage("Invalid option")
+            }
+        }
+        val newHealth = if (health < thresholdHealth) GameEngine.random.nextInt(11) + additional else defaultHealth
+        val change = newHealth - currentPlayer.health
+        currentPlayer.health = newHealth
+        val randomCharge = ((GameEngine.random.nextDouble() * (maxChargeRate - minChargeRate) + minChargeRate) * currentPlayer.money).toLong()
+        currentPlayer.money -= randomCharge
+    }
+}
 
 data class NPC(
     override val name: String,
