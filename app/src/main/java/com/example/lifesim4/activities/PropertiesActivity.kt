@@ -12,6 +12,7 @@ import com.example.lifesim4.R
 import com.example.lifesim4.models.Asset
 import com.example.lifesim4.models.AssetState
 import com.example.lifesim4.models.GameEngine
+import com.example.lifesim4.models.GameEngine.Message
 import com.example.lifesim4.models.Person
 import com.example.lifesim4.models.PriceCategory
 import com.example.lifesim4.tools.Tools
@@ -49,7 +50,15 @@ class PropertiesActivity : AppCompatActivity() {
             captionTextView.text = "${house.squareFeet}sq ft  Condition ${house.condition}%"
             card.personCard.setOnClickListener {
                 Tools.showPopupDialog(this, "Would you like to buy this for \n${formatMoney(house.value.toLong())}", house) { resultCode ->
-                    gameEngine.sendMessage("You bought a ${house.name} for\n${formatMoney(house.value.toLong())}")
+                    gameEngine.sendMessage(
+                        Message(
+                            "You bought a ${house.name} for\n${
+                                formatMoney(
+                                    house.value.toLong()
+                                )
+                            }", false
+                        )
+                    )
                     setResult(resultCode)
                     updatePage(houses, myContract)
                     //finish()

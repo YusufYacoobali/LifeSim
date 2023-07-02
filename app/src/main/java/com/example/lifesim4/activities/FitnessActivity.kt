@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.LinearLayout
 import com.example.lifesim4.R
 import com.example.lifesim4.models.GameEngine
+import com.example.lifesim4.models.GameEngine.*
 
 class FitnessActivity : AppCompatActivity() {
 
@@ -25,10 +26,10 @@ class FitnessActivity : AppCompatActivity() {
             when (view.id) {
                 R.id.gymOption -> {
                     gameEngine.goGym()
-                    gameEngine.sendMessage("Joined Gym, +1 charm")
+                    gameEngine.sendMessage(Message("Joined Gym, +1 charm", false))
                 }
                 R.id.swimOption -> {
-                    gameEngine.sendMessage("You started swimming")
+                    gameEngine.sendMessage(Message("You started swimming", false))
                 }
             }
             setResult(Activity.RESULT_OK)

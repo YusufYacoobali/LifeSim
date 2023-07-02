@@ -19,11 +19,12 @@ import java.util.Random
 
 class GameEngine private constructor() : Serializable {
 
+    data class Message(val message: String, val isAgeText: Boolean) : Serializable
+
     var startNew: Boolean = false
-    var name = "test1"
     private lateinit var currentPlayer: Person
-    private var messages: MutableList<String> = mutableListOf()
-    var allMessage: MutableList<String> = mutableListOf()
+    private var messages: MutableList<Message> = mutableListOf()
+    var allMessage: MutableList<Message> = mutableListOf()
     private val everyone: MutableList<Character> = mutableListOf()
     val assets: MutableList<Asset> = mutableListOf()
     companion object {
@@ -65,7 +66,6 @@ class GameEngine private constructor() : Serializable {
                 val gameEngine = objectInputStream.readObject() as GameEngine
                 objectInputStream.close()
                 fileInputStream.close()
-                println(gameEngine.name)
                 println("This is field " + gameEngine.getPlayer().name)
                 instance = gameEngine
 
@@ -104,6 +104,7 @@ class GameEngine private constructor() : Serializable {
     fun simulate() {
         applyStatsAndAge()
         lifeChanges()  //check if student/baby/unemployed etc
+        sendMessage(Message("Age: ${currentPlayer.age} years", true))
         ageAssets() //deteritoate asset conditions
        // randomEvents() //cause random events with 40% chance of happing
         calcNetWorth()
@@ -112,7 +113,7 @@ class GameEngine private constructor() : Serializable {
 
     private fun checkLife(){
         if (currentPlayer.health <= 0){
-            sendMessage("You Died! You will now start as another person")
+            sendMessage(Message("You Died! You will now start as another person", false))
             startNew = true
         }
     }
@@ -136,10 +137,10 @@ class GameEngine private constructor() : Serializable {
                     healthChange += 1
                     geniusChange += 1
                 }
-                sendMessage("Nursery Started")
+                sendMessage(Message("Nursery Started", false))
             }
-            5 -> sendMessage("Primary School Started")
-            11 -> sendMessage("Secondary School Started")
+            5 -> sendMessage(Message("Primary School Started", false))
+            11 -> sendMessage(Message("Secondary School Started", false))
             18 -> currentPlayer.apply {
                 healthChange -= 1
                 geniusChange -= 1
@@ -162,7 +163,7 @@ class GameEngine private constructor() : Serializable {
             }
         }
         if (currentPlayer.job != null) {
-            sendMessage(currentPlayer.title)
+            //sendMessage(currentPlayer.title)
         }
     }
 
@@ -194,7 +195,7 @@ class GameEngine private constructor() : Serializable {
         val chance = 0.4 // 40% chance
 
         if (random.nextDouble() < chance) {
-            sendMessage("Random event occurred")
+            //sendMessage("Random event occurred")
         }
     }
 
@@ -228,12 +229,12 @@ class GameEngine private constructor() : Serializable {
         }
     }
 
-    fun sendMessage(message: String){
+    fun sendMessage(message: Message){
         messages.add(message)
         allMessage.add(message)
     }
 
-    fun getAllMessages(): MutableList<String> {
+    fun getAllMessages(): MutableList<Message> {
         val currentMessages = messages.toMutableList()
         messages.clear()
         //currentMessages.reverse() //works for dialog box but not for
@@ -261,6 +262,7 @@ class GameEngine private constructor() : Serializable {
 
     fun startGame() {
         // Create the current player and their family
+        allMessage.clear()
         createFamily()
     }
 
@@ -271,9 +273,9 @@ class GameEngine private constructor() : Serializable {
             currentPlayer.health = newHealth
             val randomCharge = ((random.nextDouble() * (maxChargeRate - minChargeRate) + minChargeRate) * currentPlayer.money).toLong()
             currentPlayer.money -= randomCharge
-            sendMessage("You visited the ${message}.\nHealth ${if (change >= 0) "+$change" else change} costing you\n ${Tools.formatMoney(randomCharge)}")
+            sendMessage(Message("You visited the ${message}.\nHealth ${if (change >= 0) "+$change" else change} costing you\n ${Tools.formatMoney(randomCharge)}", false))
         } else {
-            sendMessage("Minimum charge is $${minCharge}. You are broke and cannot afford this...lol")
+            sendMessage(Message("Minimum charge is $${minCharge}. You are broke and cannot afford this...lol", false))
         }
     }
 
@@ -306,10 +308,10 @@ class GameEngine private constructor() : Serializable {
                 if (currentPlayer.money >= 20000)
                     currentPlayer.money -= (currentPlayer.money*0.12).toLong()
                 currentPlayer.charm += 10
-                sendMessage("You got that plastic. \nIt costed you $20k")
+                sendMessage(Message("You got that plastic. \nIt costed you $20k", false))
             }
             else -> {
-                sendMessage("Invalid option")
+                //sendMessage("Invalid option")
             }
         }
     }
@@ -437,5 +439,10 @@ class GameEngine private constructor() : Serializable {
         val plane = Asset.Plane(906,"My Jet", 5000000.0, 9, 10000000, R.drawable.buy_planes, AssetState.OWNED)
         currentPlayer.assets.addAll(listOf(house1,car,boat,plane))
         assets.addAll(listOf(house1,car,boat,plane))
+
+        sendMessage(Message("Age: ${currentPlayer.age} years", true))
+        sendMessage(Message("You are born as a ${currentPlayer.gender}", false))
+        sendMessage(Message("Your name is ${currentPlayer.name}", false))
+        //currentPlayer.age++
     }
 }

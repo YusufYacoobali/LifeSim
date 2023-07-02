@@ -9,6 +9,7 @@ import android.widget.TextView
 import com.example.lifesim4.R
 import com.example.lifesim4.models.Character
 import com.example.lifesim4.models.GameEngine
+import com.example.lifesim4.models.GameEngine.*
 import com.example.lifesim4.tools.Tools
 
 class PersonActivity : AppCompatActivity() {
@@ -31,7 +32,7 @@ class PersonActivity : AppCompatActivity() {
                 when (view.id) {
                     R.id.askMoney -> {
                         //gameEngine.askMoney()
-                        gameEngine.sendMessage("Asked money from ${person.affectionType.toString().lowercase()}")
+                        gameEngine.sendMessage(Message("Asked money from ${person.affectionType.toString().lowercase()}", false))
                     }
                 }
                 setResult(Activity.RESULT_OK)
@@ -40,7 +41,7 @@ class PersonActivity : AppCompatActivity() {
 
             askMoneyOption.setOnClickListener(clickListener)
         } else {
-            gameEngine.sendMessage("Invalid person name")
+            //gameEngine.sendMessage("Invalid person name")
         }
     }
 

@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.LinearLayout
 import com.example.lifesim4.R
 import com.example.lifesim4.models.GameEngine
+import com.example.lifesim4.models.GameEngine.*
 
 class PartTimeActivity : AppCompatActivity() {
 
@@ -22,10 +23,10 @@ class PartTimeActivity : AppCompatActivity() {
         val clickListener = View.OnClickListener { view ->
             when (view.id) {
                 R.id.partTime1 -> {
-                    gameEngine.sendMessage("You started working part time as a Life Guard with a salary of $13/hour")
+                    gameEngine.sendMessage(Message("You started working part time as a Life Guard with a salary of $13/hour", false))
                 }
                 R.id.partTime2 -> {
-                    gameEngine.sendMessage("You started working part time as a Window Cleaner with a salary of $15/hour")
+                    gameEngine.sendMessage(Message("You started working part time as a Window Cleaner with a salary of $15/hour", false))
                 }
             }
 

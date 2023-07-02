@@ -51,11 +51,15 @@ class PlanesActivity : AppCompatActivity() {
                         plane.value.toLong()
                     )
                 }", plane) { resultCode ->
-                    gameEngine.sendMessage("You bought a ${plane.name} for\n${
-                        Tools.formatMoney(
-                            plane.value.toLong()
+                    gameEngine.sendMessage(
+                        GameEngine.Message(
+                            "You bought a ${plane.name} for\n${
+                                Tools.formatMoney(
+                                    plane.value.toLong()
+                                )
+                            }", false
                         )
-                    }")
+                    )
                     setResult(resultCode)
                     updatePage(planes, myContract)
                     //finish()

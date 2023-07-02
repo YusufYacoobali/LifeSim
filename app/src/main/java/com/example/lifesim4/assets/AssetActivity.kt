@@ -10,6 +10,7 @@ import android.widget.TextView
 import com.example.lifesim4.R
 import com.example.lifesim4.models.Asset
 import com.example.lifesim4.models.GameEngine
+import com.example.lifesim4.models.GameEngine.*
 import com.example.lifesim4.models.Person
 import com.example.lifesim4.tools.Tools
 
@@ -38,7 +39,7 @@ class AssetActivity : AppCompatActivity() {
                         //gameEngine.askMoney()
                         asset.condition = 100
                         player.money -= 10000
-                        gameEngine.sendMessage("Asset fixed")
+                        gameEngine.sendMessage(Message("Asset fixed", false))
                         updateUI()
                     }
                 }
@@ -48,7 +49,7 @@ class AssetActivity : AppCompatActivity() {
 
             conditionButton.setOnClickListener(clickListener)
         } else {
-            gameEngine.sendMessage("Invalid Asset name")
+            //gameEngine.sendMessage("Invalid Asset name")
         }
     }
 

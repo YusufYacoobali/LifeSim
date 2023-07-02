@@ -87,19 +87,17 @@ class MainActivity : AppCompatActivity()  {
         gameEngine.startGame()
         player = gameEngine.getPlayer()
         deleteAllEvents()
-        binding.playerName.text = player.name
-        binding.workStatus.text = "Baby"
         gameEngine.calcNetWorth()
-        addAgeTextViewToEvents()
-        addTextViewToEvents("You are born as a ${player.gender}")
-        addTextViewToEvents("Your name is ${player.name}")
         changestatusUI()
     }
 
     private fun printLoadAllMessages(){
         val messages = gameEngine.allMessage
         for (message in messages){
-            addTextViewToEvents(message)
+            if (message.isAgeText)
+                addAgeTextViewToEvents(message.message)
+            else
+                addTextViewToEvents(message.message)
         }
         //fix for age messages
     }
@@ -107,18 +105,21 @@ class MainActivity : AppCompatActivity()  {
     private fun printAllMessages(){
         val messages = gameEngine.getAllMessages()
         for (message in messages){
-            addTextViewToEvents(message)
+            if (message.isAgeText)
+                addAgeTextViewToEvents(message.message)
+            else
+                addTextViewToEvents(message.message)
         }
         messages.reverse()
         for (message in messages){
-            Tools.showPopupDialog(this, message, null, null)
+            if (!message.isAgeText)
+                Tools.showPopupDialog(this, message.message, null, null)
         }
     }
 
     //Used for Age button
     private fun simulateUI() {
         changestatusUI()
-        addAgeTextViewToEvents()
         printAllMessages()
         if (gameEngine.startNew == true){
             startNewGame()
@@ -146,9 +147,9 @@ class MainActivity : AppCompatActivity()  {
     }
 
     //Different Age text style
-    private fun addAgeTextViewToEvents(){
+    private fun addAgeTextViewToEvents(text: String){
         val textView = TextView(this)
-        val text = "Age: ${player.age} years"
+        val text = text
         textView.text = text
         textView.setTextColor(ContextCompat.getColor(this, R.color.ageText))
         textView.textSize = 17F

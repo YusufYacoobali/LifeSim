@@ -52,11 +52,15 @@ class BoatsActivity : AppCompatActivity() {
                         boat.value.toLong()
                     )
                 }", boat) { resultCode ->
-                    gameEngine.sendMessage("You bought a ${boat.name} for\n${
-                        Tools.formatMoney(
-                            boat.value.toLong()
+                    gameEngine.sendMessage(
+                        GameEngine.Message(
+                            "You bought a ${boat.name} for\n${
+                                Tools.formatMoney(
+                                    boat.value.toLong()
+                                )
+                            }", false
                         )
-                    }")
+                    )
                     setResult(resultCode)
                     updatePage(cars, myContract)
                     //finish()
