@@ -103,8 +103,8 @@ class GameEngine private constructor() : Serializable {
 
     fun simulate() {
         applyStatsAndAge()
-        lifeChanges()  //check if student/baby/unemployed etc
         sendMessage(Message("Age: ${currentPlayer.age} years", true))
+        lifeChanges()  //check if student/baby/unemployed etc
         ageAssets() //deteritoate asset conditions
        // randomEvents() //cause random events with 40% chance of happing
         calcNetWorth()
@@ -248,6 +248,8 @@ class GameEngine private constructor() : Serializable {
     }
 
     fun getAsset(id: String): Asset? {
+        for (asset in assets)
+            println("ALL: asset id: ${asset.id} and name ${asset.name}.")
         val idInt = id.toIntOrNull()
         return assets.find { it.id == idInt }
     }
@@ -261,8 +263,9 @@ class GameEngine private constructor() : Serializable {
     }
 
     fun startGame() {
-        // Create the current player and their family
         allMessage.clear()
+        everyone.clear()
+        assets.clear()
         createFamily()
     }
 

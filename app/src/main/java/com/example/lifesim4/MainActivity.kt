@@ -110,23 +110,21 @@ class MainActivity : AppCompatActivity()  {
             else
                 addTextViewToEvents(message.message)
         }
-        messages.reverse()
         for (message in messages){
             if (!message.isAgeText)
                 Tools.showPopupDialog(this, message.message, null, null)
         }
+        gameEngine.saveGameEngineToFile(this,"game_state.bin")
     }
 
     //Used for Age button
     private fun simulateUI() {
         changestatusUI()
         printAllMessages()
-        if (gameEngine.startNew == true){
+        if (gameEngine.startNew){
             startNewGame()
             gameEngine.startNew = false
-
         }
-        gameEngine.saveGameEngineToFile(this,"game_state.bin")
     }
 
     //Used by events from other pages

@@ -107,6 +107,7 @@ object Tools {
             dialogButton.text = "Rent"
             dialogButton2.text = "Buy"
             dialogButton2.setOnClickListener {
+                println("in tools, asset id: ${obj.id} and name ${obj.name}.")
                 gameEngine.buyAsset(obj)
                 resultCallback?.invoke(Activity.RESULT_OK)
                 dialog.dismiss()
