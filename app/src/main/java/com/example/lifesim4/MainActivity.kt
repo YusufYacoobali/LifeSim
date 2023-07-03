@@ -84,9 +84,9 @@ class MainActivity : AppCompatActivity()  {
 
     //Start new Life
     private fun startNewGame(){
+        deleteAllEvents()
         gameEngine.startGame()
         player = gameEngine.getPlayer()
-        deleteAllEvents()
         gameEngine.calcNetWorth()
         changestatusUI()
     }
