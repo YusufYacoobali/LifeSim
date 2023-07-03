@@ -24,31 +24,64 @@ class HealthActivity : AppCompatActivity() {
         val clickListener = View.OnClickListener { view ->
             when (view.id) {
                 R.id.bestDoctor -> {
-                   // gameEngine.goDoctors(1)
-                    //no need for game engine, use person method and send message from here
                     val  (healthChange, charge) = player.doctorOptions(1)
                     if (charge == -1L){
                         gameEngine.sendMessage(Message("Minimum charge is $80k. You are broke and cannot afford this...lol", false))
+                    } else {
+                        gameEngine.sendMessage(Message(
+                            "You visited the best doctor in the country.\nHealth ${if (healthChange >= 0) "+$healthChange" else healthChange} costing you\n ${
+                                Tools.formatMoney(
+                                    charge
+                                )
+                            }", false
+                        ))
                     }
-                    gameEngine.sendMessage(Message(
-                        "You visited the best doctor in the country.\nHealth ${if (healthChange >= 0) "+$healthChange" else healthChange} costing you\n ${
-                            Tools.formatMoney(
-                                charge
-                            )
-                        }", false
-                    ))
                 }
                 R.id.cheapDoctor -> {
-                    gameEngine.goDoctors(2)
+                    val  (healthChange, charge) = player.doctorOptions(2)
+                    if (charge == -1L){
+                        gameEngine.sendMessage(Message("Minimum charge is $10k. You are broke and cannot afford this...lol", false))
+                    } else {
+                        gameEngine.sendMessage(Message(
+                            "You visited any doctor you could find.\nHealth ${if (healthChange >= 0) "+$healthChange" else healthChange} costing you\n ${
+                                Tools.formatMoney(
+                                    charge
+                                )
+                            }", false
+                        ))
+                    }
                 }
                 R.id.witch -> {
-                    gameEngine.goDoctors(3)
+                    val  (healthChange, charge) = player.doctorOptions(3)
+                    if (charge == -1L){
+                        gameEngine.sendMessage(Message("Minimum charge is $400. You can't even afford witches...lol", false))
+                    } else {
+                        gameEngine.sendMessage(Message(
+                            "You visited some dodgy witches.\nHealth ${if (healthChange >= 0) "+$healthChange" else healthChange} costing you\n ${
+                                Tools.formatMoney(
+                                    charge
+                                )
+                            }", false
+                        ))
+                    }
                 }
                 R.id.potion -> {
-                    gameEngine.goDoctors(4)
+                    val  (healthChange, charge) = player.doctorOptions(4)
+                    gameEngine.sendMessage(Message("You cooked up a secret potion in your basement\nHealth ${if (healthChange >= 0) "+$healthChange" else healthChange}", false))
                 }
                 R.id.surgery -> {
-                    gameEngine.goDoctors(5)
+                    val  (charmChange, charge) = player.doctorOptions(5)
+                    if (charge == -1L){
+                        gameEngine.sendMessage(Message("Minimum charge is $20k. You are broke and cannot afford this...lol", false))
+                    } else {
+                        gameEngine.sendMessage(Message(
+                            "You visited a plastic surgeon to get work done.\nCharm ${if (charmChange >= 0) "+$charmChange" else charmChange} costing you\n ${
+                                Tools.formatMoney(
+                                    charge
+                                )
+                            }", false
+                        ))
+                    }
                 }
             }
             setResult(Activity.RESULT_OK)

@@ -55,57 +55,63 @@ data class Person(
     fun  doctorOptions(option: Int) : Pair<Int, Long> {
         when (option){
             1 -> {
-                if (money > 80000) {
-                    var newHealth = 0
-                    newHealth = if (health < 90) {
-                        Random.nextInt(90, 100)
-                    } else {
-                        100
-                    }
-                    val change = newHealth - health
-                    health = newHealth
-                    val randomCharge =
-                        ((GameEngine.random.nextDouble() * (0.5 - 0.3) + 0.3) * money).toLong()
-                    change to randomCharge
-                }
-                else 0 to -1L
-
+                return if (money > 80000) {
+                    doctorProcess(90, 100, 0.5,0.3)
+                } else 0 to -1L
             }
             2 -> {
-                val newHealth = if (health < thresholdHealth) GameEngine.random.nextInt(11) + additional else defaultHealth
+                return if (money > 10000) {
+                    doctorProcess(70, Random.nextInt(70,88), 0.22,0.1)
+                } else 0 to -1L
             }
             3 -> {
-                val newHealth = if (health < thresholdHealth) GameEngine.random.nextInt(11) + additional else defaultHealth
-//                val witchAttack = random.nextInt(10) - 5 // -2 to +2
-//                if (witchAttack != 0) {
-//                    currentPlayer.health += witchAttack
-//                    val message = if (witchAttack > 0) {
-//                        "The witches have helped!\n+$witchAttack health"
-//                    } else {
-//                        "The witches have cursed you!\n-${witchAttack} health."
-//                    }
-//                    sendMessage(message)
-//                }
+                //calcs need fixing
+                return if (money > 400) {
+                    val witchAttack = Random.nextInt(health-20,health+20)
+                    val change = witchAttack - health
+                    health = witchAttack
+                    money -= 400
+                    return change to 400
+                } else 0 to -1L
             }
             4 -> {
-                val newHealth = if (health < thresholdHealth) GameEngine.random.nextInt(11) + additional else defaultHealth
+                val newHealth = Random.nextInt(1,100)
+                val change = newHealth - health
+                health = newHealth
+                return change to 0
             }
             5 -> {
                 //plastic surgery
-                if (currentPlayer.money >= 20000)
-                    currentPlayer.money -= (currentPlayer.money*0.12).toLong()
-                currentPlayer.charm += 10
-                sendMessage(GameEngine.Message("You got that plastic. \nIt costed you $20k", false))
+                return if (money >= 20000){
+                    var charge = (money*0.12).toLong()
+                    var newCharm = Random.nextInt(40,101)
+                    val change = newCharm - charm
+                    money -= charge
+                    charm = newCharm
+                    change to charge
+                } else {
+                    0 to -1L
+                }
+                //sendMessage(GameEngine.Message("You got that plastic. \nIt costed you $20k", false))
             }
             else -> {
-                //sendMessage("Invalid option")
+                return 0 to 0L
             }
         }
-        val newHealth = if (health < thresholdHealth) GameEngine.random.nextInt(11) + additional else defaultHealth
-        val change = newHealth - currentPlayer.health
-        currentPlayer.health = newHealth
-        val randomCharge = ((GameEngine.random.nextDouble() * (maxChargeRate - minChargeRate) + minChargeRate) * currentPlayer.money).toLong()
-        currentPlayer.money -= randomCharge
+    }
+
+    private fun doctorProcess(thresholdHealth: Int, maximumHealth: Int, maxCost: Double, minCost: Double): Pair<Int, Long> {
+        var newHealth = if (health < thresholdHealth) {
+            Random.nextInt(thresholdHealth, maximumHealth)
+        } else {
+            maximumHealth
+        }
+        val change = newHealth - health
+        val randomCharge =
+            ((GameEngine.random.nextDouble() * (maxCost - minCost) + minCost) * money).toLong()
+        health = newHealth
+        money -= randomCharge
+        return change to randomCharge
     }
 }
 
