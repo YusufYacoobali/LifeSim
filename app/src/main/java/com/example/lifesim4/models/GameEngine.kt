@@ -68,9 +68,6 @@ class GameEngine private constructor() : Serializable {
                 fileInputStream.close()
                 println("This is field " + gameEngine.getPlayer().name)
                 instance = gameEngine
-
-                //currentPlayer = saveData.person
-                //println(saveData.person.name)
                 return gameEngine
             } catch (e: Exception) {
                 // Handle any exceptions that may occur during loading
@@ -80,8 +77,6 @@ class GameEngine private constructor() : Serializable {
         }
 
     }
-
-    //data class SaveData(val gameEngine: GameEngine, val person: Person) : Serializable
 
     fun saveGameEngineToFile(context: Context, fileName: String) {
         try {
@@ -190,7 +185,6 @@ class GameEngine private constructor() : Serializable {
         }
     }
 
-
     fun randomEvents() {
         val chance = 0.4 // 40% chance
 
@@ -241,7 +235,6 @@ class GameEngine private constructor() : Serializable {
         return currentMessages
     }
 
-
     // Method to get all persons in the game world
     fun getPerson(name: String): Character? {
         return everyone.find { it.name == name }
@@ -267,57 +260,6 @@ class GameEngine private constructor() : Serializable {
         everyone.clear()
         assets.clear()
         createFamily()
-    }
-
-    private fun processDoctorOption(message: String, minCharge: Long, thresholdHealth: Int, defaultHealth: Int, additional: Int, minChargeRate: Double, maxChargeRate: Double) {
-        if (currentPlayer.money >= minCharge) {
-            val newHealth = if (currentPlayer.health < thresholdHealth) random.nextInt(11) + additional else defaultHealth
-            val change = newHealth - currentPlayer.health
-            currentPlayer.health = newHealth
-            val randomCharge = ((random.nextDouble() * (maxChargeRate - minChargeRate) + minChargeRate) * currentPlayer.money).toLong()
-            currentPlayer.money -= randomCharge
-            sendMessage(Message("You visited the ${message}.\nHealth ${if (change >= 0) "+$change" else change} costing you\n ${Tools.formatMoney(randomCharge)}", false))
-            currentPlayer.doctorOptions(1)
-        } else {
-            sendMessage(Message("Minimum charge is $${minCharge}. You are broke and cannot afford this...lol", false))
-        }
-    }
-
-    fun goDoctors(option: Int) {
-        when (option) {
-            1 -> {
-                processDoctorOption("expensive Doctor",20000, 90, 100, 90,0.5, 0.3)
-            }
-            2 -> {
-                processDoctorOption("GP",2000, 70, 88, 70,0.27, 0.19)
-            }
-            3 -> {
-                processDoctorOption("witch",400, 99, 100, 50,0.8, 0.2)
-//                val witchAttack = random.nextInt(10) - 5 // -2 to +2
-//                if (witchAttack != 0) {
-//                    currentPlayer.health += witchAttack
-//                    val message = if (witchAttack > 0) {
-//                        "The witches have helped!\n+$witchAttack health"
-//                    } else {
-//                        "The witches have cursed you!\n-${witchAttack} health."
-//                    }
-//                    sendMessage(message)
-//                }
-            }
-            4 -> {
-                processDoctorOption("medicine cupboard",0, 10, 30, 10,0.0, 0.1)
-            }
-            5 -> {
-                //plastic surgery
-                if (currentPlayer.money >= 20000)
-                    currentPlayer.money -= (currentPlayer.money*0.12).toLong()
-                currentPlayer.charm += 10
-                sendMessage(Message("You got that plastic. \nIt costed you $20k", false))
-            }
-            else -> {
-                //sendMessage("Invalid option")
-            }
-        }
     }
 
     private fun createFamily() {
