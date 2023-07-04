@@ -88,11 +88,10 @@ object Tools {
         return CardWithAsset(personCard, cardObject)
     }
 
-    fun <T> showPopupDialog(context: Context, message: String, obj: T, resultCallback: ((Int) -> Unit)?) {
+    fun <T> showPopupDialog(context: Context, message: String, button1Text: String, button2Text:String, obj: T, resultCallback: ((Int, Int) -> Unit)?) {
         val dialog = Dialog(context)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.setContentView(R.layout.dialog_layout)
-        val gameEngine = GameEngine.getInstance()
 
         val dialogMessage: TextView = dialog.findViewById(R.id.dialog_message)
         val dialogButton: TextView = dialog.findViewById(R.id.dialog_button)
@@ -101,26 +100,29 @@ object Tools {
         dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
         dialogMessage.text = message
-        //dialogButton2.visibility = View.GONE
+        dialogButton.text = button1Text
+        dialogButton2.text = button2Text
 
-        if (obj is Asset){
-            dialogButton.text = "Rent"
-            dialogButton2.text = "Buy"
-            dialogButton2.setOnClickListener {
-                gameEngine.buyAsset(obj)
-                resultCallback?.invoke(Activity.RESULT_OK)
-                dialog.dismiss()
-            }
-        } else {
+        if (button2Text == ""){
             dialogButton2.visibility = View.GONE
             dialogButton.setOnClickListener {
                 dialog.dismiss()
             }
         }
 
+        if (obj is Asset){
+            dialogButton.setOnClickListener {
+                resultCallback?.invoke(Activity.RESULT_OK, 1) // Button 1 (Rent) pressed
+                dialog.dismiss()
+            }
+            dialogButton2.setOnClickListener {
+                resultCallback?.invoke(Activity.RESULT_OK, 2) // Button 2 (Buy) pressed
+                dialog.dismiss()
+            }
+        }
+
         dialog.setCancelable(true)
         dialog.setCanceledOnTouchOutside(true)
-
         dialog.show()
     }
 

@@ -50,7 +50,7 @@ class PlanesActivity : AppCompatActivity() {
                     Tools.formatMoney(
                         plane.value.toLong()
                     )
-                }", plane) { resultCode ->
+                }", "Use", "Buy", plane) { resultCode, button ->
                     gameEngine.sendMessage(
                         GameEngine.Message(
                             "You bought a ${plane.name} for\n${
@@ -60,6 +60,7 @@ class PlanesActivity : AppCompatActivity() {
                             }", false
                         )
                     )
+                    gameEngine.addAssets(plane)
                     setResult(resultCode)
                     updatePage(planes, myContract)
                     //finish()
@@ -92,7 +93,6 @@ class PlanesActivity : AppCompatActivity() {
         val condition = getRandomCondition()
         val boughtFor = -1L
         val aircraft = Asset.Plane(Asset.getNextId(), aircraftName, price, condition, boughtFor, aircraftIcon, AssetState.MARKET)
-        gameEngine.addAssets(aircraft)
         return aircraft
     }
 

@@ -49,17 +49,25 @@ class PropertiesActivity : AppCompatActivity() {
             val captionTextView: TextView = card.personCard.findViewById(R.id.caption)
             captionTextView.text = "${house.squareFeet}sq ft  Condition ${house.condition}%"
             card.personCard.setOnClickListener {
-                Tools.showPopupDialog(this, "Would you like to buy this for \n${formatMoney(house.value.toLong())}", house) { resultCode ->
-                    gameEngine.sendMessage(
-                        Message(
-                            "You bought a ${house.name} for\n${
-                                formatMoney(
-                                    house.value.toLong()
-                                )
-                            }", false
+                Tools.showPopupDialog(this, "Would you like to buy this for \n${formatMoney(house.value.toLong())}", "Rent", "Buy", house) { resultCode, button ->
+
+                    if (button == 1){
+                        //rent property
+                    } else if (button == 2){
+                        gameEngine.sendMessage(
+                            Message(
+                                "You bought a ${house.name} for\n${
+                                    formatMoney(
+                                        house.value.toLong()
+                                    )
+                                }", false
+                            )
                         )
-                    )
-                    setResult(resultCode)
+                        gameEngine.buyAsset(house)
+                        gameEngine.addAssets(house)
+                        setResult(resultCode)
+                        updatePage(houses, myContract)
+                    }
                     updatePage(houses, myContract)
                     //finish()
                 }
@@ -93,7 +101,6 @@ class PropertiesActivity : AppCompatActivity() {
         val squareFoot = getRandomSqaureFoot(houseType)
         val state = AssetState.MARKET
         val house = Asset.House(Asset.getNextId(), houseName, price, condition, boughtFor, squareFoot, state, houseIcon)
-        gameEngine.addAssets(house)
         return house
     }
 

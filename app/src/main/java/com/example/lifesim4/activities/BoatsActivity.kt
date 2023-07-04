@@ -51,7 +51,7 @@ class BoatsActivity : AppCompatActivity() {
                     Tools.formatMoney(
                         boat.value.toLong()
                     )
-                }", boat) { resultCode ->
+                }", "Use", "Buy", boat) { resultCode, button ->
                     gameEngine.sendMessage(
                         GameEngine.Message(
                             "You bought a ${boat.name} for\n${
@@ -61,6 +61,7 @@ class BoatsActivity : AppCompatActivity() {
                             }", false
                         )
                     )
+                    gameEngine.addAssets(boat)
                     setResult(resultCode)
                     updatePage(cars, myContract)
                     //finish()
@@ -93,7 +94,6 @@ class BoatsActivity : AppCompatActivity() {
         val condition = getRandomCondition()
         val boughtFor = -1L
         val boat = Asset.Boat(Asset.getNextId(), boatName, price, condition, boughtFor, boatIcon, AssetState.MARKET)
-        gameEngine.addAssets(boat)
         return boat
     }
 

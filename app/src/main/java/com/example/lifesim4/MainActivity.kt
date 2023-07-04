@@ -112,7 +112,7 @@ class MainActivity : AppCompatActivity()  {
         }
         for (message in messages){
             if (!message.isAgeText)
-                Tools.showPopupDialog(this, message.message, null, null)
+                Tools.showPopupDialog(this, message.message, "OK", "",null, null)
         }
         gameEngine.saveGameEngineToFile(this,"game_state.bin")
     }

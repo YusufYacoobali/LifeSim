@@ -31,7 +31,7 @@ class AssetActivity : AppCompatActivity() {
             updateUI()
 
             val conditionButton = findViewById<LinearLayout>(R.id.conditionButton)
-//            val askMoneyOption: LinearLayout = findViewById(R.id.askMoney)
+            val sellAsset = findViewById<LinearLayout>(R.id.sellAsset)
             val clickListener = View.OnClickListener { view ->
                 when (view.id) {
                     R.id.conditionButton -> {
@@ -41,12 +41,33 @@ class AssetActivity : AppCompatActivity() {
                         gameEngine.sendMessage(Message("Asset fixed", false))
                         updateUI()
                     }
+                    R.id.sellAsset -> {
+                        Tools.showPopupDialog(this, "Do you want to sell this for \n${
+                            Tools.formatMoney(
+                                asset.value.toLong()
+                            )
+                        }", "No", "Yes", asset) { resultCode, button ->
+                            if (button == 2){
+                                gameEngine.sendMessage(
+                                    Message(
+                                        "You sold your ${asset.name}", false
+                                    )
+                                )
+                                player.money += asset.value.toLong()
+                                player.assets.remove(asset)
+                                gameEngine.assets.remove(asset)
+                                setResult(resultCode)
+                                finish()
+                            }
+                        }
+                    }
                 }
                 setResult(Activity.RESULT_OK)
                 //finish()
             }
 
             conditionButton.setOnClickListener(clickListener)
+            sellAsset.setOnClickListener(clickListener)
         } else {
             //gameEngine.sendMessage("Invalid Asset name")
         }

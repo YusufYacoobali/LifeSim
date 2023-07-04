@@ -51,7 +51,7 @@ class CarsActivity : AppCompatActivity() {
                     Tools.formatMoney(
                         car.value.toLong()
                     )
-                }", car) { resultCode ->
+                }", "Lease", "Buy", car) { resultCode, button ->
                     gameEngine.sendMessage(
                         GameEngine.Message(
                             "You bought a ${car.name} for\n${
@@ -61,6 +61,7 @@ class CarsActivity : AppCompatActivity() {
                             }", false
                         )
                     )
+                    gameEngine.addAssets(car)
                     setResult(resultCode)
                     updatePage(cars, myContract)
                     //finish()
@@ -94,7 +95,6 @@ class CarsActivity : AppCompatActivity() {
         val boughtFor = -1L
         val carState = AssetState.MARKET
         val car = Asset.Car(Asset.getNextId(), carName, price, condition, boughtFor, carState, CarType.NORMAL, carIcon)
-        gameEngine.addAssets(car)
         return car
     }
 
