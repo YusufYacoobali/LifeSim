@@ -54,7 +54,7 @@ class MainActivity : AppCompatActivity()  {
                 if (newLife != null) {
                     startNewGame()
                 }
-                gameEngine.calcNetWorth()
+                player.calcNetWorth()
                 changestatusUI()
                 printAllMessages()
             }
@@ -87,7 +87,7 @@ class MainActivity : AppCompatActivity()  {
         deleteAllEvents()
         gameEngine.startGame()
         player = gameEngine.getPlayer()
-        gameEngine.calcNetWorth()
+        player.calcNetWorth()
         changestatusUI()
     }
 

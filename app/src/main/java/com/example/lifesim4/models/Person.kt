@@ -16,6 +16,7 @@ interface Character  : Serializable {
     var fame: FameLevel
     var job: Job?
     var affection: Int
+    var isAlive: Boolean
 }
 
 data class Person(
@@ -50,8 +51,87 @@ data class Person(
     var enemies: MutableList<NPC> = mutableListOf(),
     var lovers: MutableList<NPC> = mutableListOf(),
     override var affectionType: AffectionType,
-    override var affection: Int
+    override var affection: Int,
+    override var isAlive: Boolean = true
 ) : Character, Serializable {
+
+    fun age(){
+        age++
+        health = (health + healthChange).coerceAtMost(100)
+        charm = (charm + charmChange).coerceAtMost(100)
+        genius = (genius + geniusChange).coerceAtMost(100)
+        money += moneyChange
+        money += 100000 //testing
+    }
+
+    fun lifeChanges(): String{
+        when (age) {
+            3 -> {
+                title = "Student"
+                healthChange += 1
+                geniusChange += 1
+                return "Nursery Started"
+                //sendMessage(GameEngine.Message("Nursery Started", false))
+            }
+            5 -> return "Primary School Started"
+            11 -> return "Secondary School Started"
+            18 ->  {
+                healthChange -= 1
+                geniusChange -= 1
+                return ""
+            }
+            22 -> {
+                if (job == null) {
+                    title = "Unemployed"
+                }
+                return ""
+            }
+            40 ->  {
+                healthChange -= 1
+                healthChange -= 4 // testing
+                geniusChange -= 1
+                charmChange -= 1
+                return ""
+            }
+            60 ->  {
+                healthChange -= 2
+                geniusChange -= 1
+                charmChange -= 3
+                return ""
+            }
+            else -> return ""
+        }
+    }
+
+    fun ageAssets() {
+        for (asset in assets) {
+            when (asset) {
+                is Asset.House -> {
+                    asset.value *= 1.04
+                    //asset.value *= ((asset.condition / 2) / 100.0 + 0.59)
+                }
+                is Asset.Car -> {
+                    asset.value *= when (asset.type) {
+                        CarType.NORMAL -> 0.97
+                        CarType.SPORTS -> 0.95
+                        CarType.HYPERCAR -> 1.02
+                        CarType.COLLECTABLE -> 1.032
+                    }
+                }
+                is Asset.Plane, is Asset.Boat -> {
+                    asset.value *= 0.99
+                }
+            }
+            asset.condition -= 2
+        }
+    }
+
+    fun calcNetWorth(){
+        var businessTotal = 0
+        val assetTotal = assets.sumOf { asset -> asset.value }.toLong()
+        netWorth = money + assetTotal + businessTotal
+    }
+
     fun  doctorOptions(option: Int) : Pair<Int, Long> {
         when (option){
             1 -> {
@@ -100,6 +180,13 @@ data class Person(
         }
     }
 
+    fun isDead(): Boolean{
+        return if (health <= 0){
+            isAlive = false
+            true
+        } else false
+    }
+
     private fun doctorProcess(thresholdHealth: Int, maximumHealth: Int, maxCost: Double, minCost: Double): Pair<Int, Long> {
         var newHealth = if (health < thresholdHealth) {
             Random.nextInt(thresholdHealth, maximumHealth)
@@ -129,7 +216,8 @@ data class NPC(
     var residence: String? = null,
     var nationality: String? = null,
     override var affectionType: AffectionType,
-    override var affection: Int
+    override var affection: Int,
+    override var isAlive: Boolean = true
 ) : Character
 
 // FameLevel.kt
@@ -140,85 +228,6 @@ enum class FameLevel(val multiplier: Double) : Serializable {
     B(4.0),
     A(7.0),
     A_PLUS(10.0)
-}
-
-// Job.kt
-data class Job (
-    val jobName: String,
-    val salary: Double,
-    val nextJob: Job?,
-    val jobLevel: Int
-)
-
-sealed class Asset(
-    val id: Int,
-    val name: String,
-    var value: Double,
-    var condition: Int,
-    var boughtFor: Long,
-    val icon: Int,
-    var state: AssetState
-) : Serializable {
-    init {
-        require(id >= 0) { "ID must be non-negative" }
-    }
-
-    class House(
-        id: Int,
-        name: String,
-        value: Double,
-        condition: Int,
-        boughtFor: Long,
-        val squareFeet: Int,
-        state: AssetState,
-        icon: Int
-    ) : Asset(id, name, value, condition, boughtFor, icon, state)
-
-    class Car(
-        id: Int,
-        name: String,
-        value: Double,
-        condition: Int,
-        boughtFor: Long,
-        state: AssetState,
-        val type: CarType,
-        icon: Int
-    ) : Asset(id, name, value, condition, boughtFor, icon, state)
-
-    class Plane(id: Int, name: String, value: Double, condition: Int, boughtFor: Long, icon: Int, state: AssetState) :
-        Asset(id, name, value, condition, boughtFor, icon, state)
-
-    class Boat(id: Int, name: String, value: Double, condition: Int, boughtFor: Long, icon: Int, state: AssetState) :
-        Asset(id, name, value, condition, boughtFor, icon, state)
-
-    companion object {
-        private var nextId = 0
-
-        fun getNextId(): Int {
-            return nextId++
-        }
-    }
-}
-
-enum class AssetState(val description: String) : Serializable {
-    LIVING_IN("Living In"),
-    RENTING_OUT("Renting Out"),
-    VACANT("Vacant"),
-    UNDER_CONSTRUCTION("Under Construction"),
-    MARKET("For Sale"),
-    PRIMARY("Primary Vehicle"),
-    LEASED("Leased Vehicle"),
-    FINANCE("Financed Vehicle"),
-    OWNED("Owned Vehicle"),
-    STOLEN("Stolen Vehicle"),
-}
-
-//possibly remove car types
-enum class CarType(val description: String) : Serializable {
-    NORMAL("Normal Car"),
-    SPORTS("Sports Car"),
-    HYPERCAR("Hypercar"),
-    COLLECTABLE("Collectible Car"),
 }
 
 enum class AffectionType : Serializable {
@@ -233,12 +242,4 @@ enum class AffectionType : Serializable {
     Child,
     Me
 }
-
-enum class PriceCategory : Serializable {
-    CHEAP,
-    MEDIUM,
-    HIGH,
-    LUXURY
-}
-
 

@@ -81,107 +81,37 @@ class GameEngine private constructor() : Serializable {
     fun saveGameEngineToFile(context: Context, fileName: String) {
         try {
             val file = File(context.filesDir, fileName)
-            //val saveData = SaveData(gameEngine, person)
-
             ObjectOutputStream(FileOutputStream(file)).use { fileOutputStream ->
                 fileOutputStream.writeObject(this)
             }
-            println("GAME SAVED")
-            //println(person.name)
-            //currentPlayer = person
         } catch (e: IOException) {
             e.printStackTrace()
             throw RuntimeException("Failed to save game state to file: $fileName", e)
         }
     }
 
-
     fun simulate() {
-        applyStatsAndAge()
+        currentPlayer.age()
         sendMessage(Message("Age: ${currentPlayer.age} years", true))
-        lifeChanges()  //check if student/baby/unemployed etc
-        ageAssets() //deteritoate asset conditions
+        lifeChanges()
+        currentPlayer.ageAssets() //deteritoate asset conditions
        // randomEvents() //cause random events with 40% chance of happing
-        calcNetWorth()
+        currentPlayer.calcNetWorth()
         checkLife()
     }
 
     private fun checkLife(){
-        if (currentPlayer.health <= 0){
-            sendMessage(Message("You Died! You will now start as another person", false))
+        if (currentPlayer.isDead()){
+            sendMessage(Message("You will now start as another person", false))
+            sendMessage(Message("You Died!", false))
             startNew = true
         }
     }
 
-    private fun applyStatsAndAge(){
-        currentPlayer.apply {
-            age++
-            health = (health + healthChange).coerceAtMost(100)
-            charm = (charm + charmChange).coerceAtMost(100)
-            genius = (genius + geniusChange).coerceAtMost(100)
-            money += moneyChange
-            money += 100000 //testing
-        }
-    }
-
     fun lifeChanges(){
-        when (currentPlayer.age) {
-            3 -> {
-                currentPlayer.apply {
-                    title = "Student"
-                    healthChange += 1
-                    geniusChange += 1
-                }
-                sendMessage(Message("Nursery Started", false))
-            }
-            5 -> sendMessage(Message("Primary School Started", false))
-            11 -> sendMessage(Message("Secondary School Started", false))
-            18 -> currentPlayer.apply {
-                healthChange -= 1
-                geniusChange -= 1
-            }
-            22 -> {
-                if (currentPlayer.job == null) {
-                    currentPlayer.title = "Unemployed"
-                }
-            }
-            40 -> currentPlayer.apply {
-                healthChange -= 1
-                healthChange -= 4 // testing
-                geniusChange -= 1
-                charmChange -= 1
-            }
-            60 -> currentPlayer.apply {
-                healthChange -= 2
-                geniusChange -= 1
-                charmChange -= 3
-            }
-        }
-        if (currentPlayer.job != null) {
-            //sendMessage(currentPlayer.title)
-        }
-    }
-
-    fun ageAssets() {
-        for (asset in currentPlayer.assets) {
-            when (asset) {
-                is Asset.House -> {
-                    asset.value *= 1.02
-                    asset.value *= ((asset.condition / 2) / 100.0 + 0.59)
-                }
-                is Asset.Car -> {
-                    asset.value *= when (asset.type) {
-                        CarType.NORMAL -> 0.97
-                        CarType.SPORTS -> 0.95
-                        CarType.HYPERCAR -> 1.02
-                        CarType.COLLECTABLE -> 1.032
-                    }
-                }
-                is Asset.Plane, is Asset.Boat -> {
-                    asset.value *= 0.99
-                }
-            }
-            asset.condition -= 2
+        val newWork = currentPlayer.lifeChanges()
+        if (newWork != ""){
+            sendMessage(Message(newWork, false))
         }
     }
 
@@ -191,12 +121,6 @@ class GameEngine private constructor() : Serializable {
         if (random.nextDouble() < chance) {
             //sendMessage("Random event occurred")
         }
-    }
-
-    fun calcNetWorth(){
-        var businessTotal = 0
-        val assetTotal = currentPlayer.assets.sumOf { asset -> asset.value }.toLong()
-        currentPlayer.netWorth = currentPlayer.money + assetTotal + businessTotal
     }
 
     // Method to add a Person to the game world
@@ -389,6 +313,5 @@ class GameEngine private constructor() : Serializable {
         sendMessage(Message("Age: ${currentPlayer.age} years", true))
         sendMessage(Message("You are born as a ${currentPlayer.gender}", false))
         sendMessage(Message("Your name is ${currentPlayer.name}", false))
-        //currentPlayer.age++
     }
 }
