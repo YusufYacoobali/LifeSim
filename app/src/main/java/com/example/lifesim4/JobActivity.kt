@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import com.example.lifesim4.jobs.FullTimeActivity
 import com.example.lifesim4.jobs.PartTimeActivity
 import com.example.lifesim4.models.GameEngine
 
@@ -29,11 +30,8 @@ class JobActivity : AppCompatActivity()  {
         //handle different buttons
         val fullTimeJobLayout: LinearLayout = findViewById(R.id.fullTimeJobLayout)
         fullTimeJobLayout.setOnClickListener {
-            gameEngine.simulate()
-            val resultIntent = Intent()
-            resultIntent.putExtra("Job", "New Job, You are now a Police officer")
-            setResult(Activity.RESULT_OK, resultIntent)
-            finish()
+            val intent = Intent(this, FullTimeActivity::class.java)
+            myContract.launch(intent)
         }
 
         val partTimeJobLayout: LinearLayout = findViewById(R.id.partTimeJobLayout)

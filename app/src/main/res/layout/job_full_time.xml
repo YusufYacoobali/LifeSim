@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#303030"
+    android:orientation="vertical">
+
+    <!-- Main Page Title: Activities -->
+    <TextView
+        android:id="@+id/titleOccupation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/insidePagesText"
+        android:gravity="center"
+        android:padding="16dp"
+        android:text="Full Time Jobs"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <!-- Options Section -->
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/jobMarket"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="15dp"
+            android:orientation="vertical"
+            android:padding="0dp"/>
+    </ScrollView>
+</LinearLayout>
+
+

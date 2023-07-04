@@ -17,6 +17,7 @@ import com.example.lifesim4.R
 import com.example.lifesim4.models.Asset
 import com.example.lifesim4.models.Character
 import com.example.lifesim4.models.GameEngine
+import com.example.lifesim4.models.Job
 import kotlin.math.absoluteValue
 
 object Tools {
@@ -81,6 +82,10 @@ object Tools {
                     contract.launch(intent)
                 }
             }
+        } else if (cardObject is Job){
+            nameTextView.text = cardObject.name
+            costTextView.text = formatMoney(cardObject.salary.toLong())
+            image.setImageResource(cardObject.icon)
         }
         captionTextView.text = caption
         placement.addView(personCard)

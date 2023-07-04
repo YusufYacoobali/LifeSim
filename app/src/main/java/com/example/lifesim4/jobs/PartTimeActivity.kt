@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.LinearLayout
+import androidx.activity.result.contract.ActivityResultContracts
 import com.example.lifesim4.R
 import com.example.lifesim4.models.GameEngine
 import com.example.lifesim4.models.GameEngine.*
@@ -16,6 +17,15 @@ class PartTimeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.job_part_time)
         gameEngine = GameEngine.getInstance()
+
+        val myContract = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                //setResult(Activity.RESULT_OK)
+                //finish()
+            }
+        }
+        //val houses = makeJobs().sortedByDescending { it.value }
+        //updatePage(houses, myContract)
 
         val partTime1: LinearLayout = findViewById(R.id.partTime1)
         val partTime2: LinearLayout = findViewById(R.id.partTime2)
