@@ -7,62 +7,115 @@ import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
+import android.view.View
 import android.view.Window
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContracts
 import com.example.lifesim4.R
-import com.example.lifesim4.models.Person
-import java.util.Objects
+import com.example.lifesim4.models.Asset
+import com.example.lifesim4.models.Character
+import com.example.lifesim4.models.GameEngine
+import kotlin.math.absoluteValue
 
 object Tools {
+
+    data class CardWithAsset<T>(val personCard: View, val obj: T)
+    fun <T> addCardsToView(
+        context: Context,
+        cardObjects: List<T>,
+        placement: LinearLayout,
+        caption: String,
+        icon: Int,
+        nextActivity: Class<*>?,
+        contract: ActivityResultLauncher<Intent>,
+    ): MutableList<CardWithAsset<T>> {
+        val cards = mutableListOf<CardWithAsset<T>>()
+
+        cardObjects.forEach { cardObject ->
+            val card = addCardToView(context, cardObject, placement, caption, icon, nextActivity, contract)
+            cards.add(card)
+        }
+
+        return cards
+    }
     fun <T> addCardToView(
         context: Context,
         cardObject: T,
         placement: LinearLayout,
-        name: String?,
         caption: String,
         icon: Int,
-        nextActivity: Class<*>,
-        contract: ActivityResultLauncher<Intent>
-    ) {
+        nextActivity: Class<*>?,
+        contract: ActivityResultLauncher<Intent>,
+    ): CardWithAsset<T> {
         val inflater = LayoutInflater.from(context)
         val personCard = inflater.inflate(R.layout.card_basic, placement, false)
 
         val nameTextView: TextView = personCard.findViewById(R.id.name)
         val captionTextView: TextView = personCard.findViewById(R.id.caption)
+        val costTextView: TextView = personCard.findViewById(R.id.value)
         val image: ImageView = personCard.findViewById(R.id.image)
 
-        if (cardObject is Person) {
-            nameTextView.text = cardObject.name
+        image.setImageResource(icon)
+
+        if (cardObject is Character || cardObject is Asset) {
+            if (cardObject is Character) {
+                val character = cardObject as Character
+                nameTextView.text = character.name
+                costTextView.visibility = View.GONE
+            } else if (cardObject is Asset) {
+                val asset = cardObject
+                nameTextView.text = asset.name
+                costTextView.text = formatMoney(asset.value.toLong())
+                image.setImageResource(asset.icon)
+            }
+
             personCard.setOnClickListener {
-                val intent = Intent(context, nextActivity)
-                intent.putExtra("Object", cardObject.name)
-                contract.launch(intent)
+                if (nextActivity != null) {
+                    val intent = Intent(context, nextActivity)
+                    if (cardObject is Asset){
+                        intent.putExtra("ObjectID", (cardObject.id).toString())
+                    }
+                    intent.putExtra("ObjectName", nameTextView.text)
+                    contract.launch(intent)
+                }
             }
         }
         captionTextView.text = caption
-        image.setImageResource(icon)
-
         placement.addView(personCard)
+
+        return CardWithAsset(personCard, cardObject)
     }
 
-    fun showPopupDialog(context: Context, message: String) {
+    fun <T> showPopupDialog(context: Context, message: String, obj: T, resultCallback: ((Int) -> Unit)?) {
         val dialog = Dialog(context)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.setContentView(R.layout.dialog_layout)
+        val gameEngine = GameEngine.getInstance()
 
         val dialogMessage: TextView = dialog.findViewById(R.id.dialog_message)
         val dialogButton: TextView = dialog.findViewById(R.id.dialog_button)
+        val dialogButton2: TextView = dialog.findViewById(R.id.dialog_button2)
 
         dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
         dialogMessage.text = message
+        //dialogButton2.visibility = View.GONE
 
-        dialogButton.setOnClickListener {
-            dialog.dismiss()
+        if (obj is Asset){
+            dialogButton.text = "Rent"
+            dialogButton2.text = "Buy"
+            dialogButton2.setOnClickListener {
+                gameEngine.buyAsset(obj)
+                resultCallback?.invoke(Activity.RESULT_OK)
+                dialog.dismiss()
+            }
+        } else {
+            dialogButton2.visibility = View.GONE
+            dialogButton.setOnClickListener {
+                dialog.dismiss()
+            }
         }
 
         dialog.setCancelable(true)
@@ -71,11 +124,22 @@ object Tools {
         dialog.show()
     }
 
-     fun formatMoney(amount: Long): String {
+    fun formatMoney(amount: Long): String {
         val suffixes = listOf("", "K", "M", "B", "T", "Q", "Qu", "S")
-        val suffixIndex = (Math.max(0, Math.floor(Math.log10(amount.toDouble()) / 3).toInt())).coerceAtMost(suffixes.size - 1)
-        val shortValue = amount / Math.pow(10.0, (suffixIndex * 3).toDouble())
+        val suffixIndex = (Math.max(0, Math.floor(Math.log10(amount.toDouble().absoluteValue) / 3).toInt())).coerceAtMost(suffixes.size - 1)
+        val shortValue = amount.toDouble().absoluteValue / Math.pow(10.0, (suffixIndex * 3).toDouble())
         val formattedValue = "%.2f".format(shortValue)
+        val sign = if (amount < 0) "-" else ""
+        return "$$sign$formattedValue${suffixes[suffixIndex]}"
+    }
+
+    fun formatNetWorthMoney(amount: Long): String {
+        val suffixes = listOf("", "K", "M", "B", "T", "Q", "Qu", "S")
+        val suffixIndex = (Math.max(0, Math.floor(Math.log10(amount.toDouble().absoluteValue) / 3).toInt())).coerceAtMost(suffixes.size - 1)
+        val shortValue = amount.toDouble().absoluteValue / Math.pow(10.0, (suffixIndex * 3).toDouble())
+        val formattedValue = "%.2f".format(shortValue)
+        val sign = if (amount < 0) "-" else ""
         return "$$formattedValue${suffixes[suffixIndex]}"
     }
+
 }

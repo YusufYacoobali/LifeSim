@@ -1,22 +1,17 @@
 package com.example.lifesim4
 
+import android.Manifest
 import android.app.Activity
-import android.app.Dialog
-import android.content.Context
 import android.content.Intent
-import android.graphics.Color
+import android.content.pm.PackageManager
 import android.graphics.Typeface
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.view.Gravity
-import android.view.ViewGroup
-import android.view.Window
-import android.widget.Button
-import android.widget.LinearLayout
 import android.widget.ScrollView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import com.example.lifesim4.databinding.MainMainBinding
@@ -24,7 +19,6 @@ import com.example.lifesim4.models.GameEngine
 import com.example.lifesim4.models.Person
 import com.example.lifesim4.tools.Tools
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import java.lang.ProcessBuilder.Redirect
 
 class MainActivity : AppCompatActivity()  {
 
@@ -36,8 +30,20 @@ class MainActivity : AppCompatActivity()  {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.main_main)
         setContentView(binding.root)
-        gameEngine = GameEngine.getInstance()
-        startNewGame()
+
+        val gameEngineData = GameEngine.loadGameEngineFromFile(this, "game_state.bin")
+        if (gameEngineData != null) {
+            gameEngine = gameEngineData
+            gameEngine.setPlayer(gameEngineData.getPlayer())
+            player = gameEngineData.getPlayer()
+            printLoadAllMessages()
+            println("Game Loaded")
+            changestatusUI()
+        } else {
+            println("Game not loaded")
+            gameEngine = GameEngine.getInstance()
+            startNewGame()
+        }
 
         //handle data when user comes back to main page
         val myContract = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -48,7 +54,7 @@ class MainActivity : AppCompatActivity()  {
                 if (newLife != null) {
                     startNewGame()
                 }
-                gameEngine.calcNetWorth()
+                player.calcNetWorth()
                 changestatusUI()
                 printAllMessages()
             }
@@ -78,63 +84,48 @@ class MainActivity : AppCompatActivity()  {
 
     //Start new Life
     private fun startNewGame(){
+        deleteAllEvents()
         gameEngine.startGame()
         player = gameEngine.getPlayer()
-        deleteAllEvents()
-        binding.playerName.text = player.name
-        binding.workStatus.text = "Baby"
-        gameEngine.calcNetWorth()
-        addAgeTextViewToEvents()
-        addTextViewToEvents("You are born as a ${player.gender}")
-        addTextViewToEvents("Your name is ${player.name}")
+        player.calcNetWorth()
         changestatusUI()
+    }
+
+    private fun printLoadAllMessages(){
+        val messages = gameEngine.allMessage
+        for (message in messages){
+            if (message.isAgeText)
+                addAgeTextViewToEvents(message.message)
+            else
+                addTextViewToEvents(message.message)
+        }
+        //fix for age messages
     }
 
     private fun printAllMessages(){
         val messages = gameEngine.getAllMessages()
         for (message in messages){
-            addTextViewToEvents(message)
+            if (message.isAgeText)
+                addAgeTextViewToEvents(message.message)
+            else
+                addTextViewToEvents(message.message)
         }
-        messages.reverse()
         for (message in messages){
-            Tools.showPopupDialog(this, message)
+            if (!message.isAgeText)
+                Tools.showPopupDialog(this, message.message, null, null)
         }
+        gameEngine.saveGameEngineToFile(this,"game_state.bin")
     }
 
     //Used for Age button
     private fun simulateUI() {
         changestatusUI()
-        addAgeTextViewToEvents()
         printAllMessages()
-        if (gameEngine.startNew == true){
+        if (gameEngine.startNew){
             startNewGame()
             gameEngine.startNew = false
-
         }
     }
-
-    fun showPopupDialog(message: String) {
-        val dialog = Dialog(this)
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        dialog.setContentView(R.layout.dialog_layout)
-
-        val dialogMessage: TextView = dialog.findViewById(R.id.dialog_message)
-        val dialogButton: TextView = dialog.findViewById(R.id.dialog_button)
-
-        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-
-        dialogMessage.text = message
-
-        dialogButton.setOnClickListener {
-            dialog.dismiss()
-        }
-
-        dialog.setCancelable(true)
-        dialog.setCanceledOnTouchOutside(true)
-
-        dialog.show()
-    }
-
 
     //Used by events from other pages
     private fun addTextViewToEvents(text: String){
@@ -154,9 +145,9 @@ class MainActivity : AppCompatActivity()  {
     }
 
     //Different Age text style
-    private fun addAgeTextViewToEvents(){
+    private fun addAgeTextViewToEvents(text: String){
         val textView = TextView(this)
-        val text = "Age: ${player.age} years"
+        val text = text
         textView.text = text
         textView.setTextColor(ContextCompat.getColor(this, R.color.ageText))
         textView.textSize = 17F
@@ -199,7 +190,7 @@ class MainActivity : AppCompatActivity()  {
         }
         binding.moneyText.setTextColor(moneyColor)
         binding.moneyText.text = Tools.formatMoney(player.money)
-        binding.netWorthText.text = Tools.formatMoney(player.netWorth)
+        binding.netWorthText.text = Tools.formatNetWorthMoney(player.netWorth)
         binding.playerName.text = player.name
         binding.workStatus.text = player.title
     }

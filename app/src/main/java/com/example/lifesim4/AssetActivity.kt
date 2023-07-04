@@ -20,7 +20,7 @@ class AssetActivity : AppCompatActivity() {
         val myContract = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
                 setResult(Activity.RESULT_OK)
-                finish()
+                //finish()
             }
         }
 
