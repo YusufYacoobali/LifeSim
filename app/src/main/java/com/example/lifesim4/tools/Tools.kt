@@ -88,7 +88,7 @@ object Tools {
         } else if (cardObject is Job){
             nameTextView.text = cardObject.name
             var formattedSalary = ""
-            if (cardObject.salary < 10000000){
+            if (cardObject.salary < 1000000){
                 val decimalFormat = DecimalFormat("#,###")
                 formattedSalary = "$" + decimalFormat.format(cardObject.salary)
             } else {

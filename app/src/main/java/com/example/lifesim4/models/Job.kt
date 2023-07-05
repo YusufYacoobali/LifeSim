@@ -1,5 +1,7 @@
 package com.example.lifesim4.models
 
+import java.io.Serializable
+
 // Job.kt
 sealed class Job(
     val id: Int,
@@ -7,7 +9,7 @@ sealed class Job(
     val salary: Double,
     val type: JobType,
     val icon: Int,
-) {
+) : Serializable {
     init {
         require(id >= 0) { "ID must be non-negative" }
     }
@@ -66,7 +68,7 @@ sealed class Job(
     }
 }
 
-enum class JobType {
+enum class JobType : Serializable {
     Swimmer,
     Astronaut,
     Programmer,
@@ -74,9 +76,9 @@ enum class JobType {
     Finance,
 }
 
-enum class JobLevel {
-    Entry,
-    Normal,
-    Senior,
-    Director
+enum class JobLevel(val levelNumber: Int) : Serializable {
+    Entry(1),
+    Normal(2),
+    Senior(3),
+    Director(4)
 }

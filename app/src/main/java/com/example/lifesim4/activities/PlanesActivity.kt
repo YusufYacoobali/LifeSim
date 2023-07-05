@@ -14,6 +14,7 @@ import com.example.lifesim4.models.AssetState
 import com.example.lifesim4.models.GameEngine
 import com.example.lifesim4.models.PriceCategory
 import com.example.lifesim4.tools.Tools
+import com.example.lifesim4.tools.Tools.formatMoney
 import kotlin.random.Random
 
 class PlanesActivity : AppCompatActivity() {
@@ -51,17 +52,22 @@ class PlanesActivity : AppCompatActivity() {
                         plane.value.toLong()
                     )
                 }", "Use", "Buy", plane) { resultCode, button ->
-                    gameEngine.sendMessage(
-                        GameEngine.Message(
-                            "You bought a ${plane.name} for\n${
-                                Tools.formatMoney(
-                                    plane.value.toLong()
-                                )
-                            }", false
+                    if (button == 1){
+                        //rent property
+                    } else if (button == 2){
+                        gameEngine.sendMessage(
+                            GameEngine.Message(
+                                "You bought a ${plane.name} for\n${
+                                    formatMoney(
+                                        plane.value.toLong()
+                                    )
+                                }", false
+                            )
                         )
-                    )
-                    gameEngine.addAssets(plane)
-                    setResult(resultCode)
+                        gameEngine.buyAsset(plane)
+                        gameEngine.addAssets(plane)
+                        setResult(resultCode)
+                    }
                     updatePage(planes, myContract)
                     //finish()
                 }

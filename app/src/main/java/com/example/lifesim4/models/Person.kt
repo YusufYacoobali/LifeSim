@@ -52,7 +52,8 @@ data class Person(
     var lovers: MutableList<NPC> = mutableListOf(),
     override var affectionType: AffectionType,
     override var affection: Int,
-    override var isAlive: Boolean = true
+    override var isAlive: Boolean = true,
+    var jobLevelHistory: MutableMap<JobType, Pair<JobLevel, Int>> = mutableMapOf()
 ) : Character, Serializable {
 
     fun age(){
@@ -61,7 +62,8 @@ data class Person(
         charm = (charm + charmChange).coerceAtMost(100)
         genius = (genius + geniusChange).coerceAtMost(100)
         money += moneyChange
-        money += 100000 //testing
+        //money += 100000 //testing
+        addWorkHistory()
     }
 
     fun lifeChanges(): String{
@@ -131,6 +133,43 @@ data class Person(
         val assetTotal = assets.sumOf { asset -> asset.value }.toLong()
         netWorth = money + assetTotal + businessTotal
     }
+
+    fun isEligibleForJob(job: Job.FullTimeJob): Boolean {
+        return when (job.level) {
+            JobLevel.Entry -> true
+            else -> {
+                val industryExperience = jobLevelHistory[job.type]
+                industryExperience?.let { (level, years) ->
+                    level.levelNumber + 1 >= job.level.levelNumber && years >= 2
+                } ?: false
+            }
+        }
+    }
+
+    fun startJob(newJob: Job){
+        if (job != null){
+            moneyChange -= job!!.salary.toLong()
+        }
+        job = newJob
+        //check if exists before overwriting to 0
+        if (newJob is Job.FullTimeJob){
+            jobLevelHistory[newJob.type] = Pair(newJob.level,0)
+        }
+        moneyChange += newJob.salary.toLong()
+        title = newJob.name
+    }
+
+    fun addWorkHistory() {
+        if (job != null && job is Job.FullTimeJob) {
+            val currentExperience = jobLevelHistory[(job as Job.FullTimeJob).type]
+            if (currentExperience != null) {
+                val (level, years) = currentExperience
+                jobLevelHistory[(job as Job.FullTimeJob).type] = Pair(level, years + 1)
+            }
+        }
+    }
+
+
 
     fun  doctorOptions(option: Int) : Pair<Int, Long> {
         when (option){

@@ -15,16 +15,19 @@ import com.example.lifesim4.models.GameEngine
 import com.example.lifesim4.models.Job
 import com.example.lifesim4.models.JobLevel
 import com.example.lifesim4.models.JobType
+import com.example.lifesim4.models.Person
 import com.example.lifesim4.tools.Tools
 import kotlin.random.Random
 
 class FullTimeActivity : AppCompatActivity() {
     private lateinit var gameEngine: GameEngine
+    private lateinit var player: Person
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.job_full_time)
         gameEngine = GameEngine.getInstance()
+        player = gameEngine.getPlayer()
 
         val myContract = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
@@ -43,18 +46,20 @@ class FullTimeActivity : AppCompatActivity() {
         val cards = Tools.addCardsToView(this, jobs, jobContainer, "sq ft  Condition%", R.drawable.heart, null, myContract)
 
         cards.forEach { card ->
-            val jobs = card.obj as Job.FullTimeJob
+            val job = card.obj as Job.FullTimeJob
             val captionTextView: TextView = card.personCard.findViewById(R.id.caption)
-            captionTextView.text = "${jobs.type}"
+            captionTextView.text = "${job.type}"
             card.personCard.setOnClickListener {
-                Tools.showPopupDialog(this, "Would you like to buy this for \n${
-                    Tools.formatMoney(
-                        jobs.salary.toLong()
-                    )
-                }", "Rent", "Buy", jobs) { resultCode, button ->
-                    if (button == 1){
-                    } else if (button == 2){
-                    }
+                //if they clicked, then they applied
+                if (player.isEligibleForJob(job)){
+                    //Tools.showPopupDialog(this, "Congrats! You got the job", "OK", "", job) { resultCode, button -> }
+                    gameEngine.sendMessage(GameEngine.Message("Congrats you got the job", false))
+                    player.startJob(job)
+                    setResult(Activity.RESULT_OK)
+                    finish()
+                } else {
+                    Tools.showPopupDialog(
+                        this, "Rejected from job. Lacking experience", "OK", "", job) { resultCode, button -> }
                 }
             }
         }
@@ -84,7 +89,7 @@ class FullTimeActivity : AppCompatActivity() {
         return Job.FullTimeJob(Job.getNextId(), jobName, salary, jobType, jobIcon, jobLevel)
     }
 
-    fun getRandomFullTimeJobName(jobLevel: JobLevel): Triple<String, Int, JobType> {
+    private fun getRandomFullTimeJobName(jobLevel: JobLevel): Triple<String, Int, JobType> {
         val fullTimeJobs = when (jobLevel) {
             JobLevel.Entry -> listOf(
                 Triple("Junior Developer", R.drawable.laptop, JobType.Programmer),
@@ -113,7 +118,7 @@ class FullTimeActivity : AppCompatActivity() {
         return fullTimeJobs.random()
     }
 
-    fun getRandomSalary(jobLevel: JobLevel): Double {
+    private fun getRandomSalary(jobLevel: JobLevel): Double {
         val salary = when (jobLevel) {
             JobLevel.Entry -> (20000..70000).random().toDouble()
             JobLevel.Normal -> (70000..130000).random().toDouble()

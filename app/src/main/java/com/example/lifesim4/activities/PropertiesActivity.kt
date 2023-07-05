@@ -50,7 +50,6 @@ class PropertiesActivity : AppCompatActivity() {
             captionTextView.text = "${house.squareFeet}sq ft  Condition ${house.condition}%"
             card.personCard.setOnClickListener {
                 Tools.showPopupDialog(this, "Would you like to buy this for \n${formatMoney(house.value.toLong())}", "Rent", "Buy", house) { resultCode, button ->
-
                     if (button == 1){
                         //rent property
                     } else if (button == 2){

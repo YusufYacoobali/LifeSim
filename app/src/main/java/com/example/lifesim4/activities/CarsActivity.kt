@@ -52,17 +52,22 @@ class CarsActivity : AppCompatActivity() {
                         car.value.toLong()
                     )
                 }", "Lease", "Buy", car) { resultCode, button ->
-                    gameEngine.sendMessage(
-                        GameEngine.Message(
-                            "You bought a ${car.name} for\n${
-                                Tools.formatMoney(
-                                    car.value.toLong()
-                                )
-                            }", false
+                    if (button == 1){
+                        //lease car
+                    } else if (button == 2){
+                        gameEngine.sendMessage(
+                            GameEngine.Message(
+                                "You bought a ${car.name} for\n${
+                                    Tools.formatMoney(
+                                        car.value.toLong()
+                                    )
+                                }", false
+                            )
                         )
-                    )
-                    gameEngine.addAssets(car)
-                    setResult(resultCode)
+                        gameEngine.buyAsset(car)
+                        gameEngine.addAssets(car)
+                        setResult(resultCode)
+                    }
                     updatePage(cars, myContract)
                     //finish()
                 }
