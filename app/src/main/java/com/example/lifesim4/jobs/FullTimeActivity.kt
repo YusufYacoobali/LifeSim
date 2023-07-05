@@ -13,6 +13,7 @@ import com.example.lifesim4.models.Asset
 import com.example.lifesim4.models.AssetState
 import com.example.lifesim4.models.GameEngine
 import com.example.lifesim4.models.Job
+import com.example.lifesim4.models.JobLevel
 import com.example.lifesim4.models.JobType
 import com.example.lifesim4.tools.Tools
 import kotlin.random.Random
@@ -39,13 +40,12 @@ class FullTimeActivity : AppCompatActivity() {
         val jobContainer = findViewById<LinearLayout>(R.id.jobMarket)
         jobContainer.removeAllViews()
 
-        //val marketHouses = jobs.filter { it.state == AssetState.MARKET }
         val cards = Tools.addCardsToView(this, jobs, jobContainer, "sq ft  Condition%", R.drawable.heart, null, myContract)
 
         cards.forEach { card ->
             val jobs = card.obj as Job.FullTimeJob
             val captionTextView: TextView = card.personCard.findViewById(R.id.caption)
-            captionTextView.text = "${jobs.name}%"
+            captionTextView.text = "${jobs.type}"
             card.personCard.setOnClickListener {
                 Tools.showPopupDialog(this, "Would you like to buy this for \n${
                     Tools.formatMoney(
@@ -61,39 +61,66 @@ class FullTimeActivity : AppCompatActivity() {
     }
 
     private fun makeJobs(): List<Job.FullTimeJob> {
-//        val jobCounts = mapOf(
-//            JobType.FullTime to Random.nextInt(2, 5)
-//        )
+        val jobCounts = mapOf(
+            JobLevel.Entry to Random.nextInt(1,5),
+            JobLevel.Normal to Random.nextInt(1, 4),
+            JobLevel.Senior to Random.nextInt(1, 3),
+            JobLevel.Director to Random.nextInt(0,3)
+        )
 
         val jobs = mutableListOf<Job.FullTimeJob>()
 
-        //jobCounts.forEach { (jobType, count) ->
-            repeat(4) {
-                jobs += makeFullTimeJob()
+        jobCounts.forEach { (jobLevel, count) ->
+            repeat(count) {
+                jobs += makeFullTimeJob(jobLevel)
             }
-        //}
+        }
         return jobs
     }
 
-    private fun makeFullTimeJob(): Job.FullTimeJob {
-        val (jobName, jobIcon) = getRandomFullTimeJobName()
-        val salary = getRandomSalary()
-        return Job.FullTimeJob(Job.getNextId(), jobName, salary, JobType.Astronaut, jobIcon, 1)
+    private fun makeFullTimeJob(jobLevel: JobLevel): Job.FullTimeJob {
+        val (jobName, jobIcon, jobType) = getRandomFullTimeJobName(jobLevel)
+        val salary = getRandomSalary(jobLevel)
+        return Job.FullTimeJob(Job.getNextId(), jobName, salary, jobType, jobIcon, jobLevel)
     }
 
-    fun getRandomFullTimeJobName(): Pair<String, Int> {
-        val fullTimeJobs = listOf(
-            Pair("Software Engineer", R.drawable.heart),
-            Pair("Accountant", R.drawable.male),
-            Pair("Marketing Manager", R.drawable.money),
-            Pair("Sales Representative", R.drawable.home),
-            // Add more full-time job names and icons
-        )
+    fun getRandomFullTimeJobName(jobLevel: JobLevel): Triple<String, Int, JobType> {
+        val fullTimeJobs = when (jobLevel) {
+            JobLevel.Entry -> listOf(
+                Triple("Junior Developer", R.drawable.laptop, JobType.Programmer),
+                Triple("Data Analyst", R.drawable.money, JobType.Finance),
+                Triple("Marketing Assistant", R.drawable.marketing, JobType.Marketing)
+            )
+            JobLevel.Normal -> listOf(
+                Triple("Software Engineer", R.drawable.laptop, JobType.Programmer),
+                Triple("Marketing Specialist", R.drawable.marketing, JobType.Marketing),
+                Triple("Financial Analyst", R.drawable.money, JobType.Finance),
+                Triple("Sales Representative", R.drawable.marketing, JobType.Marketing)
+            )
+            JobLevel.Senior -> listOf(
+                Triple("Senior Software Engineer", R.drawable.laptop, JobType.Programmer),
+                Triple("Marketing Manager", R.drawable.marketing, JobType.Marketing),
+                Triple("Senior Financial Analyst", R.drawable.money, JobType.Finance),
+                Triple("Sales Manager", R.drawable.marketing, JobType.Marketing)
+            )
+            JobLevel.Director -> listOf(
+                Triple("Director of Engineering", R.drawable.laptop, JobType.Programmer),
+                Triple("Chief Marketing Officer", R.drawable.marketing, JobType.Marketing),
+                Triple("Chief Financial Officer", R.drawable.money, JobType.Finance),
+                Triple("Chief Technology Officer", R.drawable.laptop, JobType.Programmer)
+            )
+        }
         return fullTimeJobs.random()
     }
 
-
-    fun getRandomSalary(): Double {
-        return (50000..150000).random().toDouble()
+    fun getRandomSalary(jobLevel: JobLevel): Double {
+        val salary = when (jobLevel) {
+            JobLevel.Entry -> (20000..70000).random().toDouble()
+            JobLevel.Normal -> (70000..130000).random().toDouble()
+            JobLevel.Senior -> (130000..250000).random().toDouble()
+            JobLevel.Director -> (250000..20000000).random().toDouble()
+        }
+        return (salary / 1000).toInt() * 1000.toDouble()
     }
+
 }

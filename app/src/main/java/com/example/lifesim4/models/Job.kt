@@ -18,7 +18,7 @@ sealed class Job(
         salary: Double,
         type: JobType,
         icon: Int,
-        val level: Int
+        val level: JobLevel
     ) : Job(id, name, salary, type, icon)
 
     class PartTimeJob(
@@ -69,4 +69,14 @@ sealed class Job(
 enum class JobType {
     Swimmer,
     Astronaut,
+    Programmer,
+    Marketing,
+    Finance,
+}
+
+enum class JobLevel {
+    Entry,
+    Normal,
+    Senior,
+    Director
 }

@@ -18,6 +18,9 @@ import com.example.lifesim4.models.Asset
 import com.example.lifesim4.models.Character
 import com.example.lifesim4.models.GameEngine
 import com.example.lifesim4.models.Job
+import java.text.DecimalFormat
+import java.text.NumberFormat
+import java.util.Locale
 import kotlin.math.absoluteValue
 
 object Tools {
@@ -84,7 +87,15 @@ object Tools {
             }
         } else if (cardObject is Job){
             nameTextView.text = cardObject.name
-            costTextView.text = formatMoney(cardObject.salary.toLong())
+            var formattedSalary = ""
+            if (cardObject.salary < 10000000){
+                val decimalFormat = DecimalFormat("#,###")
+                formattedSalary = "$" + decimalFormat.format(cardObject.salary)
+            } else {
+                formattedSalary = formatMoney(cardObject.salary.toLong())
+            }
+
+            costTextView.text = "Salary\n" +  formattedSalary                           //NumberFormat.getCurrencyInstance(Locale.US).format(cardObject.salary.toLong())
             image.setImageResource(cardObject.icon)
         }
         captionTextView.text = caption
