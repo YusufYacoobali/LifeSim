@@ -140,7 +140,11 @@ data class Person(
             else -> {
                 val industryExperience = jobLevelHistory[job.type]
                 industryExperience?.let { (level, years) ->
-                    level.levelNumber + 1 >= job.level.levelNumber && years >= 2
+                    when {
+                        level.levelNumber + 1 == job.level.levelNumber -> years >= 2
+                        level.levelNumber + 1 >= job.level.levelNumber -> true
+                        else -> false
+                    }
                 } ?: false
             }
         }
@@ -152,9 +156,14 @@ data class Person(
         }
         job = newJob
         //check if exists before overwriting to 0
-        if (newJob is Job.FullTimeJob){
-            jobLevelHistory[newJob.type] = Pair(newJob.level,0)
+        if (newJob is Job.FullTimeJob) {
+            val currentExperience = jobLevelHistory[newJob.type]
+            //if new job is higher level than current/highest then replace as highest
+            if (currentExperience == null || newJob.level > currentExperience.first) {
+                jobLevelHistory[newJob.type] = Pair(newJob.level, 0)
+            }
         }
+
         moneyChange += newJob.salary.toLong()
         title = newJob.name
     }
@@ -162,7 +171,7 @@ data class Person(
     fun addWorkHistory() {
         if (job != null && job is Job.FullTimeJob) {
             val currentExperience = jobLevelHistory[(job as Job.FullTimeJob).type]
-            if (currentExperience != null) {
+            if (currentExperience != null && (job as Job.FullTimeJob).level == currentExperience.first) {
                 val (level, years) = currentExperience
                 jobLevelHistory[(job as Job.FullTimeJob).type] = Pair(level, years + 1)
             }

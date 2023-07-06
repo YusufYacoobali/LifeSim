@@ -69,16 +69,23 @@ sealed class Job(
 }
 
 enum class JobType : Serializable {
-    Swimmer,
     Astronaut,
     Programmer,
     Marketing,
     Finance,
+    Teacher,
+    Chef,
+    Engineer,
+    Doctor,
+    Artist
 }
 
 enum class JobLevel(val levelNumber: Int) : Serializable {
     Entry(1),
     Normal(2),
-    Senior(3),
-    Director(4)
+    Manager(3),     // Represents a managerial-level job
+    Specialist(4),  // Represents a specialized-level job
+    Senior(5),
+    Director(6),
+    Executive(7),
 }
