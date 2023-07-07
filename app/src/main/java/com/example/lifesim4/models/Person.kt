@@ -155,17 +155,22 @@ data class Person(
             moneyChange -= job!!.salary.toLong()
         }
         job = newJob
-        //check if exists before overwriting to 0
-        if (newJob is Job.FullTimeJob) {
+        title = newJob.name
+
+        if (newJob is Job.FullTimeJob){
+            job = newJob
+            //check if exists before overwriting to 0
             val currentExperience = jobLevelHistory[newJob.type]
             //if new job is higher level than current/highest then replace as highest
             if (currentExperience == null || newJob.level > currentExperience.first) {
                 jobLevelHistory[newJob.type] = Pair(newJob.level, 0)
             }
-        }
+            moneyChange += newJob.salary.toLong()
 
-        moneyChange += newJob.salary.toLong()
-        title = newJob.name
+        } else if (newJob is Job.PartTimeJob) {
+            //yearly salary
+            moneyChange += (newJob.salary * newJob.hoursPerWeek * 52).toLong()
+        }
     }
 
     fun addWorkHistory() {

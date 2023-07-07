@@ -77,7 +77,13 @@ enum class JobType : Serializable {
     Chef,
     Engineer,
     Doctor,
-    Artist
+    Artist,
+    Retail,
+    Waiter,
+    Barista,
+    Tutor,
+    Babysitter,
+    DogWalker,
 }
 
 enum class JobLevel(val levelNumber: Int) : Serializable {
