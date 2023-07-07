@@ -7,17 +7,22 @@ import android.os.Bundle
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import com.example.lifesim4.assets.AssetActivity
 import com.example.lifesim4.jobs.FullTimeActivity
 import com.example.lifesim4.jobs.PartTimeActivity
 import com.example.lifesim4.models.GameEngine
+import com.example.lifesim4.models.Person
+import com.example.lifesim4.tools.Tools
 
 class JobActivity : AppCompatActivity()  {
 
     private lateinit var gameEngine: GameEngine
+    private lateinit var player: Person
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_job)
         gameEngine = GameEngine.getInstance()
+        player = gameEngine.getPlayer()
 
         //Get data from next screen and pass it to main screen
         val myContract = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -25,6 +30,12 @@ class JobActivity : AppCompatActivity()  {
                 setResult(Activity.RESULT_OK)
                 finish()
             }
+        }
+
+        val currentWorkLayout: LinearLayout = findViewById(R.id.current)
+
+        if (player.job != null) {
+            Tools.addCardToView(this, player.job,  currentWorkLayout, player.job!!.type.toString(), R.drawable.home, null, myContract)
         }
 
         //handle different buttons
