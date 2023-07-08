@@ -86,21 +86,30 @@ object Tools {
                 }
             }
         } else if (cardObject is Job){
+            println("Here1 ${cardObject.name}")
             nameTextView.text = cardObject.name
+            image.setImageResource(cardObject.icon)
             var formattedSalary = ""
+
             if (cardObject.salary < 1000000){
                 val decimalFormat = DecimalFormat("#,###")
                 formattedSalary = "$" + decimalFormat.format(cardObject.salary)
             } else {
                 formattedSalary = formatMoney(cardObject.salary.toLong())
             }
-
-            costTextView.text = "Salary\n" +  formattedSalary                           //NumberFormat.getCurrencyInstance(Locale.US).format(cardObject.salary.toLong())
-            image.setImageResource(cardObject.icon)
+            if(cardObject is Job.PartTimeJob){
+                costTextView.text = formattedSalary + "\nper hour"
+            } else if (cardObject is Job.Crime) {
+                costTextView.text = "Payout\n" +  formattedSalary
+            }
+            else {
+                costTextView.text = "Salary\n" +  formattedSalary
+            }
+            println("made ${cardObject.name}")
         }
         captionTextView.text = caption
         placement.addView(personCard)
-
+        println("done")
         return CardWithAsset(personCard, cardObject)
     }
 

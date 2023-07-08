@@ -8,7 +8,10 @@ import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import com.example.lifesim4.assets.AssetActivity
+import com.example.lifesim4.jobs.CrimeActivity
+import com.example.lifesim4.jobs.EntrepreneurActivity
 import com.example.lifesim4.jobs.FullTimeActivity
+import com.example.lifesim4.jobs.GovermentActivity
 import com.example.lifesim4.jobs.PartTimeActivity
 import com.example.lifesim4.models.GameEngine
 import com.example.lifesim4.models.Person
@@ -53,17 +56,20 @@ class JobActivity : AppCompatActivity()  {
 
         val entrepreneurLayout: LinearLayout = findViewById(R.id.entrepreneurLayout)
         entrepreneurLayout.setOnClickListener {
-            Toast.makeText(this, "Entrepreneur clicked", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, EntrepreneurActivity::class.java)
+            myContract.launch(intent)
         }
 
         val governmentLayout: LinearLayout = findViewById(R.id.governmentLayout)
         governmentLayout.setOnClickListener {
-            Toast.makeText(this, "Government clicked", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, GovermentActivity::class.java)
+            myContract.launch(intent)
         }
 
         val criminalLayout: LinearLayout = findViewById(R.id.criminalLayout)
         criminalLayout.setOnClickListener {
-            Toast.makeText(this, "Criminal clicked", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, CrimeActivity::class.java)
+            myContract.launch(intent)
         }
     }
 }

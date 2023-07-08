@@ -38,27 +38,6 @@ class PartTimeActivity : AppCompatActivity() {
         }
         val jobs = makeJobs().sortedByDescending { it.salary }
         updatePage(jobs, myContract)
-
-//        val partTime1: LinearLayout = findViewById(R.id.partTime1)
-//        val partTime2: LinearLayout = findViewById(R.id.partTime2)
-//
-//        val clickListener = View.OnClickListener { view ->
-//            when (view.id) {
-//                R.id.partTime1 -> {
-//                    gameEngine.sendMessage(Message("You started working part time as a Life Guard with a salary of $13/hour", false))
-//                }
-//                R.id.partTime2 -> {
-//                    gameEngine.sendMessage(Message("You started working part time as a Window Cleaner with a salary of $15/hour", false))
-//                }
-//            }
-//
-//            setResult(Activity.RESULT_OK)
-//            finish()
-//        }
-//
-//        partTime1.setOnClickListener(clickListener)
-//        partTime2.setOnClickListener(clickListener)
-
     }
 
     private fun updatePage(jobs: List<Job.PartTimeJob>, myContract: ActivityResultLauncher<Intent>) {

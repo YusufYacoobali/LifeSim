@@ -38,7 +38,9 @@ sealed class Job(
         salary: Double,
         type: JobType,
         icon: Int,
-        val businessName: String
+        val businessName: String,
+        val businessType: String,
+        var popularity: Double
     ) : Job(id, name, salary, type, icon)
 
     class Government(
@@ -47,16 +49,19 @@ sealed class Job(
         salary: Double,
         type: JobType,
         icon: Int,
-        val department: String
+        val departmentType: String,
+        var popularity: Double
     ) : Job(id, name, salary, type, icon)
 
     class Crime(
         id: Int,
         name: String,
-        salary: Double,
+        salary: Double,  //potential payout
         type: JobType,
         icon: Int,
-        val illegalActivity: String
+        var popularity: Int,
+        val crimeType: CrimeType,
+        val successRate: Double
     ) : Job(id, name, salary, type, icon)
 
     companion object {
@@ -84,6 +89,9 @@ enum class JobType : Serializable {
     Tutor,
     Babysitter,
     DogWalker,
+    Criminal,
+    Goverment,
+    Entrepeneur
 }
 
 enum class JobLevel(val levelNumber: Int) : Serializable {
@@ -94,4 +102,16 @@ enum class JobLevel(val levelNumber: Int) : Serializable {
     Senior(5),
     Director(6),
     Executive(7),
+}
+
+enum class CrimeType : Serializable {
+    Robbery,
+    Fraud,
+    DrugTrafficking,
+    MoneyLaundering,
+    Kidnapping,
+    CyberCrime,
+    Forgery,
+    Assassination,
+    Smuggling
 }

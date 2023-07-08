@@ -16,6 +16,15 @@
         android:theme="@style/Theme.Fab_Bottom_app_bar"
         tools:targetApi="31">
         <activity
+            android:name=".jobs.EntrepreneurActivity"
+            android:exported="false" />
+        <activity
+            android:name=".jobs.GovermentActivity"
+            android:exported="false" />
+        <activity
+            android:name=".jobs.CrimeActivity"
+            android:exported="false" />
+        <activity
             android:name=".jobs.FullTimeActivity"
             android:exported="false" />
         <activity
