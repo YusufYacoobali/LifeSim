@@ -52,7 +52,6 @@ class FullTimeActivity : AppCompatActivity() {
             card.personCard.setOnClickListener {
                 //if they clicked, then they applied
                 if (player.isEligibleForJob(job)){
-                    //Tools.showPopupDialog(this, "Congrats! You got the job", "OK", "", job) { resultCode, button -> }
                     gameEngine.sendMessage(GameEngine.Message("Congrats you got the job", false))
                     player.startJob(job)
                     setResult(Activity.RESULT_OK)

@@ -46,12 +46,29 @@ class CrimeActivity : AppCompatActivity() {
         cards.forEach { card ->
             val job = card.obj as Job.Crime
             val captionTextView: TextView = card.personCard.findViewById(R.id.caption)
-            captionTextView.text = "${job.crimeType}"
+            captionTextView.text = "Success rate: ${(job.successRate*100).toInt()}%"
             card.personCard.setOnClickListener {
                //are you sure, if yes then do it with chance of prison
-                    Tools.showPopupDialog(
-                        this, "Rejected from job. Lacking experience", "OK", "", job) { resultCode, button -> }
-
+                println("HERE1")
+                Tools.showPopupDialog(
+                    this, "Are you sure you want to do this", "No", "Yes", job) { resultCode, button ->
+                    if (button == 1){
+                        finish()
+                    } else if (button == 2){
+                        val success = getRandomSuccessRate()
+                        println("$success and ${job.successRate}")
+                        if (success < job.successRate){
+                            gameEngine.sendMessage(GameEngine.Message("You got away with the crime", false))
+                            player.didCrime(job)
+                        } else {
+                            gameEngine.sendMessage(GameEngine.Message("You failed and got caught", false))
+                            gameEngine.sendMessage(GameEngine.Message("You will be in prison for x years", false))
+                            player.failedCrime()
+                        }
+                        setResult(resultCode)
+                        finish()
+                    }
+                }
             }
         }
     }
@@ -103,7 +120,7 @@ class CrimeActivity : AppCompatActivity() {
                 val jobNames = listOf(
                     "Credit Card Fraud",
                     "Identity Theft",
-                    "Ponzi Scheme"
+                    "Create a Ponzi Scheme"
                 )
                 val randomName = jobNames.random()
                 Pair(randomName, R.drawable.fraud)
@@ -119,7 +136,7 @@ class CrimeActivity : AppCompatActivity() {
             }
             CrimeType.MoneyLaundering -> {
                 val jobNames = listOf(
-                    "Money Laundering Operation",
+                    "Launder Money",
                     "Illegal Gambling",
                     "Tax Evasion Scheme"
                 )
@@ -129,7 +146,7 @@ class CrimeActivity : AppCompatActivity() {
             CrimeType.Kidnapping -> {
                 val jobNames = listOf(
                     "Ransom Kidnapping",
-                    "Abduction",
+                    "Abduct and Sell",
                     "Human Trafficking"
                 )
                 val randomName = jobNames.random()
@@ -137,9 +154,10 @@ class CrimeActivity : AppCompatActivity() {
             }
             CrimeType.CyberCrime -> {
                 val jobNames = listOf(
-                    "Hacking",
+                    "Hack Government Systems",
                     "Phishing Scam",
-                    "Data Breach"
+                    "Spread Malware",
+                    "Hack Financial Institutions"
                 )
                 val randomName = jobNames.random()
                 Pair(randomName, R.drawable.laptop)
@@ -148,25 +166,25 @@ class CrimeActivity : AppCompatActivity() {
                 val jobNames = listOf(
                     "Fake Signatures",
                     "Phishing Scam",
-                    "Data Breach"
+                    "Fabricate Money"
                 )
                 val randomName = jobNames.random()
                 Pair(randomName, R.drawable.study)
             }
             CrimeType.Assassination -> {
                 val jobNames = listOf(
-                    "Kill targets",
-                    "Kill and earn Life Insurance",
-                    "Kill and consume Bank Account"
+                    "Assassinate The Wealthy",
+                    "Political Assassination",
+                    "Contract Killing"
                 )
                 val randomName = jobNames.random()
                 Pair(randomName, R.drawable.crime)
             }
             CrimeType.Smuggling -> {
                 val jobNames = listOf(
-                    "Smuggle Children",
-                    "Smuggle Drugs",
-                    "Smuggle Immigrants"
+                    "Drug Smuggling",
+                    "Human Trafficking",
+                    "Contraband Transportation"
                 )
                 val randomName = jobNames.random()
                 Pair(randomName, R.drawable.artist)
@@ -197,7 +215,7 @@ class CrimeActivity : AppCompatActivity() {
     }
 
     private fun getRandomSuccessRate(): Double {
-        return (10..90).random() / 100.0
+        return (0..99).random() / 100.0
     }
 
 }

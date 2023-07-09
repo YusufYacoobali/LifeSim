@@ -86,7 +86,6 @@ object Tools {
                 }
             }
         } else if (cardObject is Job){
-            println("Here1 ${cardObject.name}")
             nameTextView.text = cardObject.name
             image.setImageResource(cardObject.icon)
             var formattedSalary = ""
@@ -105,11 +104,9 @@ object Tools {
             else {
                 costTextView.text = "Salary\n" +  formattedSalary
             }
-            println("made ${cardObject.name}")
         }
         captionTextView.text = caption
         placement.addView(personCard)
-        println("done")
         return CardWithAsset(personCard, cardObject)
     }
 
@@ -135,7 +132,7 @@ object Tools {
             }
         }
 
-        if (obj is Asset){
+        //if (obj is Asset){
             dialogButton.setOnClickListener {
                 resultCallback?.invoke(Activity.RESULT_OK, 1) // Button 1 (Rent) pressed
                 dialog.dismiss()
@@ -143,7 +140,7 @@ object Tools {
             dialogButton2.setOnClickListener {
                 resultCallback?.invoke(Activity.RESULT_OK, 2) // Button 2 (Buy) pressed
                 dialog.dismiss()
-            }
+           // }
         }
 
         dialog.setCancelable(true)

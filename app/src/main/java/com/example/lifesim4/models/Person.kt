@@ -183,6 +183,17 @@ data class Person(
         }
     }
 
+    fun failedCrime(){
+        job = null
+        title = "Prisoner"
+        //fine them too
+    }
+
+    fun didCrime(crime: Job.Crime){
+        //succeed in crime
+        money+= crime.salary.toLong()
+        fame = FameLevel.A
+    }
 
 
     fun  doctorOptions(option: Int) : Pair<Int, Long> {

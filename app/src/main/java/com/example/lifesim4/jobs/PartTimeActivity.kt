@@ -53,7 +53,6 @@ class PartTimeActivity : AppCompatActivity() {
             card.personCard.setOnClickListener {
                 //if they clicked, then they applied, 40% chance of getting it
                 if (Random.nextDouble() < 0.4){
-                    //Tools.showPopupDialog(this, "Congrats! You got the job", "OK", "", job) { resultCode, button -> }
                     gameEngine.sendMessage(GameEngine.Message("You started as a part time ${job.type}", false))
                     player.startJob(job)
                     setResult(Activity.RESULT_OK)
