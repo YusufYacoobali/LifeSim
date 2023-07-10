@@ -49,7 +49,6 @@ class CrimeActivity : AppCompatActivity() {
             captionTextView.text = "Success rate: ${(job.successRate*100).toInt()}%"
             card.personCard.setOnClickListener {
                //are you sure, if yes then do it with chance of prison
-                println("HERE1")
                 Tools.showPopupDialog(
                     this, "Are you sure you want to do this", "No", "Yes", job) { resultCode, button ->
                     if (button == 1){

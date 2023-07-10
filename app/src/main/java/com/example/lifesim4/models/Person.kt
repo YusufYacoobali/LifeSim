@@ -53,7 +53,8 @@ data class Person(
     override var affectionType: AffectionType,
     override var affection: Int,
     override var isAlive: Boolean = true,
-    var jobLevelHistory: MutableMap<JobType, Pair<JobLevel, Int>> = mutableMapOf()
+    var jobLevelHistory: MutableMap<JobType, Pair<JobLevel, Int>> = mutableMapOf(),
+    var followers: Long = 0
 ) : Character, Serializable {
 
     fun age(){
