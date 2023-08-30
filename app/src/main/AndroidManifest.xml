@@ -9,113 +9,113 @@
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
+        android:icon="@mipmap/app_logo"
+        android:label="Life Sim"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Fab_Bottom_app_bar"
         tools:targetApi="31">
         <activity
-            android:name=".jobs.EntrepreneurActivity"
+            android:name="com.sim.lifesim4.jobs.EntrepreneurActivity"
             android:exported="false" />
         <activity
-            android:name=".jobs.GovermentActivity"
+            android:name="com.sim.lifesim4.jobs.GovermentActivity"
             android:exported="false" />
         <activity
-            android:name=".jobs.CrimeActivity"
+            android:name="com.sim.lifesim4.jobs.CrimeActivity"
             android:exported="false" />
         <activity
-            android:name=".jobs.FullTimeActivity"
+            android:name="com.sim.lifesim4.jobs.FullTimeActivity"
             android:exported="false" />
         <activity
-            android:name=".assets.AssetActivity"
+            android:name="com.sim.lifesim4.assets.AssetActivity"
             android:exported="false" />
         <activity
-            android:name=".relations.PersonActivity"
+            android:name="com.sim.lifesim4.relations.PersonActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.LawsuitActivity"
+            android:name="com.sim.lifesim4.activities.LawsuitActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.EmigrateActivity"
+            android:name="com.sim.lifesim4.activities.EmigrateActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.WillActivity"
+            android:name="com.sim.lifesim4.activities.WillActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.CharityActivity"
+            android:name="com.sim.lifesim4.activities.CharityActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.PartyActivity"
+            android:name="com.sim.lifesim4.activities.PartyActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.PlanesActivity"
+            android:name="com.sim.lifesim4.activities.PlanesActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.BoatsActivity"
+            android:name="com.sim.lifesim4.activities.BoatsActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.CarsActivity"
+            android:name="com.sim.lifesim4.activities.CarsActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.PropertiesActivity"
+            android:name="com.sim.lifesim4.activities.PropertiesActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.SkillsActivity"
+            android:name="com.sim.lifesim4.activities.SkillsActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.LoveActivity"
+            android:name="com.sim.lifesim4.activities.LoveActivity"
             android:exported="false" />
         <activity
-            android:name=".assets.PlanesActivity"
+            android:name="com.sim.lifesim4.assets.PlanesActivity"
             android:exported="false" />
         <activity
-            android:name=".assets.CarsActivity"
+            android:name="com.sim.lifesim4.assets.CarsActivity"
             android:exported="false" />
         <activity
-            android:name=".assets.BoatActivity"
+            android:name="com.sim.lifesim4.assets.BoatActivity"
             android:exported="false" />
         <activity
-            android:name=".assets.HouseActivity"
+            android:name="com.sim.lifesim4.assets.HouseActivity"
             android:exported="false" />
         <activity
-            android:name=".relations.EnemiesActivity"
+            android:name="com.sim.lifesim4.relations.EnemiesActivity"
             android:exported="false" />
         <activity
-            android:name=".relations.FriendsActivity"
+            android:name="com.sim.lifesim4.relations.FriendsActivity"
             android:exported="false" />
         <activity
-            android:name=".relations.LoversActivity"
+            android:name="com.sim.lifesim4.relations.LoversActivity"
             android:exported="false" />
         <activity
-            android:name=".relations.FamilyActivity"
+            android:name="com.sim.lifesim4.relations.FamilyActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.HolidayActivity"
+            android:name="com.sim.lifesim4.activities.HolidayActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.HealthActivity"
+            android:name="com.sim.lifesim4.activities.HealthActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.FitnessActivity"
+            android:name="com.sim.lifesim4.activities.FitnessActivity"
             android:exported="false" />
         <activity
-            android:name=".ActivitiesActivity"
+            android:name="com.sim.lifesim4.ActivitiesActivity"
             android:exported="false" />
         <activity
-            android:name=".RelationsActivity"
+            android:name="com.sim.lifesim4.RelationsActivity"
             android:exported="false" />
         <activity
-            android:name=".AssetActivity"
+            android:name="com.sim.lifesim4.AssetActivity"
             android:exported="false" />
         <activity
-            android:name=".jobs.PartTimeActivity"
+            android:name="com.sim.lifesim4.jobs.PartTimeActivity"
             android:exported="false" />
         <activity
-            android:name=".JobActivity"
+            android:name="com.sim.lifesim4.JobActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name="com.sim.lifesim4.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

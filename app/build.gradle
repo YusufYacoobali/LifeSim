@@ -9,7 +9,7 @@ android {
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.example.lifesim4"
+        applicationId "com.sim.lifesim4"
         minSdk 24
         targetSdk 33
         versionCode 1

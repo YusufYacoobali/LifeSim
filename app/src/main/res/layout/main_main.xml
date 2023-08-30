@@ -6,7 +6,7 @@
     <data>
         <variable
             name="person"
-            type="com.example.lifesim4.models.Person" />
+            type="com.sim.lifesim4.models.Person" />
     </data>
 <RelativeLayout
     android:id="@+id/parentLayout"

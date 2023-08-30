@@ -1,0 +1,50 @@
+package com.sim.lifesim4.assets
+
+import android.app.Activity
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import android.widget.LinearLayout
+import androidx.activity.result.contract.ActivityResultContracts
+import com.example.lifesim4.R
+import com.sim.lifesim4.models.Asset
+import com.sim.lifesim4.models.AssetState
+import com.sim.lifesim4.models.GameEngine
+import com.sim.lifesim4.models.Person
+import com.sim.lifesim4.tools.Tools
+
+class HouseActivity : AppCompatActivity() {
+
+    private lateinit var gameEngine: GameEngine
+    private lateinit var player: Person
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.owned_house)
+        gameEngine = GameEngine.getInstance()
+        player = gameEngine.getPlayer()
+
+        val myContract = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                setResult(Activity.RESULT_OK)
+                //updateUI()
+                finish()
+            }
+        }
+
+        val currentContainer: LinearLayout = findViewById(R.id.current)
+        val allHomesContainer: LinearLayout = findViewById(R.id.allHomes)
+
+        val currentHome = player.assets.find { asset ->
+            asset is Asset.House && asset.state == AssetState.LIVING_IN
+        } as? Asset.House
+
+        val allHomes = player.assets.filterIsInstance<Asset.House>().filter { it.state != AssetState.LIVING_IN }.sortedByDescending { it.value }
+
+        if (currentHome != null) {
+            Tools.addCardToView(this, currentHome,  currentContainer, "${currentHome.squareFeet}sq ft  Condition ${currentHome.condition}%", R.drawable.home, AssetActivity::class.java, myContract)
+        }
+
+        allHomes.forEach { thing ->
+            Tools.addCardToView(this, thing,  allHomesContainer, "${thing.squareFeet}sq ft  Condition ${thing.condition}%", R.drawable.home, AssetActivity::class.java, myContract)
+        }
+    }
+}
