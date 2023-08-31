@@ -29,7 +29,7 @@ class HealthActivity : AppCompatActivity() {
                         gameEngine.sendMessage(Message("Minimum charge is $80k. You are broke and cannot afford this...lol", false))
                     } else {
                         gameEngine.sendMessage(Message(
-                            "You visited the best doctor in the country.\nHealth ${if (healthChange >= 0) "+$healthChange" else healthChange} costing you\n ${
+                            "You visited the best doctor in the country.\n Health ${if (healthChange >= 0) "+$healthChange" else healthChange} costing you\n ${
                                 Tools.formatMoney(
                                     charge
                                 )
@@ -43,7 +43,7 @@ class HealthActivity : AppCompatActivity() {
                         gameEngine.sendMessage(Message("Minimum charge is $10k. You are broke and cannot afford this...lol", false))
                     } else {
                         gameEngine.sendMessage(Message(
-                            "You visited any doctor you could find.\nHealth ${if (healthChange >= 0) "+$healthChange" else healthChange} costing you\n ${
+                            "You visited any doctor you could find.\n Health ${if (healthChange >= 0) "+$healthChange" else healthChange} costing you\n ${
                                 Tools.formatMoney(
                                     charge
                                 )
@@ -57,7 +57,7 @@ class HealthActivity : AppCompatActivity() {
                         gameEngine.sendMessage(Message("Minimum charge is $400. You can't even afford witches...lol", false))
                     } else {
                         gameEngine.sendMessage(Message(
-                            "You visited some dodgy witches.\nHealth ${if (healthChange >= 0) "+$healthChange" else healthChange} costing you\n ${
+                            "You visited some dodgy witches.\n Health ${if (healthChange >= 0) "+$healthChange" else healthChange} costing you\n ${
                                 Tools.formatMoney(
                                     charge
                                 )
@@ -75,7 +75,7 @@ class HealthActivity : AppCompatActivity() {
                         gameEngine.sendMessage(Message("Minimum charge is $20k. You are broke and cannot afford this...lol", false))
                     } else {
                         gameEngine.sendMessage(Message(
-                            "You visited a plastic surgeon to get work done.\nCharm ${if (charmChange >= 0) "+$charmChange" else charmChange} costing you\n ${
+                            "You visited a plastic surgeon to get work done.\n Charm ${if (charmChange >= 0) "+$charmChange" else charmChange} costing you\n ${
                                 Tools.formatMoney(
                                     charge
                                 )

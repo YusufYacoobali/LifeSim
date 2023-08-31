@@ -264,47 +264,107 @@ data class Person(
         }
     }
 
-    fun  fitnessOptions(option: Int) : Pair<Int, Long> {
-        when (option){
+    private fun fitnessProcess(charge: Long, toughness: Int): Triple<Int, Int, Long> {
+        var charmChange = 0
+        if (charm < 96){
+            charmChange = toughness
+        }
+        var vitalityChange = 0
+        if (health < 96){
+            vitalityChange = Random.nextInt(0, 2)
+        }
+
+        health += vitalityChange
+        charm += charmChange
+        money -= charge
+        return Triple(vitalityChange, charmChange, charge) //change to randomCharge
+    }
+
+    fun  fitnessOptions() : Triple<Int, Int, Long> {
+        return if (money > 10) {
+            fitnessProcess(10L,  Random.nextInt(0, 4))
+        } else Triple(0,0,-1L)
+    }
+
+    private fun partyProcess(charge: Long): Pair<Int, Long> {
+        var vitalityChange = 0
+        if (health < 96){
+            vitalityChange = Random.nextInt(0, 2)
+        }
+
+        health += vitalityChange
+        money -= charge
+        return Pair(vitalityChange, charge) //change to randomCharge
+    }
+
+    fun partyOptions(option: Int) : Pair<Int, Long> {
+        when (option) {
             1 -> {
-                return if (money > 80000) {
-                    doctorProcess(90, 100, 0.5,0.3)
+                return if (money > 40) {
+                    partyProcess(40)
                 } else 0 to -1L
             }
             2 -> {
-                return if (money > 10000) {
-                    doctorProcess(70, Random.nextInt(70,88), 0.22,0.1)
-                } else 0 to -1L
+                return partyProcess(0)
             }
             3 -> {
-                //calcs need fixing
-                return if (money > 400) {
-                    val witchAttack = Random.nextInt(health-20,health+20)
-                    val change = witchAttack - health
-                    health = witchAttack
-                    money -= 400
-                    return change to 400
+                return if (money > 150) {
+                    partyProcess(150)
                 } else 0 to -1L
             }
             4 -> {
-                val newHealth = Random.nextInt(1,100)
-                val change = newHealth - health
-                health = newHealth
-                return change to 0
+                return if (money > 200) {
+                    partyProcess(200)
+                } else 0 to -1L
             }
             5 -> {
-                //plastic surgery
-                return if (money >= 20000){
-                    var charge = (money*0.12).toLong()
-                    var newCharm = Random.nextInt(40,101)
-                    val change = newCharm - charm
-                    money -= charge
-                    charm = newCharm
-                    change to charge
-                } else {
-                    0 to -1L
-                }
-                //sendMessage(GameEngine.Message("You got that plastic. \nIt costed you $20k", false))
+                //casino option coming soon? sort out options
+                return if (money > 40) {
+                    partyProcess(40)
+                } else 0 to -1L
+            }
+            else -> {
+                return 0 to 0L
+            }
+        }
+    }
+
+    private fun holidayProcess(charge: Long, maxHealthAddition: Int): Pair<Int, Long> {
+        var vitalityChange = 0
+        if (health < 90){
+            vitalityChange = Random.nextInt(0, maxHealthAddition)
+        } else {
+            vitalityChange = Random.nextInt(0, 10)
+            if (vitalityChange + health >= 100)
+                vitalityChange = 100-health
+        }
+
+        health += vitalityChange
+        money -= charge
+        return Pair(vitalityChange, charge) //change to randomCharge
+    }
+
+    fun holidayOptions(option: Int) : Pair<Int, Long> {
+        when (option) {
+            1 -> {
+                return if (money > 15000) {
+                    holidayProcess(15000, 10)
+                } else 0 to -1L
+            }
+            2 -> {
+                return if (money > 8000) {
+                    holidayProcess(8000, 8)
+                } else 0 to -1L
+            }
+            3 -> {
+                return if (money > 12000) {
+                    holidayProcess(12000, 6)
+                } else 0 to -1L
+            }
+            4 -> {
+                return if (money > 2000) {
+                    holidayProcess(2000, 3)
+                } else 0 to -1L
             }
             else -> {
                 return 0 to 0L

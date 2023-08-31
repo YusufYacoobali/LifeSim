@@ -33,7 +33,7 @@
 
             <!-- Health & Holiday-->
             <LinearLayout
-                android:id="@+id/gymOption"
+                android:id="@+id/skiing"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="10dp"
@@ -82,7 +82,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/swimOption"
+                android:id="@+id/resort"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="10dp"
@@ -131,7 +131,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/runOption"
+                android:id="@+id/cruise"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="10dp"
@@ -180,7 +180,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/footballOption"
+                android:id="@+id/affordable"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="10dp"
