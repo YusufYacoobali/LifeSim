@@ -33,7 +33,7 @@
 
             <!-- Health & Holiday-->
             <LinearLayout
-                android:id="@+id/gymOption"
+                android:id="@+id/donateClothes"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="10dp"
@@ -82,7 +82,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/swimOption"
+                android:id="@+id/giveMoney"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="10dp"
@@ -131,7 +131,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/runOption"
+                android:id="@+id/volunteer"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="10dp"

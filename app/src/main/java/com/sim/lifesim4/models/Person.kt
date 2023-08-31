@@ -371,6 +371,40 @@ data class Person(
             }
         }
     }
+
+    private fun charityProcess(charge: Long, luck: Int): Pair<Int, Long> {
+        var fortuneChange = 0
+        if (fortune < 90){
+            fortuneChange = Random.nextInt(0, luck)
+        } else {
+            fortuneChange = Random.nextInt(0, 10)
+            if (fortuneChange + fortune >= 100)
+                fortuneChange = 100-fortune
+        }
+
+        fortune += fortuneChange
+        money -= charge
+        return Pair(fortuneChange, charge) //change to randomCharge
+    }
+
+    fun charityOptions(option: Int) : Pair<Int, Long> {
+        when (option) {
+            1 -> {
+                return charityProcess(0, 4)
+            }
+            2 -> {
+                return if (money > 0) {
+                    charityProcess((money*0.1).toLong(), 10) //10% to charity
+                } else 0 to -1L
+            }
+            3 -> {
+                return charityProcess(0, 6)
+            }
+            else -> {
+                return 0 to 0L
+            }
+        }
+    }
 }
 
 data class NPC(
