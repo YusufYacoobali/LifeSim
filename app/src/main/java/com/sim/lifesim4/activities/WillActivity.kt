@@ -12,7 +12,8 @@ class WillActivity : AppCompatActivity() {
         setContentView(R.layout.activity_will)
 
         val changeWill: LinearLayout = findViewById(R.id.changeWill)
-//        changeWill.setOnClickListener(
-//        Toast.makeText(this@MainActivity, "Feature coming soon!", Toast.LENGTH_SHORT).show())
+        changeWill.setOnClickListener {
+            Toast.makeText(this@WillActivity, "Feature coming soon!", Toast.LENGTH_SHORT).show()
+        }
     }
 }

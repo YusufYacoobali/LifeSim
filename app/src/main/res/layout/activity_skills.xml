@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#303030"
@@ -33,7 +34,7 @@
 
             <!-- Health & Holiday-->
             <LinearLayout
-                android:id="@+id/gymOption"
+                android:id="@+id/read"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="10dp"
@@ -57,15 +58,31 @@
                     android:layout_weight="5"
                     android:orientation="vertical">
 
-                    <TextView
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
-                        android:layout_gravity="center_horizontal|center_vertical"
                         android:layout_weight="1"
-                        android:text="Read &amp; Learn"
-                        android:textColor="@color/black"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center_horizontal|center_vertical"
+                            android:layout_weight="1"
+                            android:text="Read &amp; Learn"
+                            android:textColor="@color/black"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+
+                        <androidx.appcompat.widget.SwitchCompat
+                            android:id="@+id/readSwitch"
+                            android:layout_width="wrap_content"
+                            android:layout_height="0dp"
+                            android:checked="false"
+                            android:text="$300/year"
+                            app:switchPadding="10dp" />
+
+                    </LinearLayout>
 
                     <TextView
                         android:layout_width="match_parent"
@@ -82,7 +99,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/footballOption"
+                android:id="@+id/acting"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="10dp"
@@ -106,16 +123,31 @@
                     android:layout_weight="5"
                     android:orientation="vertical">
 
-                    <TextView
-                        android:id="@+id/textView2"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
-                        android:layout_gravity="center_horizontal|center_vertical"
                         android:layout_weight="1"
-                        android:text="Acting"
-                        android:textColor="@color/black"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center_horizontal|center_vertical"
+                            android:layout_weight="1"
+                            android:text="Acting"
+                            android:textColor="@color/black"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+
+                        <androidx.appcompat.widget.SwitchCompat
+                            android:id="@+id/actingSwitch"
+                            android:layout_width="wrap_content"
+                            android:layout_height="0dp"
+                            android:checked="false"
+                            android:text="$2400/year"
+                            android:textOn="ON"
+                            app:switchPadding="10dp" />
+                    </LinearLayout>
 
                     <TextView
                         android:layout_width="match_parent"
@@ -130,7 +162,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/runOption"
+                android:id="@+id/pray"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="10dp"
@@ -154,15 +186,31 @@
                     android:layout_weight="5"
                     android:orientation="vertical">
 
-                    <TextView
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
-                        android:layout_gravity="center_horizontal|center_vertical"
                         android:layout_weight="1"
-                        android:text="Pray"
-                        android:textColor="@color/black"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center_horizontal|center_vertical"
+                            android:layout_weight="1"
+                            android:text="Pray"
+                            android:textColor="@color/black"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+
+                        <androidx.appcompat.widget.SwitchCompat
+                            android:id="@+id/praySwitch"
+                            android:layout_width="wrap_content"
+                            android:layout_height="0dp"
+                            android:checked="false"
+                            android:text="$50/year"
+                            app:switchPadding="10dp" />
+
+                    </LinearLayout>
 
                     <TextView
                         android:layout_width="match_parent"
@@ -179,7 +227,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/swimOption"
+                android:id="@+id/fight"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="10dp"
@@ -203,15 +251,31 @@
                     android:layout_weight="5"
                     android:orientation="vertical">
 
-                    <TextView
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
-                        android:layout_gravity="center_horizontal|center_vertical"
                         android:layout_weight="1"
-                        android:text="Fighting"
-                        android:textColor="@color/black"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center_horizontal|center_vertical"
+                            android:layout_weight="1"
+                            android:text="Learn to Fight"
+                            android:textColor="@color/black"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+
+                        <androidx.appcompat.widget.SwitchCompat
+                            android:id="@+id/fightSwitch"
+                            android:layout_width="wrap_content"
+                            android:layout_height="0dp"
+                            android:checked="false"
+                            android:text="$1100/year"
+                            app:switchPadding="10dp" />
+
+                    </LinearLayout>
 
                     <TextView
                         android:layout_width="match_parent"
@@ -228,7 +292,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/swimOption"
+                android:id="@+id/politics"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="10dp"
@@ -252,15 +316,31 @@
                     android:layout_weight="5"
                     android:orientation="vertical">
 
-                    <TextView
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
-                        android:layout_gravity="center_horizontal|center_vertical"
                         android:layout_weight="1"
-                        android:text="Study Politics"
-                        android:textColor="@color/black"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center_horizontal|center_vertical"
+                            android:layout_weight="1"
+                            android:text="Study Politics"
+                            android:textColor="@color/black"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+
+                        <androidx.appcompat.widget.SwitchCompat
+                            android:id="@+id/politicsSwitch"
+                            android:layout_width="wrap_content"
+                            android:layout_height="0dp"
+                            android:checked="false"
+                            android:text="$450/year"
+                            app:switchPadding="10dp" />
+
+                    </LinearLayout>
 
                     <TextView
                         android:layout_width="match_parent"
@@ -277,7 +357,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/swimOption"
+                android:id="@+id/crime"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="10dp"
@@ -301,15 +381,31 @@
                     android:layout_weight="5"
                     android:orientation="vertical">
 
-                    <TextView
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
-                        android:layout_gravity="center_horizontal|center_vertical"
                         android:layout_weight="1"
-                        android:text="Study Crime"
-                        android:textColor="@color/black"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center_horizontal|center_vertical"
+                            android:layout_weight="1"
+                            android:text="Study Crimes"
+                            android:textColor="@color/black"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+
+                        <androidx.appcompat.widget.SwitchCompat
+                            android:id="@+id/crimeSwitch"
+                            android:layout_width="wrap_content"
+                            android:layout_height="0dp"
+                            android:checked="false"
+                            android:text="$500/year"
+                            app:switchPadding="10dp" />
+
+                    </LinearLayout>
 
                     <TextView
                         android:layout_width="match_parent"

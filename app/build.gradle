@@ -53,4 +53,7 @@ dependencies {
     implementation 'androidx.databinding:databinding-runtime:7.0.0'
 
     implementation 'com.github.javafaker:javafaker:1.0.2'
+
+    implementation 'androidx.appcompat:appcompat:1.6.1' // Use the latest version
+
 }
