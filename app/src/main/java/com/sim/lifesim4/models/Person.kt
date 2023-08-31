@@ -201,6 +201,14 @@ data class Person(
         } else false
     }
 
+    fun emigrate() : Pair<Int, Long>{
+        return if (money >= 5000) {
+            val charge = Random.nextInt(5000, 10000)
+            money -= charge
+            return 0 to charge.toLong()
+        } else 0 to -1L
+    }
+
     private fun doctorProcess(thresholdHealth: Int, maximumHealth: Int, maxCost: Double, minCost: Double): Pair<Int, Long> {
         var newHealth = if (health < thresholdHealth) {
             Random.nextInt(thresholdHealth, maximumHealth)
