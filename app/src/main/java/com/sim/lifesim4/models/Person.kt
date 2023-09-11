@@ -32,6 +32,7 @@ data class Person(
     var charm: Int = Random.nextInt(0, 101),
     var charmChange: Int = 0,
     var fortune: Int = Random.nextInt(30, 100),
+    var fortuneChange: Int = 0,
     override var fame: FameLevel = FameLevel.U,
     val cashFlow: Long = 0,
     var father: Person? = null,
@@ -413,6 +414,48 @@ data class Person(
             }
         }
     }
+
+    fun hasSkill(skill: Skill): Int{
+        when (skill){
+            (Skill.READ) -> {
+                moneyChange -= 300
+                val change = Random.nextInt(0, 2)
+                geniusChange += change
+                return change
+            }
+            (Skill.ACT) -> {
+                moneyChange -= 2400
+                val change = Random.nextInt(0, 2)
+                fame = FameLevel.B      //need to fix
+                return change
+            }
+            (Skill.PRAY) -> {
+                moneyChange -= 50
+                val change = Random.nextInt(0, 1)
+                fortuneChange += change
+                return change
+            }
+            (Skill.FIGHT) -> {
+                moneyChange -= 1100
+                val change = Random.nextInt(0, 2)
+                healthChange += change
+                return change
+            }
+            (Skill.POLITICS) -> {
+                moneyChange -= 450
+                val change = Random.nextInt(0, 2)
+                charmChange += change
+                return change
+            }
+            (Skill.CRIME) -> {
+                moneyChange -= 500
+                val change = Random.nextInt(0, 2)
+                charmChange += change
+                return change
+            }
+            else -> return -1
+        }
+    }
 }
 
 data class NPC(
@@ -454,5 +497,9 @@ enum class AffectionType : Serializable {
     Sibling,
     Child,
     Me
+}
+
+enum class Skill {
+    READ, ACT, PRAY, FIGHT, POLITICS, CRIME
 }
 
