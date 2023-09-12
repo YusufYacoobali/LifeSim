@@ -456,6 +456,37 @@ data class Person(
             else -> return -1
         }
     }
+
+    fun turnOffSkill(skill: Skill){
+        when (skill){
+            (Skill.READ) -> {
+                moneyChange += 300
+                geniusChange -= 1
+            }
+            (Skill.ACT) -> {
+                moneyChange += 2400
+                fame = FameLevel.C      //need to fix
+            }
+            (Skill.PRAY) -> {
+                moneyChange += 50
+                fortuneChange -= 3
+            }
+            (Skill.FIGHT) -> {
+                moneyChange += 1100
+                healthChange -= 1
+            }
+            (Skill.POLITICS) -> {
+                moneyChange += 450
+                charmChange -= 1
+            }
+            (Skill.CRIME) -> {
+                moneyChange += 500
+                charmChange -= 1
+            }
+
+            else -> {}
+        }
+    }
 }
 
 data class NPC(

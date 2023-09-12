@@ -1,6 +1,7 @@
 package com.sim.lifesim4
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.graphics.Typeface
 import android.os.Bundle
@@ -8,6 +9,7 @@ import android.widget.ScrollView
 import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SwitchCompat
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import com.example.lifesim4.R
@@ -16,6 +18,7 @@ import com.sim.lifesim4.models.GameEngine
 import com.sim.lifesim4.models.Person
 import com.sim.lifesim4.tools.Tools
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.sim.lifesim4.models.Skill
 
 class MainActivity : AppCompatActivity()  {
 
@@ -86,6 +89,7 @@ class MainActivity : AppCompatActivity()  {
         player = gameEngine.getPlayer()
         player.calcNetWorth()
         changestatusUI()
+        resetSharedPrefs()
     }
 
     private fun printLoadAllMessages(){
@@ -190,5 +194,26 @@ class MainActivity : AppCompatActivity()  {
         binding.netWorthText.text = Tools.formatNetWorthMoney(player.netWorth)
         binding.playerName.text = player.name
         binding.workStatus.text = player.title
+    }
+
+    private fun resetSharedPrefs(){
+        val sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+
+        val skills = mapOf(
+            Skill.READ to "readSwitch",
+            Skill.ACT to "actingSwitch",
+            Skill.PRAY to "praySwitch",
+            Skill.FIGHT to "fightSwitch",
+            Skill.POLITICS to "politicsSwitch",
+            Skill.CRIME to "crimeSwitch"
+        )
+
+        for ((skill, switchId) in skills) {
+            editor.putBoolean("${skill.name}Switch", false)
+        }
+
+        // Apply the changes to the shared preferences
+        editor.apply()
     }
 }

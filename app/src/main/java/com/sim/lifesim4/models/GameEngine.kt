@@ -134,14 +134,6 @@ class GameEngine private constructor() : Serializable {
         asset.state = AssetState.OWNED
     }
 
-    fun goGym(){
-        currentPlayer.apply {
-            health += 5
-            money -= 100
-            charm += 1
-        }
-    }
-
     fun sendMessage(message: Message){
         messages.add(message)
         allMessage.add(message)

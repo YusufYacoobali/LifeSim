@@ -63,7 +63,7 @@ class SkillsActivity : AppCompatActivity() {
                 }
                 player.hasSkill(skill) // Call player.hasSkill(skill) when turning the skill on
             } else {
-               // player.turnOffSkill(skill.number) // Call player.turnOffSkill(number) when turning the skill off
+                player.turnOffSkill(skill)
             }
 
             // Save the updated state to SharedPreferences
@@ -137,6 +137,7 @@ class SkillsActivity : AppCompatActivity() {
                 }
             } else {
                 //turning skill off
+                player.turnOffSkill(skill)
 
             }
             sharedPreferences.edit().putBoolean(key, switch.isChecked).apply()
