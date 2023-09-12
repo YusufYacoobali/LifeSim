@@ -487,6 +487,11 @@ data class Person(
             else -> {}
         }
     }
+
+    fun date(person: NPC){
+        person.affectionType = AffectionType.Girlfriend
+        lovers.add(person)
+    }
 }
 
 data class NPC(
@@ -527,7 +532,8 @@ enum class AffectionType : Serializable {
     Mother,
     Sibling,
     Child,
-    Me
+    Me,
+    Stranger
 }
 
 enum class Skill {

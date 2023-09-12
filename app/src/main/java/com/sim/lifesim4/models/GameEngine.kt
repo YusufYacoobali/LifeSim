@@ -166,6 +166,23 @@ class GameEngine private constructor() : Serializable {
         currentPlayer = player
     }
 
+    fun generateLover(gender: Boolean) : NPC {
+         val person = NPC(
+            name = if (!gender) {
+                "${maleFirstNames.random()} ${maleFirstNames.random()}"
+            } else {
+                "${femaleFirstNames.random()} ${maleFirstNames.random()}"
+            },
+            age = currentPlayer.age + kotlin.random.Random.nextInt(-5, 20),
+            gender = gender,
+            fame = FameLevel.C,
+            affection = kotlin.random.Random.nextInt(0, 100),
+            affectionType = AffectionType.Stranger
+        )
+        everyone.add(person)
+        return person
+    }
+
     fun startGame() {
         allMessage.clear()
         everyone.clear()
@@ -180,7 +197,7 @@ class GameEngine private constructor() : Serializable {
         val father = Person(
             name = "${maleFirstNames.random()} $lastName",
             age = 40,
-            gender = "Male",
+            gender = true,
             money = 1000,
             affection = 90,
             affectionType = AffectionType.Father
@@ -190,7 +207,7 @@ class GameEngine private constructor() : Serializable {
         val mother = Person(
             name = "${femaleFirstNames.random()} $lastName",
             age = 40,
-            gender = "Female",
+            gender = false,
             money = 1000,
             affection = 90,
             affectionType = AffectionType.Mother
@@ -200,7 +217,7 @@ class GameEngine private constructor() : Serializable {
             name = "${maleFirstNames.random()} $lastName",
             age = 0,
             money = 0,
-            gender = "Male",
+            gender = true,
             fame = FameLevel.U,
             father = father,
             mother = mother,
@@ -211,7 +228,7 @@ class GameEngine private constructor() : Serializable {
         val child2 = Person(
             name = "${femaleFirstNames.random()} $lastName",
             age = 7,
-            gender = "Female",
+            gender = false,
             fame = FameLevel.A,
             father = father,
             mother = mother,
@@ -222,7 +239,7 @@ class GameEngine private constructor() : Serializable {
         val child3 = Person(
             name = "${maleFirstNames.random()} $lastName",
             age = 16,
-            gender = "Male",
+            gender = true,
             fame = FameLevel.B,
             father = father,
             mother = mother,
@@ -233,7 +250,7 @@ class GameEngine private constructor() : Serializable {
         val grandchild = Person(
             name = "${femaleFirstNames.random()} $lastName",
             age = 2,
-            gender = "Female",
+            gender = false,
             fame = FameLevel.C,
             father = child1,
             mother = mother,
@@ -246,7 +263,7 @@ class GameEngine private constructor() : Serializable {
         val lover = NPC(
             name = "${femaleFirstNames.random()} ${maleFirstNames.random()}",
             age = 10,
-            gender = "Female",
+            gender = false,
             fame = FameLevel.C,
             affection = 90,
             affectionType = AffectionType.Wife
@@ -254,7 +271,7 @@ class GameEngine private constructor() : Serializable {
         val gf = NPC(
             name = "${femaleFirstNames.random()} ${maleFirstNames.random()}",
             age = 10,
-            gender = "Female",
+            gender = false,
             fame = FameLevel.C,
             affection = 90,
             affectionType = AffectionType.Girlfriend
@@ -263,7 +280,7 @@ class GameEngine private constructor() : Serializable {
         val enemy = NPC(
             name = "${femaleFirstNames.random()} ${faker.name().lastName()}",
             age = 10,
-            gender = "Female",
+            gender = false,
             fame = FameLevel.C,
             affection = 90,
             affectionType = AffectionType.Enemy
@@ -271,7 +288,7 @@ class GameEngine private constructor() : Serializable {
         val friend = NPC(
             name = "${femaleFirstNames.random()} ${faker.name().lastName()}",
             age = 10,
-            gender = "Female",
+            gender = false,
             fame = FameLevel.C,
             affection = 90,
             affectionType = AffectionType.Friend

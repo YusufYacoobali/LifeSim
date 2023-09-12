@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="300dp"
-    android:layout_height="300dp"
+    android:layout_height="400dp"
     android:layout_gravity="center"
     android:background="@drawable/rounded_popup_bg"
     android:orientation="vertical">
@@ -17,9 +19,15 @@
         android:paddingTop="4dp"
         android:paddingEnd="20dp"
         android:paddingBottom="4dp"
-        android:text="Event"
+        android:text="Oppurtunity"
         android:textColor="@color/white"
         android:textSize="24sp" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
         android:id="@+id/dialog_message"
@@ -29,7 +37,7 @@
         android:gravity="center"
         android:paddingStart="10dp"
         android:paddingEnd="10dp"
-        android:text="You wnr t uhefh ehf ef hgruh er gh uhvew  ew hvewuhhdcue hbfcef cbwey huefc heu ehwc echug ruh v"
+        android:text="Name: \nLooks: 98\nNet Worth: $5\nPersonality: 40\nTitle: Unemployed"
         android:textColor="@color/white"
         android:textSize="16sp" />
 
@@ -51,7 +59,7 @@
             android:gravity="center"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
-            android:text="OK"
+            android:text="Date"
             android:textColor="@color/white"
             android:textSize="16sp" />
 
@@ -68,7 +76,7 @@
             android:gravity="center"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
-            android:text="OK"
+            android:text="Pass"
             android:textColor="@color/white"
             android:textSize="16sp" />
     </LinearLayout>
