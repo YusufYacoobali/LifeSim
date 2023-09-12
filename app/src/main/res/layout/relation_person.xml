@@ -112,7 +112,52 @@
                     android:textSize="18sp" />
             </LinearLayout>
 
-            <!-- Health & Holiday-->
+            <LinearLayout
+                android:id="@+id/spendTime"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:background="#FFFFFF"
+                android:clickable="true"
+                android:focusable="true"
+                android:orientation="horizontal"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp">
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="1"
+                    android:src="@drawable/dining" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="5"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_gravity="center_horizontal|center_vertical"
+                        android:layout_weight="1"
+                        android:text="Spend time with them"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_gravity="center_horizontal|center_vertical"
+                        android:layout_weight="1"
+                        android:text="Strengthen your bond"
+                        android:textColor="#575555"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/askMoney"
@@ -164,7 +209,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/button"
+                android:id="@+id/giveMoney"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="10dp"
@@ -212,7 +257,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/surgery"
+                android:id="@+id/insult"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="10dp"
@@ -251,7 +296,7 @@
                         android:layout_height="0dp"
                         android:layout_gravity="center_horizontal|center_vertical"
                         android:layout_weight="1"
-                        android:text="Make them feel horrible"
+                        android:text="Destroy their self belief"
                         android:textColor="#575555"
                         android:textSize="16sp"
                         android:textStyle="bold" />
@@ -259,7 +304,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/surgery"
+                android:id="@+id/compliment"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="10dp"
@@ -298,7 +343,7 @@
                         android:layout_height="0dp"
                         android:layout_gravity="center_horizontal|center_vertical"
                         android:layout_weight="1"
-                        android:text="Make them feel hgood"
+                        android:text="Make them feel valued"
                         android:textColor="#575555"
                         android:textSize="16sp"
                         android:textStyle="bold" />
@@ -306,54 +351,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/surgery"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="10dp"
-                android:background="#FFFFFF"
-                android:clickable="true"
-                android:focusable="true"
-                android:orientation="horizontal"
-                android:paddingTop="8dp"
-                android:paddingBottom="8dp">
-
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_weight="1"
-                    android:src="@drawable/dining" />
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="5"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_gravity="center_horizontal|center_vertical"
-                        android:layout_weight="1"
-                        android:text="Spend time with them"
-                        android:textColor="@color/black"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_gravity="center_horizontal|center_vertical"
-                        android:layout_weight="1"
-                        android:text="Some bonding"
-                        android:textColor="#575555"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/surgery"
+                android:id="@+id/romantic"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="10dp"
@@ -392,7 +390,7 @@
                         android:layout_height="0dp"
                         android:layout_gravity="center_horizontal|center_vertical"
                         android:layout_weight="1"
-                        android:text="Some bonding"
+                        android:text="Have some 1 on 1 time"
                         android:textColor="#575555"
                         android:textSize="16sp"
                         android:textStyle="bold" />
@@ -400,7 +398,54 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/surgery"
+                android:id="@+id/propose"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:background="#FFFFFF"
+                android:clickable="true"
+                android:focusable="true"
+                android:orientation="horizontal"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp">
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="1"
+                    android:src="@drawable/lover" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="5"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_gravity="center_horizontal|center_vertical"
+                        android:layout_weight="1"
+                        android:text="Propose"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_gravity="center_horizontal|center_vertical"
+                        android:layout_weight="1"
+                        android:text="Tie the knot"
+                        android:textColor="#575555"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/kill"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="10dp"
@@ -439,7 +484,7 @@
                         android:layout_height="0dp"
                         android:layout_gravity="center_horizontal|center_vertical"
                         android:layout_weight="1"
-                        android:text="Some bonding"
+                        android:text="Get peace of mind"
                         android:textColor="#575555"
                         android:textSize="16sp"
                         android:textStyle="bold" />
