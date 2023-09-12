@@ -9,7 +9,7 @@ interface Character  : Serializable {
     var affectionType: AffectionType
     var age: Int
     var health: Int
-    val gender: String
+    val gender: Boolean
     var money: Long
     var fame: FameLevel
     var job: Job?
@@ -20,7 +20,7 @@ interface Character  : Serializable {
 data class Person(
     override val name: String,
     override var age: Int = 0,
-    override val gender: String,
+    override val gender: Boolean,
     var title: String = "Baby",
     override var health: Int = Random.nextInt(65, 101),
     var healthChange: Int = 0,
@@ -492,7 +492,7 @@ data class Person(
 data class NPC(
     override val name: String,
     override var age: Int = 0,
-    override val gender: String,
+    override val gender: Boolean,
     override var health: Int = 100,
     var charm: Int = Random.nextInt(0, 101),
     var genius: Int = Random.nextInt(0, 101),
