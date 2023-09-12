@@ -13,6 +13,7 @@ import com.sim.lifesim4.models.GameEngine
 import com.sim.lifesim4.models.GameEngine.*
 import com.sim.lifesim4.models.Person
 import com.sim.lifesim4.tools.Tools
+import kotlin.random.Random
 
 class PersonActivity : AppCompatActivity() {
 
@@ -54,6 +55,7 @@ class PersonActivity : AppCompatActivity() {
                     R.id.spendTime -> {
                         //player.relationOption(1)
                         sendMessage(0, "", "You spent time with ${person.name}")
+                        person.affection += Random.nextInt(0, 4)
                     }
                     R.id.askMoney -> {
                         //player.relationOption(1)
@@ -66,18 +68,22 @@ class PersonActivity : AppCompatActivity() {
                     R.id.insult -> {
                         //player.relationOption(1)
                         sendMessage(0, "", "You spoke obscene sentences which resulted in ${person.name} going into depression")
+                        person.affection -= Random.nextInt(3, 10)
                     }
                     R.id.compliment -> {
                         //player.relationOption(1)
                         sendMessage(0, "", "You complimented ${person.name}")
+                        person.affection += Random.nextInt(0, 4)
                     }
                     R.id.romantic -> {
                         //player.relationOption(1)
                         sendMessage(0, "", "You had a romantic time with ${person.name}")
+                        person.affection += Random.nextInt(-6, 5)
                     }
                     R.id.propose -> {
                         //player.relationOption(1)
                         sendMessage(0, "", "${person.name} accepted your proposal")
+                        person.affection += Random.nextInt(-6, 5)
                     }
                     R.id.kill -> {
                         //player.relationOption(1)

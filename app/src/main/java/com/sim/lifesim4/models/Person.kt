@@ -488,6 +488,13 @@ data class Person(
         }
     }
 
+//    fun relationOption(option: Int){
+//        when (option) {
+//            1 -> {
+//
+//            }
+//    }
+
     fun date(person: NPC){
         person.affectionType = AffectionType.Girlfriend
         lovers.add(person)
