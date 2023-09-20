@@ -49,60 +49,166 @@ class PersonActivity : AppCompatActivity() {
                 romantic.visibility = View.VISIBLE
             }
             //hide certain buttons based on relation eg to family, hide propose
+            if (person.isAlive) {
+                val clickListener = View.OnClickListener { view ->
+                    when (view.id) {
+                        R.id.spendTime -> {
+                            //player.relationOption(1)
+                            Tools.showPopupDialog(
+                                this,
+                                "You spent time with ${person.name}",
+                                "OK",
+                                "",
+                                null,
+                                { resultCode, button -> })
+                            person.affection =
+                                (person.affection + Random.nextInt(0, 4)).coerceAtMost(100)
+                        }
 
-            val clickListener = View.OnClickListener { view ->
-                when (view.id) {
-                    R.id.spendTime -> {
-                        //player.relationOption(1)
-                        sendMessage(0, "", "You spent time with ${person.name}")
-                        person.affection += Random.nextInt(0, 4)
+                        R.id.askMoney -> {
+                            //player.relationOption(1)
+                            val chance = Random.nextInt(0, 101)
+                            if (chance < player.fortune && person.money > 0) {
+                                val personMaxCash = person.money
+                                val cash = Random.nextInt(1, (personMaxCash * 0.1).toInt())
+                                person.money -= cash
+                                player.money += cash
+                                Tools.showPopupDialog(
+                                    this,
+                                    "You got ${Tools.formatMoney(cash.toLong())}",
+                                    "OK",
+                                    "",
+                                    null,
+                                    { resultCode, button -> })
+                            } else {
+                                Tools.showPopupDialog(
+                                    this,
+                                    "${person.name} didn't want to give you anything",
+                                    "OK",
+                                    "Hate them",
+                                    null,
+                                    { resultCode, button -> })
+                            }
+                        }
+
+                        R.id.giveMoney -> {
+                            val cash = Random.nextInt(1, (player.money * 0.1).toInt())
+                            person.money += cash
+                            player.money -= cash
+                            Tools.showPopupDialog(
+                                this,
+                                "You gave ${Tools.formatMoney(cash.toLong())} to ${person.name}",
+                                "OK",
+                                "",
+                                null,
+                                { resultCode, button -> })
+                        }
+
+                        R.id.insult -> {
+                            Tools.showPopupDialog(
+                                this,
+                                "You spoke obscene sentences which resulted in ${person.name} going into depression",
+                                "OK",
+                                "",
+                                null,
+                                { resultCode, button -> })
+                            person.affection -= Random.nextInt(3, 10)
+                        }
+
+                        R.id.compliment -> {
+                            Tools.showPopupDialog(
+                                this,
+                                "You complimented ${person.name}",
+                                "OK",
+                                "",
+                                null,
+                                { resultCode, button -> })
+                            person.affection += Random.nextInt(0, 4)
+                        }
+
+                        R.id.romantic -> {
+                            person.affection += Random.nextInt(-6, 5)
+                            Tools.showPopupDialog(
+                                this,
+                                "You had a romantic time with ${person.name}",
+                                "OK",
+                                "",
+                                null,
+                                { resultCode, button -> })
+
+                        }
+
+                        R.id.propose -> {
+                            if (person.affection > Random.nextInt(50, 80)) {
+                                person.affection += Random.nextInt(3, 9)
+                                person.affectionType = AffectionType.Wife
+                                Tools.showPopupDialog(
+                                    this,
+                                    "${person.name} accepted your proposal",
+                                    "OK",
+                                    "",
+                                    null,
+                                    { resultCode, button -> })
+                            } else {
+                                person.affection += Random.nextInt(-7, -2)
+                                Tools.showPopupDialog(
+                                    this,
+                                    "${person.name} declined your proposal",
+                                    "OK",
+                                    "Cry",
+                                    null,
+                                    { resultCode, button -> })
+                            }
+                        }
+
+                        R.id.kill -> {
+                            //player.relationOption(1)
+                            //sendMessage(0, "", "Nice! You got away with killing ${person.name}")
+                            if (player.fortune > Random.nextInt(50, 80)) {
+                                person.isAlive = false
+                                person.affectionType = AffectionType.Dead
+                                player.money += (person.money * 0.5).toLong()
+                                Tools.showPopupDialog(
+                                    this,
+                                    "You got away with killing ${person.name} and took half their wealth",
+                                    "PARTY!!!",
+                                    "",
+                                    null,
+                                    { resultCode, button -> })
+                            } else {
+                                person.affection = -100
+                                Tools.showPopupDialog(
+                                    this,
+                                    "You failed killing ${person.name} due to hesitation but they didnt report you because they care about you",
+                                    "Slap Yourself",
+                                    "",
+                                    null,
+                                    { resultCode, button -> })
+                            }
+                        }
                     }
-                    R.id.askMoney -> {
-                        //player.relationOption(1)
-                        sendMessage(0, "", "You got $")
-                    }
-                    R.id.giveMoney -> {
-                        //player.relationOption(1)
-                        sendMessage(0, "", "You gave $")
-                    }
-                    R.id.insult -> {
-                        //player.relationOption(1)
-                        sendMessage(0, "", "You spoke obscene sentences which resulted in ${person.name} going into depression")
-                        person.affection -= Random.nextInt(3, 10)
-                    }
-                    R.id.compliment -> {
-                        //player.relationOption(1)
-                        sendMessage(0, "", "You complimented ${person.name}")
-                        person.affection += Random.nextInt(0, 4)
-                    }
-                    R.id.romantic -> {
-                        //player.relationOption(1)
-                        sendMessage(0, "", "You had a romantic time with ${person.name}")
-                        person.affection += Random.nextInt(-6, 5)
-                    }
-                    R.id.propose -> {
-                        //player.relationOption(1)
-                        sendMessage(0, "", "${person.name} accepted your proposal")
-                        person.affection += Random.nextInt(-6, 5)
-                    }
-                    R.id.kill -> {
-                        //player.relationOption(1)
-                        sendMessage(0, "", "Nice! You got away with killing ${person.name}")
-                    }
+                    setResult(Activity.RESULT_OK)
+                    //finish()
                 }
-                setResult(Activity.RESULT_OK)
-                finish()
+                spendTime.setOnClickListener(clickListener)
+                askMoney.setOnClickListener(clickListener)
+                giveMoney.setOnClickListener(clickListener)
+                insult.setOnClickListener(clickListener)
+                compliment.setOnClickListener(clickListener)
+                romantic.setOnClickListener(clickListener)
+                propose.setOnClickListener(clickListener)
+                kill.setOnClickListener(clickListener)
+            } else {
+                Tools.showPopupDialog(
+                    this,
+                    "${person.name} is dead",
+                    "Mourn",
+                    "Laugh",
+                    null,
+                    { resultCode, button -> })
             }
-            spendTime.setOnClickListener(clickListener)
-            askMoney.setOnClickListener(clickListener)
-            giveMoney.setOnClickListener(clickListener)
-            insult.setOnClickListener(clickListener)
-            compliment.setOnClickListener(clickListener)
-            romantic.setOnClickListener(clickListener)
-            propose.setOnClickListener(clickListener)
-            kill.setOnClickListener(clickListener)
+
         } else {
-            //gameEngine.sendMessage("Invalid person name")
         }
     }
 

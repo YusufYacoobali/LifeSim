@@ -540,7 +540,8 @@ enum class AffectionType : Serializable {
     Sibling,
     Child,
     Me,
-    Stranger
+    Stranger,
+    Dead
 }
 
 enum class Skill {
