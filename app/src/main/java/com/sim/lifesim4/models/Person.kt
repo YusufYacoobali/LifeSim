@@ -173,6 +173,12 @@ data class Person(
         }
     }
 
+    fun leaveJob(LeaveJob: Job){
+        moneyChange -= LeaveJob!!.salary.toLong()
+        title = "Unemployed"
+        job = null
+    }
+
     fun addWorkHistory() {
         if (job != null && job is Job.FullTimeJob) {
             val currentExperience = jobLevelHistory[(job as Job.FullTimeJob).type]

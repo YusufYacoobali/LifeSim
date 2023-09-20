@@ -57,6 +57,7 @@ class MainActivity : AppCompatActivity()  {
                 player.calcNetWorth()
                 changestatusUI()
                 printAllMessages()
+                printLogMessages()
             }
         }
 
@@ -103,6 +104,7 @@ class MainActivity : AppCompatActivity()  {
         //fix for age messages
     }
 
+    //used for when an activity is done and data is brought back
     private fun printAllMessages(){
         val messages = gameEngine.getAllMessages()
         for (message in messages){
@@ -118,10 +120,18 @@ class MainActivity : AppCompatActivity()  {
         gameEngine.saveGameEngineToFile(this,"game_state.bin")
     }
 
+    private fun printLogMessages(){
+        val messages = gameEngine.getAllLogMessages()
+        for (message in messages) {
+            addTextViewToEvents(message.message)
+        }
+    }
+
     //Used for Age button
     private fun simulateUI() {
         changestatusUI()
         printAllMessages()
+        printLogMessages()
         if (gameEngine.startNew){
             startNewGame()
             gameEngine.startNew = false

@@ -195,7 +195,7 @@
                         android:layout_height="0dp"
                         android:layout_gravity="center_horizontal|center_vertical"
                         android:layout_weight="1"
-                        android:text="Improve the condition of your asset"
+                        android:text="Improve its condition"
                         android:textColor="#575555"
                         android:textSize="16sp"
                         android:textStyle="bold" />

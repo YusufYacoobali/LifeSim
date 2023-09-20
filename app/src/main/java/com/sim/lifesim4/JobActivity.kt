@@ -13,6 +13,7 @@ import com.sim.lifesim4.jobs.FullTimeActivity
 import com.sim.lifesim4.jobs.GovermentActivity
 import com.sim.lifesim4.jobs.PartTimeActivity
 import com.sim.lifesim4.models.GameEngine
+import com.sim.lifesim4.models.Job
 import com.sim.lifesim4.models.Person
 import com.sim.lifesim4.tools.Tools
 
@@ -37,7 +38,23 @@ class JobActivity : AppCompatActivity()  {
         val currentWorkLayout: LinearLayout = findViewById(R.id.current)
 
         if (player.job != null) {
-            Tools.addCardToView(this, player.job,  currentWorkLayout, player.job!!.type.toString(), R.drawable.home, null, myContract)
+            val currentWork = Tools.addCardToView(this, player.job,  currentWorkLayout, player.job!!.type.toString(), R.drawable.home, null, myContract)
+            currentWork.personCard.setOnClickListener {
+                Tools.showPopupDialog(
+                    this,
+                    "What would you like to do?",
+                    "Work Harder",
+                    "Quit",
+                    null
+                ) { resultCode, button ->
+                    if (button == 2) {
+                        val job = currentWork.obj as Job.FullTimeJob
+                        player.leaveJob(job)
+                        gameEngine.sendMessage(GameEngine.Message("You left your job", false))
+                        finish()
+                    }
+                }
+            }
         }
 
         //handle different buttons

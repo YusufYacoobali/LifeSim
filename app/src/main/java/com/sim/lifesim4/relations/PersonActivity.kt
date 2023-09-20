@@ -63,6 +63,7 @@ class PersonActivity : AppCompatActivity() {
                                 { resultCode, button -> })
                             person.affection =
                                 (person.affection + Random.nextInt(0, 4)).coerceAtMost(100)
+                            sendLogMessage(0,"", "You spent time with ${person.name}")
                         }
 
                         R.id.askMoney -> {
@@ -80,6 +81,7 @@ class PersonActivity : AppCompatActivity() {
                                     "",
                                     null,
                                     { resultCode, button -> })
+                                sendLogMessage(0,"", "You got ${Tools.formatMoney(cash.toLong())}")
                             } else {
                                 Tools.showPopupDialog(
                                     this,
@@ -88,22 +90,34 @@ class PersonActivity : AppCompatActivity() {
                                     "Hate them",
                                     null,
                                     { resultCode, button -> })
+                                sendLogMessage(0,"", "${person.name} didn't want to give you anything")
                             }
                         }
 
                         R.id.giveMoney -> {
-                            val cash = Random.nextInt(1, (player.money * 0.1).toInt())
-                            person.money += cash
-                            player.money -= cash
-                            Tools.showPopupDialog(
-                                this,
-                                "You gave ${Tools.formatMoney(cash.toLong())} to ${person.name}",
-                                "OK",
-                                "",
-                                null,
-                                { resultCode, button -> })
+                            if (player.money > 0){
+                                val cash = Random.nextInt(1, (player.money * 0.1).toInt())
+                                person.money += cash
+                                player.money -= cash
+                                Tools.showPopupDialog(
+                                    this,
+                                    "You gave ${Tools.formatMoney(cash.toLong())} to ${person.name}",
+                                    "OK",
+                                    "",
+                                    null,
+                                    { resultCode, button -> })
+                                sendLogMessage(0,"", "You gave ${Tools.formatMoney(cash.toLong())} to ${person.name}")
+                            } else {
+                                Tools.showPopupDialog(
+                                    this,
+                                    "You have no money to give",
+                                    "OK",
+                                    "",
+                                    null,
+                                    { resultCode, button -> })
+                                sendLogMessage(0,"", "You have no money to give to ${person.name}")
+                            }
                         }
-
                         R.id.insult -> {
                             Tools.showPopupDialog(
                                 this,
@@ -113,6 +127,7 @@ class PersonActivity : AppCompatActivity() {
                                 null,
                                 { resultCode, button -> })
                             person.affection -= Random.nextInt(3, 10)
+                            sendLogMessage(0,"", "You spoke obscene sentences which resulted in ${person.name} going into depression")
                         }
 
                         R.id.compliment -> {
@@ -124,6 +139,7 @@ class PersonActivity : AppCompatActivity() {
                                 null,
                                 { resultCode, button -> })
                             person.affection += Random.nextInt(0, 4)
+                            sendLogMessage(0,"", "You complimented ${person.name}")
                         }
 
                         R.id.romantic -> {
@@ -135,7 +151,7 @@ class PersonActivity : AppCompatActivity() {
                                 "",
                                 null,
                                 { resultCode, button -> })
-
+                            sendLogMessage(0,"", "You had a romantic time with ${person.name}")
                         }
 
                         R.id.propose -> {
@@ -149,6 +165,7 @@ class PersonActivity : AppCompatActivity() {
                                     "",
                                     null,
                                     { resultCode, button -> })
+                                sendLogMessage(0,"", "${person.name} accepted your proposal")
                             } else {
                                 person.affection += Random.nextInt(-7, -2)
                                 Tools.showPopupDialog(
@@ -158,6 +175,7 @@ class PersonActivity : AppCompatActivity() {
                                     "Cry",
                                     null,
                                     { resultCode, button -> })
+                                sendLogMessage(0,"", "${person.name} declined your proposal")
                             }
                         }
 
@@ -175,6 +193,7 @@ class PersonActivity : AppCompatActivity() {
                                     "",
                                     null,
                                     { resultCode, button -> })
+                                sendLogMessage(0,"", "You got away with killing ${person.name} and took half their wealth")
                             } else {
                                 person.affection = -100
                                 Tools.showPopupDialog(
@@ -184,6 +203,7 @@ class PersonActivity : AppCompatActivity() {
                                     "",
                                     null,
                                     { resultCode, button -> })
+                                sendLogMessage(0,"", "You failed killing ${person.name} due to hesitation but they didnt report you because they care about you")
                             }
                         }
                     }
@@ -232,16 +252,16 @@ class PersonActivity : AppCompatActivity() {
 
     }
 
-    fun sendMessage(charge: Long, minCost: String, successMessage: String) {
+    fun sendLogMessage(charge: Long, minCost: String, successMessage: String) {
         if (charge == -1L){
-            gameEngine.sendMessage(
+            gameEngine.sendLogMessage(
                 GameEngine.Message(
                     "Minimum charge is $${minCost}. You cant afford this holiday.",
                     false
                 )
             )
         } else {
-            gameEngine.sendMessage(
+            gameEngine.sendLogMessage(
                 GameEngine.Message(
                     successMessage, false
                 )

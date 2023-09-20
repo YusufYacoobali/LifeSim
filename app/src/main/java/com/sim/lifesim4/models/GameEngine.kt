@@ -19,6 +19,7 @@ class GameEngine private constructor() : Serializable {
     var startNew: Boolean = false
     private lateinit var currentPlayer: Person
     private var messages: MutableList<Message> = mutableListOf()
+    private var logMessages: MutableList<Message> = mutableListOf()
     var allMessage: MutableList<Message> = mutableListOf()
     private val everyone: MutableList<Character> = mutableListOf()
     val assets: MutableList<Asset> = mutableListOf()
@@ -139,10 +140,20 @@ class GameEngine private constructor() : Serializable {
         allMessage.add(message)
     }
 
+    fun sendLogMessage(message: Message){
+        logMessages.add(message)
+    }
+
     fun getAllMessages(): MutableList<Message> {
         val currentMessages = messages.toMutableList()
         messages.clear()
         //currentMessages.reverse() //works for dialog box but not for
+        return currentMessages
+    }
+
+    fun getAllLogMessages(): MutableList<Message> {
+        val currentMessages = logMessages.toMutableList()
+        logMessages.clear()
         return currentMessages
     }
 
@@ -185,6 +196,7 @@ class GameEngine private constructor() : Serializable {
 
     fun startGame() {
         allMessage.clear()
+        logMessages.clear()
         everyone.clear()
         assets.clear()
         createFamily()
