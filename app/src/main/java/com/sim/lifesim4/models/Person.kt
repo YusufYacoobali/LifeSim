@@ -135,19 +135,21 @@ data class Person(
     }
 
     fun isEligibleForJob(job: Job.FullTimeJob): Boolean {
-        return when (job.level) {
-            JobLevel.Entry -> true
-            else -> {
-                val industryExperience = jobLevelHistory[job.type]
-                industryExperience?.let { (level, years) ->
-                    when {
-                        level.levelNumber + 1 == job.level.levelNumber -> years >= 2
-                        level.levelNumber + 1 >= job.level.levelNumber -> true
-                        else -> false
-                    }
-                } ?: false
+        return if (age >= 18) {
+            when (job.level) {
+                JobLevel.Entry -> true
+                else -> {
+                    val industryExperience = jobLevelHistory[job.type]
+                    industryExperience?.let { (level, years) ->
+                        when {
+                            level.levelNumber + 1 == job.level.levelNumber -> years >= 2
+                            level.levelNumber + 1 >= job.level.levelNumber -> true
+                            else -> false
+                        }
+                    } ?: false
+                }
             }
-        }
+        } else false
     }
 
     fun startJob(newJob: Job){

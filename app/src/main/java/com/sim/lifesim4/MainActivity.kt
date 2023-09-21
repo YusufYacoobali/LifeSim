@@ -18,6 +18,7 @@ import com.sim.lifesim4.models.GameEngine
 import com.sim.lifesim4.models.Person
 import com.sim.lifesim4.tools.Tools
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.sim.lifesim4.models.Job
 import com.sim.lifesim4.models.Skill
 
 class MainActivity : AppCompatActivity()  {
@@ -129,13 +130,22 @@ class MainActivity : AppCompatActivity()  {
 
     //Used for Age button
     private fun simulateUI() {
-        changestatusUI()
-        printAllMessages()
-        printLogMessages()
         if (gameEngine.startNew){
             startNewGame()
             gameEngine.startNew = false
         }
+        changestatusUI()
+        val event = gameEngine.randomEvents()
+        if (event != null){
+            Tools.showPopupDialog(this,
+                event.first,
+                event.second[0].first,
+                event.second[1].first,
+                null
+            ) { resultCode, button ->}
+        }
+        printAllMessages()
+        printLogMessages()
     }
 
     //Used by events from other pages

@@ -48,7 +48,7 @@ class JobActivity : AppCompatActivity()  {
                     null
                 ) { resultCode, button ->
                     if (button == 2) {
-                        val job = currentWork.obj as Job.FullTimeJob
+                        val job = currentWork.obj as Job
                         player.leaveJob(job)
                         gameEngine.sendMessage(GameEngine.Message("You left your job", false))
                         finish()

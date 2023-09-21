@@ -56,7 +56,7 @@ class FullTimeActivity : AppCompatActivity() {
                     finish()
                 } else {
                     Tools.showPopupDialog(
-                        this, "Rejected from job. Lacking experience", "OK", "", job) { resultCode, button -> }
+                        this, "Rejected from job due to age or experience", "OK", "", job) { resultCode, button -> }
                 }
             }
         }

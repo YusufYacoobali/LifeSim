@@ -45,19 +45,19 @@ class PartTimeActivity : AppCompatActivity() {
         val cards = Tools.addCardsToView(this, jobs, jobContainer, "sq ft  Condition%", R.drawable.heart, null, myContract)
 
         cards.forEach { card ->
-            val job = card.obj as Job.PartTimeJob
+            val job = card.obj
             val captionTextView: TextView = card.personCard.findViewById(R.id.caption)
             captionTextView.text = "${job.type}"
             card.personCard.setOnClickListener {
                 //if they clicked, then they applied, 40% chance of getting it
                 if (Random.nextDouble() < 0.4){
-                    gameEngine.sendMessage(GameEngine.Message("You started as a part time ${job.type}", false))
+                    gameEngine.sendMessage(Message("You started as a part time ${job.type}", false))
                     player.startJob(job)
                     setResult(Activity.RESULT_OK)
                     finish()
                 } else {
                     Tools.showPopupDialog(
-                        this, "Rejected from job. Lacking experience", "OK", "", job) { resultCode, button -> }
+                        this, "Rejected from job. They didn't like you", "OK", "", job) { resultCode, button -> }
                 }
             }
         }

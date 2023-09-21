@@ -14,6 +14,7 @@ import com.example.lifesim4.R
 import com.sim.lifesim4.models.GameEngine
 import com.sim.lifesim4.models.NPC
 import com.sim.lifesim4.models.Person
+import com.sim.lifesim4.tools.Tools
 
 class LoveActivity : AppCompatActivity() {
     private lateinit var gameEngine: GameEngine
@@ -28,14 +29,23 @@ class LoveActivity : AppCompatActivity() {
             when (view.id) {
                 R.id.findLove -> {
                     //check gender, you found a lovely, in a new pop up, their looks, personality, networth, crazy, fame, title
-                    val stranger = gameEngine.generateLover(player.gender)
-                    showPopup(stranger)
+                    if (player.age >= 18){
+                        val stranger = gameEngine.generateLover(player.gender)
+                        showPopup(stranger)
+                    } else {
+                        Tools.showPopupDialog(
+                            this,
+                            "You need to be 18+",
+                            "OK",
+                            "",
+                            null
+                        ) { resultCode, button ->}
+                    }
                 }
             }
             setResult(Activity.RESULT_OK)
            // finish()
         }
-
         val findLove: LinearLayout = findViewById(R.id.findLove)
         findLove.setOnClickListener(clickListener)
     }

@@ -91,9 +91,25 @@ class GameEngine private constructor() : Serializable {
         sendMessage(Message("Age: ${currentPlayer.age} years", true))
         lifeChanges()
         currentPlayer.ageAssets() //deteritoate asset conditions
-       // randomEvents() //cause random events with 40% chance of happing
+        randomEvents() //cause random events with 40% chance of happing
         currentPlayer.calcNetWorth()
         checkLife()
+        simulateAllPlayers()
+    }
+
+    fun simulateAllPlayers() {
+        for (person in everyone){
+            if (person != currentPlayer && person.isAlive){
+                person.age += 1
+                person.health +=  kotlin.random.Random.nextInt(-5,5)
+                if (person.job != null){
+                    person.money += person.job!!.salary.toLong()
+                }
+                if (person.health <= 0){
+                    person.isAlive = false
+                }
+            }
+        }
     }
 
     private fun checkLife(){
@@ -111,12 +127,30 @@ class GameEngine private constructor() : Serializable {
         }
     }
 
-    fun randomEvents() {
-        val chance = 0.4 // 40% chance
+    fun randomEvents(): Pair<String, List<Pair<String, String>>>? {
+        val chance = 0.5 // 40% chance
 
         if (random.nextDouble() < chance) {
             //sendMessage("Random event occurred")
+            return PickARandomEvent()
+        } else {
+            return null
         }
+    }
+
+    fun PickARandomEvent(): Pair<String, List<Pair<String,String>>> {
+        // Define a list of possible events with their options
+        val events = listOf(
+            Pair("Someone in your class is picking on you", listOf(Pair("Fight", "You got into a fight in your class"), Pair("Tell Parents", "You told your parents about the bullying"))),
+//            Pair("You found a stray kitten on your way home", listOf("Adopt it", "Leave it")),
+//            Pair("You won a small prize in a school competition", listOf("Celebrate", "Share with friends")),
+//            Pair("You missed the bus and it's raining heavily", listOf("Wait for the next bus", "Call for a ride")),
+            // Add more events and options as needed
+        )
+
+        // Randomly select an event from the list
+        val randomIndex = random.nextInt(events.size)
+        return events[randomIndex]
     }
 
     // Method to add a Person to the game world
@@ -319,12 +353,12 @@ class GameEngine private constructor() : Serializable {
 
         everyone.addAll(listOf(father, mother, child1, child2, child3, grandchild, lover, gf, enemy, friend))
 
-        val house1 = Asset.House(900,"My House", 250000.0, 80, 250000, 2200, AssetState.LIVING_IN, R.drawable.home_cheap_1)
-        val car = Asset.Car(903,"My Car", 30000.0, 9, 29000, AssetState.PRIMARY, CarType.NORMAL, R.drawable.buy_car)
-        val boat = Asset.Boat(905,"My Yacth", 3000000.0, 9, 200000, R.drawable.buy_boat, AssetState.OWNED)
-        val plane = Asset.Plane(906,"My Jet", 5000000.0, 9, 10000000, R.drawable.buy_planes, AssetState.OWNED)
-        currentPlayer.assets.addAll(listOf(house1,car,boat,plane))
-        assets.addAll(listOf(house1,car,boat,plane))
+      //  val house1 = Asset.House(900,"My House", 250000.0, 80, 250000, 2200, AssetState.LIVING_IN, R.drawable.home_cheap_1)
+      //  val car = Asset.Car(903,"My Car", 30000.0, 9, 29000, AssetState.PRIMARY, CarType.NORMAL, R.drawable.buy_car)
+//        val boat = Asset.Boat(905,"My Yacth", 3000000.0, 9, 200000, R.drawable.buy_boat, AssetState.OWNED)
+//        val plane = Asset.Plane(906,"My Jet", 5000000.0, 9, 10000000, R.drawable.buy_planes, AssetState.OWNED)
+//        currentPlayer.assets.addAll(listOf(house1,car,boat,plane))
+//        assets.addAll(listOf(house1,car,boat,plane))
 
         sendMessage(Message("Age: ${currentPlayer.age} years", true))
         sendMessage(Message("You are born as a ${currentPlayer.gender}", false))

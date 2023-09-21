@@ -141,21 +141,32 @@ class PersonActivity : AppCompatActivity() {
                             person.affection += Random.nextInt(0, 4)
                             sendLogMessage(0,"", "You complimented ${person.name}")
                         }
-
                         R.id.romantic -> {
-                            person.affection += Random.nextInt(-6, 5)
-                            Tools.showPopupDialog(
-                                this,
-                                "You had a romantic time with ${person.name}",
-                                "OK",
-                                "",
-                                null,
-                                { resultCode, button -> })
-                            sendLogMessage(0,"", "You had a romantic time with ${person.name}")
+                            if (player.age >= 18) {
+                                person.affection += Random.nextInt(-6, 5)
+                                Tools.showPopupDialog(
+                                    this,
+                                    "You had a romantic time with ${person.name}",
+                                    "OK",
+                                    "",
+                                    null,
+                                    { resultCode, button -> }
+                                )
+                                sendLogMessage(0, "", "You had a romantic time with ${person.name}")
+                            } else {
+                                // Player is not eligible for the romantic event if they are under 18
+                                Tools.showPopupDialog(
+                                    this,
+                                    "You are too young for a romantic event",
+                                    "OK",
+                                    "",
+                                    null,
+                                    { resultCode, button -> }
+                                )
+                            }
                         }
-
                         R.id.propose -> {
-                            if (person.affection > Random.nextInt(50, 80)) {
+                            if (person.affection > Random.nextInt(50, 80) && player.age >= 18) {
                                 person.affection += Random.nextInt(3, 9)
                                 person.affectionType = AffectionType.Wife
                                 Tools.showPopupDialog(
